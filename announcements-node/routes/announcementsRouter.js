@@ -1,18 +1,11 @@
-var express = require('express');
+//const express = require('express');
 const jwt = require('jsonwebtoken');
-const {SECRET, DBNAME} = require('../shared/app-constants');
-var router = express.Router();
-const userController = require('../controller/user.controller');
+const {SECRET} = require('../shared/app-constants');
+const router = require('express').Router();
+const announcementController = require('../controller/announcement.controller');
 const DBService = require('../service/db.service');
-
-/*/!* GET users listing. *!/
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});*/
-
-router.post('/authenticate', userController.authenticateUser);
-
-router.post('/createUser', userController.createUser);
+const multer = require('multer');
+const uploadFile = multer();
 
 //Function to validate token
 router.use(function (req, res, next) {
@@ -40,8 +33,6 @@ router.use(function (req, res, next) {
     }
 });
 
-router.delete('/deleteUser/:id', userController.deleteUser);
-
-
+router.post('/create', uploadFile.single('file'), announcementController.createNew);
 
 module.exports = router;
