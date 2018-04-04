@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { SingupComponent } from './userservices/singup/singup.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SingupComponent
   ],
   imports: [
     BrowserModule
