@@ -33,6 +33,10 @@ router.use(function (req, res, next) {
     }
 });
 
-router.post('/create', uploadFile.single('file'), announcementController.createNew);
+router.post('/createPieChart', uploadFile.single('file'), announcementController.createPieChart);
+
+router.post('/createBarChart', uploadFile.single('file'), announcementController.createBarChart);
+
+router.post('/createLineChart', uploadFile.single('file'), announcementController.createLineChart);
 
 module.exports = router;
