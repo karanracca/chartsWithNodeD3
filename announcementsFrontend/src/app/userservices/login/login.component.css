@@ -1,0 +1,12 @@
+.main-container{
+  margin: 10% 39% 0%;
+  padding-top: 3em;
+  text-align: center;
+  width: 20rem;
+  height: 15em;
+  background: #FAFAFA;
+}
+
+.hover{
+  cursor: pointer;
+}
