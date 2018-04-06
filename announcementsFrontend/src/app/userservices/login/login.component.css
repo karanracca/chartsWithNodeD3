@@ -3,10 +3,17 @@
   padding-top: 3em;
   text-align: center;
   width: 20rem;
-  height: 15em;
+  height: 18.5em;
   background: #FAFAFA;
 }
 
 .hover{
   cursor: pointer;
+}
+
+.heading-font{
+  font-family: Roboto;
+  font-size: 30px;
+  margin-bottom: 15px;
+
 }
