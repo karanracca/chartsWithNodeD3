@@ -5,17 +5,15 @@ var router = express.Router();
 const userController = require('../controller/user.controller');
 const DBService = require('../service/db.service');
 
-/*/!* GET users listing. *!/
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});*/
-
 router.post('/authenticate', userController.authenticateUser);
 
 router.post('/createUser', userController.createUser);
 
 //Function to validate token
 router.use(function (req, res, next) {
+
+    //Check if CORS Request
+    if(req.method === 'OPTIONS') next();
 
     // check header or url parameters or post parameters for token
     const token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -41,7 +39,5 @@ router.use(function (req, res, next) {
 });
 
 router.delete('/deleteUser/:id', userController.deleteUser);
-
-
 
 module.exports = router;
