@@ -4,24 +4,25 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import 'hammerjs';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import {ReactiveFormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { SingupComponent } from './userservices/singup/singup.component';
 import { LoginComponent } from './userservices/login/login.component';
 import { RoutingModule } from './Shared/routing.module';
 import { StylingModule } from './Shared/style.module';
 import { LandingPageComponent } from './landing/landing-page/landing-page.component';
+import { SignupComponent } from './userservices/signup/signup.component';
+
 import {AppConstants} from './Shared/appConstants';
 import {UserServices} from './userservices/user.service';
-
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    SingupComponent,
     LoginComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    SignupComponent
   ],
   imports: [
     HttpClientModule,
@@ -33,8 +34,11 @@ import {UserServices} from './userservices/user.service';
   ],
   providers: [
     UserServices,
-    AppConstants
+    AppConstants,
+    FormsModule,
+    ReactiveFormsModule
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class AppModule {}
