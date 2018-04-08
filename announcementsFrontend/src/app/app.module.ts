@@ -30,13 +30,12 @@ import {UserServices} from './userservices/user.service';
     RoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     UserServices,
-    AppConstants,
-    FormsModule,
-    ReactiveFormsModule
+    AppConstants
   ],
   bootstrap: [AppComponent]
 })
