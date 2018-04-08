@@ -2,9 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import 'hammerjs';
-import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './userservices/login/login.component';
@@ -16,13 +15,16 @@ import { SignupComponent } from './userservices/signup/signup.component';
 import {AppConstants} from './Shared/appConstants';
 import {UserServices} from './userservices/user.service';
 
+import { ForgotPasswordComponent } from './userservices/forgot-password/forgot-password.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     LandingPageComponent,
-    SignupComponent
+    SignupComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     HttpClientModule,
