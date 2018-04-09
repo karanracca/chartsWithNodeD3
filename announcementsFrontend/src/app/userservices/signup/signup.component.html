@@ -31,6 +31,24 @@
       <input matInput [matDatepicker]="picker"
              placeholder="Date of Birth"
              required>
+
+    <!--<mat-form-field class="example-full-width">-->
+      <!--<input matInput placeholder="E-Mail">-->
+      <!--<mat-icon matSuffix></mat-icon>-->
+    <!--</mat-form-field>-->
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Email" [formControl]="emailFormControl" [errorStateMatcher]="matcher">
+      <mat-hint>Errors appear instantly!</mat-hint>
+      <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+      </mat-error>
+      <mat-error *ngIf="emailFormControl.hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput [matDatepicker]="picker" placeholder="Date of Birth">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker touchUi="true" #picker></mat-datepicker>
     </mat-form-field>
