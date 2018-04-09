@@ -4,7 +4,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import 'hammerjs';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-
 import { AppComponent } from './app.component';
 import { LoginComponent } from './userservices/login/login.component';
 import { RoutingModule } from './Shared/routing.module';
@@ -15,13 +14,16 @@ import { SignupComponent } from './userservices/signup/signup.component';
 import {AppConstants} from './Shared/appConstants';
 import {UserServices} from './userservices/user.service';
 
+import { ForgotPasswordComponent } from './userservices/forgot-password/forgot-password.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     LandingPageComponent,
-    SignupComponent
+    SignupComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     HttpClientModule,
@@ -34,9 +36,7 @@ import {UserServices} from './userservices/user.service';
   ],
   providers: [
     UserServices,
-    AppConstants,
-    FormsModule,
-    ReactiveFormsModule
+    AppConstants
   ],
   bootstrap: [AppComponent]
 })
