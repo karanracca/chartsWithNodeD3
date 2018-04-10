@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     this.userService.login(this.username, this.password).subscribe((data) => {
       console.log(data);
       localStorage.setItem('secretToken', data.token);
-      this.router.navigate(['/landing']);
+      this.router.navigate(['/welcome']);
     });
   }
 }
