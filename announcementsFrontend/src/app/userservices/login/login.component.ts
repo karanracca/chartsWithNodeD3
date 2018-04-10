@@ -11,6 +11,7 @@ export class LoginComponent implements OnInit {
 
   username: string;
   password: string;
+  token: string;
 
   constructor(private userService: UserServices, private router: Router) { }
 
@@ -20,7 +21,10 @@ export class LoginComponent implements OnInit {
     this.userService.login(this.username, this.password).subscribe((data) => {
       console.log(data);
 
-      localStorage.setItem("secretkey", data.token);
+
+
+      localStorage.setItem("secretkey", this.token);
+
       this.router.navigate(['/landing']);
     });
   }
