@@ -1,66 +1,63 @@
 <div class="main-container">
   <div class="heading-font">Create Your Account</div>
 
-  <form #newUserForm="ngForm" (ngSubmit)="onSubmit(newUserForm)">
+  <form novalidate [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm.value, signupForm.valid)">
 
     <mat-form-field>
-      <input required matInput
-             [(ngModel)]="user.firstname"  #firstname="ngModel"
-             name="firstname"
+      <input matInput
+             formControlName="firstname"
              placeholder="First Name">
-      <mat-error *ngIf="firstname.invalid">First name is required</mat-error>
+      <mat-error *ngIf="signupForm.controls.firstname.invalid">First name is required</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input required matInput
-             [(ngModel)]="user.lastname"  #lastname="ngModel"
-             name="lastname"
+      <input matInput
+             formControlName="lastname"
              placeholder="Last Name">
-      <mat-error *ngIf="lastname.invalid">Last name is required</mat-error>
+      <mat-error *ngIf="signupForm.controls.lastname.invalid">Last name is required</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input required matInput
-             [formControl]="email"
+      <input matInput
+             formControlName="email"
              placeholder="Email">
-      <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
-    </mat-form-field>
-
-
-    <mat-form-field>
-      <input matInput [matDatepicker]="picker"
-             placeholder="Date of Birth"
-             required>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker touchUi="true" #picker></mat-datepicker>
+      <mat-error *ngIf="signupForm.controls.email.invalid">{{getEmailErrorMessage()}}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input required matInput
-             placeholder="Telephone No."
-             pattern="[0-9]*"
-             [formControl]="phone">
-      <mat-error *ngIf="phone.invalid">{{getPhoneErrorMessage()}}</mat-error>
+      <input matInput
+             placeholder="617-888-0989"
+             formControlName="phone">
+      <mat-error *ngIf="signupForm.controls.phone.invalid">{{getPhoneErrorMessage()}}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input required matInput
+      <input matInput
              placeholder="Username"
              [(ngModel)]="user.username"
              #username="ngModel"
              name="username">
       <mat-error *ngIf="username.invalid">Username is required</mat-error>
-    </mat-form-field>
-
-    <mat-form-field class="rightmargin">
-      <input required matInput placeholder="Password" [type]="hide ? 'password' : 'text'">
-      <mat-icon matSuffix class="hover" (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+             formControlName="username">
+      <mat-error *ngIf="signupForm.controls.username.invalid">Username is required</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input required matInput placeholder="Confirm Password" [type]="hide ? 'password' : 'text'">
+      <input matInput
+             placeholder="Password"
+             [type]="hide ? 'password' : 'text'"
+              formControlName="password">
       <mat-icon matSuffix class="hover" (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-    </mat-form-field><br><br>
+    </mat-form-field>
+
+    <!--<mat-form-field>
+      <input required matInput
+             placeholder="Confirm Password"
+             [type]="hide ? 'password' : 'text'"
+             [(ngModel)]="confirmPassword"
+             name="confirmPassword">
+      <mat-icon matSuffix class="hover" (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+    </mat-form-field><br><br>-->
 
 
     <button mat-raised-button color="primary">Create</button>
