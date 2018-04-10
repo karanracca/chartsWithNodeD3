@@ -15,7 +15,7 @@ const appRoutes: Routes = [
   { path: 'signup', component: SignupComponent },
 
   { path: 'welcome', component: LandingPageComponent },
-
+  
   { path: 'forgot-password', component: ForgotPasswordComponent}
 
 ];
