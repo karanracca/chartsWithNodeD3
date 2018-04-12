@@ -1,0 +1,28 @@
+<div>
+  <h2>Select type of chart</h2>
+
+  <div>
+
+
+
+    <mat-card class="type-card" (click)="navigate()">
+      <img mat-card-sm-image src="../../../assets/images/chart-image.svg">
+      Bar chart
+    </mat-card>
+
+    <mat-card class="type-card">
+      <img mat-card-sm-image src="../../../assets/images/line-image.svg">
+      Line chart
+    </mat-card>
+
+    <mat-card class="type-card">
+      <img mat-card-sm-image src="../../../assets/images/pie-image.svg">
+      Pie Chart
+    </mat-card>
+
+    <router-outlet></router-outlet>
+  </div>
+
+</div>
+
+

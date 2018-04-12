@@ -5,18 +5,24 @@ import 'hammerjs';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import { PapaParseModule } from 'ngx-papaparse';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './userservices/login/login.component';
 import { RoutingModule } from './Shared/routing.module';
 import { StylingModule } from './Shared/style.module';
-import { LandingPageComponent } from './landing/landing-page/landing-page.component';
+import { LandingPageComponent } from './welcome/landing-page/landing-page.component';
 import { SignupComponent } from './userservices/signup/signup.component';
+import { ForgotPasswordComponent } from './userservices/forgot-password/forgot-password.component';
+import { CreateChartComponent } from './charts/create-chart/create-chart.component';
 
 import {AppConstants} from './Shared/appConstants';
 import {UserServices} from './userservices/user.service';
+import { FileSelectorComponent } from './Shared/file-selector/file-selector.component';
+import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
+import {ChartService} from './charts/charts.service';
 
-import { ForgotPasswordComponent } from './userservices/forgot-password/forgot-password.component';
+
 
 
 @NgModule({
@@ -25,7 +31,10 @@ import { ForgotPasswordComponent } from './userservices/forgot-password/forgot-p
     LoginComponent,
     LandingPageComponent,
     SignupComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    CreateChartComponent,
+    FileSelectorComponent,
+    BarChartComponent
   ],
   imports: [
     HttpClientModule,
@@ -34,11 +43,13 @@ import { ForgotPasswordComponent } from './userservices/forgot-password/forgot-p
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PapaParseModule
   ],
   providers: [
     UserServices,
-    AppConstants
+    AppConstants,
+    ChartService
   ],
   bootstrap: [AppComponent]
 })
