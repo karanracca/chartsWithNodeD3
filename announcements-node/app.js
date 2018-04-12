@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 const bodyParser = require('body-parser');
 var logger = require('morgan');
-const DBService = require('./service/db.service');
+const DBService = require('./shared/db.service');
 
 const { MONGOURL } = require('./shared/app-constants');
 
@@ -32,7 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-access-token");
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
     next();
 });

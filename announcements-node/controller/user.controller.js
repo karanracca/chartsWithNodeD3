@@ -1,5 +1,5 @@
 const {USER_ROLE, DBNAME, SECRET} = require('../shared/app-constants');
-const DBService = require('../service/db.service');
+const DBService = require('../shared/db.service');
 const jwt = require('jsonwebtoken');
 const ObjectID = require('mongodb').ObjectID;
 
