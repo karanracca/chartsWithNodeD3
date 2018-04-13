@@ -3,12 +3,15 @@ const jwt = require('jsonwebtoken');
 const {SECRET} = require('../shared/app-constants');
 const router = require('express').Router();
 const announcementController = require('../controller/announcement.controller');
-const DBService = require('../service/db.service');
+const DBService = require('../shared/db.service');
 const multer = require('multer');
 const uploadFile = multer();
 
 //Function to validate token
 router.use(function (req, res, next) {
+
+    //Check if CORS Request
+    if(req.method === 'OPTIONS') next();
 
     // check header or url parameters or post parameters for token
     const token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -20,7 +23,9 @@ router.use(function (req, res, next) {
                 return res.status(400).json({status:400, success: false, message: 'Failed to authenticate token.' });
             } else {
                 // if everything is good, save to request for use in other routes
+                console.log("----------------sdfsdsd");
                 req.decoded = decoded;
+                console.log("sdfsdsd----------------");
                 next();
             }
         });

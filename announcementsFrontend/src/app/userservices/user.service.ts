@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AppConstants} from '../Shared/appConstants';
 import 'rxjs/add/operator/map';
+import {User} from './signup/user.model';
 
 @Injectable()
 export class UserServices {
@@ -25,6 +26,21 @@ export class UserServices {
           return result;
         }
       });
+  }
+
+  createUser(userInfo: User) {
+
+    const httpOptions = {
+      headers : this.appConstants.headers
+    };
+
+    const body = userInfo;
+
+    return this.http.post( `${this.appConstants.USER_ENDPOINT}/createUser`, body, httpOptions)
+      .map(result => {
+        if (result.success) {
+          return result;
+        }});
   }
 
 }

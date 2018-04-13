@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const {SECRET, DBNAME} = require('../shared/app-constants');
 var router = express.Router();
 const userController = require('../controller/user.controller');
-const DBService = require('../service/db.service');
+const DBService = require('../shared/db.service');
 
 router.post('/authenticate', userController.authenticateUser);
 

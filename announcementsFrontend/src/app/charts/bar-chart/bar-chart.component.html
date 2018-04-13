@@ -1,0 +1,32 @@
+<div>
+
+  <div>
+    <app-file-selector (onFileSelected)="onFileSelected($event)"></app-file-selector>
+  </div>
+
+  <form novalidate [formGroup]="barChartForm" (ngSubmit)="onSubmit(barChartForm.value, barChartForm.valid)">
+
+    <mat-form-field *ngIf="showDataFields">
+        <mat-select formControlName="xaxis" placeholder="X-Axis Value">
+          <mat-option *ngFor="let field of this.fileData.meta.fields" [value]="field">
+            {{ field }}
+          </mat-option>
+        </mat-select>
+      <mat-error *ngIf="barChartForm.controls.xaxis.invalid">X-Axis is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="showDataFields">
+      <mat-select formControlName="yaxis" placeholder="Y-Axis Value">
+        <mat-option *ngFor="let field of this.fileData.meta.fields" [value]="field">
+          {{ field }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="barChartForm.controls.yaxis.invalid">Y-Axis is required</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary">Submit</button>
+  </form>
+
+  <img src="{{html}}"/>
+
+</div>
