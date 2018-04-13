@@ -1,60 +1,60 @@
 <div class="main-container">
+
   <div class="heading-font">Create Your Account</div>
-  <form class="example-form">
 
-    <mat-form-field class="example-full-width rightmargin">
-      <input matInput placeholder="First Name">
-      <mat-icon matSuffix></mat-icon>
-    </mat-form-field>
+  <form novalidate [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm.value, signupForm.valid)">
 
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Last Name">
-      <mat-icon matSuffix></mat-icon>
-    </mat-form-field>
-
-    <!--<mat-form-field class="example-full-width">-->
-      <!--<input matInput placeholder="E-Mail">-->
-      <!--<mat-icon matSuffix></mat-icon>-->
-    <!--</mat-form-field>-->
-
-    <mat-form-field class="example-full-width rightmargin">
-      <input matInput placeholder="Email" [formControl]="emailFormControl"
-             [errorStateMatcher]="matcher">
-      <mat-icon matSuffix></mat-icon>
-      <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-        Please enter a valid email address
-      </mat-error>
-      <mat-error *ngIf="emailFormControl.hasError('required')">
-        Email is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
-
-
-    <mat-form-field class="example-full-width">
-      <input matInput [matDatepicker]="picker" placeholder="Date of Birth">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker touchUi="true" #picker></mat-datepicker>
-    </mat-form-field>
-
-    <mat-form-field class="example-full-width rightmargin">
-      <input type="tel" matInput placeholder="Telephone No.">
-      <mat-icon matSuffix></mat-icon>
-    </mat-form-field>
-
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Username">
-      <mat-icon matSuffix></mat-icon>
-    </mat-form-field>
-
-    <mat-form-field class="rightmargin">
-      <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'">
-      <mat-icon matSuffix class="hover" (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+    <mat-form-field>
+      <input matInput
+             formControlName="firstname"
+             placeholder="First Name">
+      <mat-error *ngIf="signupForm.controls.firstname.invalid">First name is required</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Confirm Password" [type]="hide ? 'password' : 'text'">
+      <input matInput
+             formControlName="lastname"
+             placeholder="Last Name">
+      <mat-error *ngIf="signupForm.controls.lastname.invalid">Last name is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput
+             formControlName="email"
+             placeholder="Email">
+      <mat-error *ngIf="signupForm.controls.email.invalid">{{getEmailErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput
+             placeholder="617-888-0989"
+             formControlName="phone">
+      <mat-error *ngIf="signupForm.controls.phone.invalid">{{getPhoneErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput
+             placeholder="Username"
+             formControlName="username">
+      <mat-error *ngIf="signupForm.controls.username.invalid">Username is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput
+             placeholder="Password"
+             [type]="hide ? 'password' : 'text'"
+              formControlName="password">
       <mat-icon matSuffix class="hover" (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-    </mat-form-field><br><br>
+    </mat-form-field>
+
+    <!--<mat-form-field>
+      <input required matInput
+             placeholder="Confirm Password"
+             [type]="hide ? 'password' : 'text'"
+             [(ngModel)]="confirmPassword"
+             name="confirmPassword">
+      <mat-icon matSuffix class="hover" (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+    </mat-form-field><br><br>-->
 
 
     <button mat-raised-button color="primary">Create</button>

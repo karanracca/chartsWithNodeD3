@@ -3,7 +3,7 @@ const MongoClient = require('mongodb').MongoClient
     , assert = require('assert')
     , Promise = require('bluebird');
 
-const {MONGOURL} = require('../shared/app-constants');
+const {MONGOURL} = require('./app-constants');
 
 // Function to connect to the server
 exports.connect = async function () {

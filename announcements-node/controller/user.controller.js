@@ -1,5 +1,5 @@
 const {USER_ROLE, DBNAME, SECRET} = require('../shared/app-constants');
-const DBService = require('../service/db.service');
+const DBService = require('../shared/db.service');
 const jwt = require('jsonwebtoken');
 const ObjectID = require('mongodb').ObjectID;
 
@@ -11,13 +11,14 @@ exports.createUser = function (req, res) {
         password: req.body.password,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        dob: req.body.dob,
+        email: req.body.email,
+        phone: req.body.phone,
         role: USER_ROLE
     };
 
     DBService.insertOne(userInfo, DBNAME).then(function () {
         console.log('User added Successfully');
-        res.json({status:200, message: `User ${userInfo.username} registered.`});
+        res.json({status:200, success: true, message: `User ${userInfo.username} registered.`});
     }).catch(function (error) {
         console.log('Unable to add user', error);
         res.status(400).json({status: 400, message: error.message})
