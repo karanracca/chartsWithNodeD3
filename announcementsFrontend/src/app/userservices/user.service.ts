@@ -21,7 +21,7 @@ export class UserServices {
     };
 
     return this.http.post( `${this.appConstants.USER_ENDPOINT}/authenticate`, body, httpOptions)
-      .map(result => {
+      .map((result: any) => {
         if (result.success) {
           return result;
         }
@@ -37,7 +37,7 @@ export class UserServices {
     const body = userInfo;
 
     return this.http.post( `${this.appConstants.USER_ENDPOINT}/createUser`, body, httpOptions)
-      .map(result => {
+      .map((result: any) => {
         if (result.success) {
           return result;
         }});

@@ -1,21 +1,39 @@
-<div class="main-container">
-  <div class="heading-font">Login</div>
-<form class="example-form">
-  <mat-form-field class="example-full-width">
-    <input matInput [(ngModel)]="username" name="username" placeholder="Username">
-    <mat-icon matSuffix></mat-icon>
-  </mat-form-field>
+<mat-card class="text-center main-container">
+  <div class="container-heading">Login</div>
 
-  <mat-form-field>
-    <input matInput [(ngModel)]="password" name="password" placeholder="Password" [type]="hide ? 'password' : 'text'">
-    <mat-icon matSuffix class="hover" (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-  </mat-form-field><br>
+  <form class="container"
+        novalidate
+        [formGroup]="loginForm"
+        (ngSubmit)="login(loginForm.value, login.valid)">
 
-  <a href="forgotpassword">Forgot Password?</a><br><br>
+    <mat-form-field class="form-field">
+      <input matInput
+             placeholder="Username"
+             formControlName="username">
+      <mat-error *ngIf="loginForm.controls.username.invalid">Username is required</mat-error>
+    </mat-form-field>
 
-  <!--<a href="forgotpassword">Forgot Password?</a><br><br>-->
+    <mat-form-field class="form-field">
+      <input matInput
+             placeholder="Password"
+             [type]="hide ? 'text' : 'password'"
+             formControlName="password">
+      <mat-icon matSuffix class="hover" (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-error *ngIf="loginForm.controls.password.invalid">{{getPasswordError()}}</mat-error>
+    </mat-form-field>
+    <br>
 
-  <button mat-raised-button color="primary" (click)="login()">Log In</button>
-  <button routerLink="/signup" mat-raised-button color="primary">Sign Up</button>
-</form>
-</div>
+    <div class="forgotPassword">
+      <a routerLink="/forgotPassword">Forgot Password?</a>
+    </div>
+
+
+    <div>
+      <button mat-raised-button color="primary" type="submit">Log In</button>
+    </div>
+
+    <div class="signup">
+      <button routerLink="/signup" mat-button>New here? Sign Up!</button>
+    </div>
+  </form>
+</mat-card>
