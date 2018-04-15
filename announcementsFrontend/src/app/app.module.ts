@@ -20,6 +20,7 @@ import {UserServices} from './userservices/user.service';
 import { FileSelectorComponent } from './Shared/file-selector/file-selector.component';
 import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
 import {ChartService} from './charts/charts.service';
+import {NotificationService} from './Shared/notification.service';
 
 
 
@@ -48,7 +49,8 @@ import {ChartService} from './charts/charts.service';
   providers: [
     UserServices,
     AppConstants,
-    ChartService
+    ChartService,
+    NotificationService
   ],
   bootstrap: [AppComponent]
 })
