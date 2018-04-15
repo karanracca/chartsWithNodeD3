@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 var logger = require('morgan');
 const DBService = require('./shared/db.service');
 
-const {MONGOURL} = require('./shared/app-constants');
+const { MONGOURL } = require('./shared/app-constants');
 
 const app = express();
 
