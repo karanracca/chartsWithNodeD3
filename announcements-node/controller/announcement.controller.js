@@ -63,20 +63,39 @@ exports.createBarChart = async function (req, res) {
     });*/
 };
 
-exports.createLineChart = function (req, res) {
-    console.log("File", req.file);
-    csv.parse(req.file.buffer, function(err, data){
-        if (err) throw err;
-        csv.stringify(data, function(err, data1){
-            console.log(data1);
-            let test = d3.tsvParse(data1, function(d) {
-                return {
-                    key: parseTime(d.date),
-                    value: +d.close
-                };
-            });
-            console.log(test);
-            output('./output', d3nLine({ data: test }));
-        });
-    });
+
+exports.createLineChart = async function (req, res) {
+    if(req.file && req.body.lineChartKeys) {
+        let htmlFile = await announcementService.createLineChart(req.file , JSON.parse(req.body.lineChartKeys));
+        res.status(200).send({
+            success: true,
+            payload: htmlFile,
+            message: "Chart created",
+        })
+
+    } else {
+        res.status(400).send({
+            success: false,
+            message: "Incorrect data provided",
+        })
+    }
 };
+
+
+// exports.createLineChart = function (req, res) {
+//     console.log("File", req.file);
+//     csv.parse(req.file.buffer, function(err, data){
+//         if (err) throw err;
+//         csv.stringify(data, function(err, data1){
+//             console.log(data1);
+//             let test = d3.tsvParse(data1, function(d) {
+//                 return {
+//                     key: parseTime(d.date),
+//                     value: +d.close
+//                 };
+//             });
+//             console.log(test);
+//             output('./output', d3nLine({ data: test }));
+//         });
+//     });
+// };
