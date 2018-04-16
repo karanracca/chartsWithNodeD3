@@ -1,62 +1,77 @@
-<div class="main-container">
+<mat-card class="text-center main-container">
 
-  <div class="heading-font">Create Your Account</div>
+  <div class="container-heading">Create Your Account</div>
 
   <form novalidate [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm.value, signupForm.valid)">
 
-    <mat-form-field>
-      <input matInput
-             formControlName="firstname"
-             placeholder="First Name">
-      <mat-error *ngIf="signupForm.controls.firstname.invalid">First name is required</mat-error>
-    </mat-form-field>
+    <div>
+      <mat-form-field class="inline-form-field">
+        <input matInput
+               formControlName="firstname"
+               placeholder="First Name">
+        <mat-error *ngIf="signupForm.controls.firstname.invalid">First name is required</mat-error>
+      </mat-form-field>
 
-    <mat-form-field>
-      <input matInput
-             formControlName="lastname"
-             placeholder="Last Name">
-      <mat-error *ngIf="signupForm.controls.lastname.invalid">Last name is required</mat-error>
-    </mat-form-field>
+      <mat-form-field class="inline-form-field">
+        <input matInput
+               formControlName="lastname"
+               placeholder="Last Name">
+        <mat-error *ngIf="signupForm.controls.lastname.invalid">Last name is required</mat-error>
+      </mat-form-field>
+    </div>
 
-    <mat-form-field>
-      <input matInput
-             formControlName="email"
-             placeholder="Email">
-      <mat-error *ngIf="signupForm.controls.email.invalid">{{getEmailErrorMessage()}}</mat-error>
-    </mat-form-field>
+    <div>
+      <mat-form-field class="inline-form-field">
+        <input matInput
+               formControlName="email"
+               placeholder="Email">
+        <mat-error *ngIf="signupForm.controls.email.invalid">{{getEmailErrorMessage()}}</mat-error>
+      </mat-form-field>
 
-    <mat-form-field>
-      <input matInput
-             placeholder="617-888-0989"
-             formControlName="phone">
-      <mat-error *ngIf="signupForm.controls.phone.invalid">{{getPhoneErrorMessage()}}</mat-error>
-    </mat-form-field>
+      <mat-form-field class="inline-form-field">
+        <input matInput
+               placeholder="Phone Number"
+               formControlName="phone">
+        <mat-error *ngIf="signupForm.controls.phone.invalid">{{getPhoneErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
 
-    <mat-form-field>
-      <input matInput
-             placeholder="Username"
-             formControlName="username">
-      <mat-error *ngIf="signupForm.controls.username.invalid">Username is required</mat-error>
-    </mat-form-field>
+    <div>
+      <mat-form-field class="form-field">
+        <input matInput
+               placeholder="Username"
+               formControlName="username">
+        <mat-error *ngIf="signupForm.controls.username.invalid">Username is required</mat-error>
+      </mat-form-field>
+    </div>
 
-    <mat-form-field>
-      <input matInput
-             placeholder="Password"
-             [type]="hide ? 'password' : 'text'"
-              formControlName="password">
-      <mat-icon matSuffix class="hover" (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-    </mat-form-field>
+    <div>
+      <mat-form-field class="inline-form-field">
+        <input matInput
+               placeholder="Password"
+               [type]="hide ? 'text' : 'password'"
+               formControlName="password">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+        <mat-error *ngIf="signupForm.controls.password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+      </mat-form-field>
 
-    <!--<mat-form-field>
-      <input required matInput
-             placeholder="Confirm Password"
-             [type]="hide ? 'password' : 'text'"
-             [(ngModel)]="confirmPassword"
-             name="confirmPassword">
-      <mat-icon matSuffix class="hover" (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-    </mat-form-field><br><br>-->
+      <mat-form-field class="inline-form-field">
+        <input matInput
+               placeholder="Confirm Password"
+               [type]="hide ? 'text' : 'password'"
+               formControlName="confirmPassword">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+        <mat-error *ngIf="signupForm.controls.confirmPassword.invalid">{{getPasswordErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
 
+    <mat-error *ngIf="passwordMatchError">Password and confirm passwords should match</mat-error>
 
-    <button mat-raised-button color="primary">Create</button>
+    <button mat-raised-button class="createBtn" color="primary">Create</button>
+
+    <div>
+      <a class="backToLogin" routerLink="/login">Go back to Login</a>
+    </div>
   </form>
-</div>
+
+</mat-card>

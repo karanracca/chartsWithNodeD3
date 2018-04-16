@@ -19,7 +19,7 @@ const appRoutes: Routes = [
       {path: ':bar' ,  component: BarChartComponent},
     ]},
 
-  { path: 'forgot-password', component: ForgotPasswordComponent}
+  { path: 'forgotPassword', component: ForgotPasswordComponent}
 
 ];
 
