@@ -1,17 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroupDirective, NgForm, Validators, FormGroup} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material';
+import {FormControl, Validators, FormGroup} from '@angular/forms';
 import {User} from './user.model';
 import {UserServices} from '../user.service';
 import {Router} from '@angular/router';
-
-
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
+import {NotificationService} from '../../Shared/notification.service';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-signup',
@@ -20,7 +13,9 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private userService: UserServices, private router: Router) {
+  constructor(private userService: UserServices,
+              private router: Router,
+              private notifyService: NotificationService) {
   }
 
   signupForm: FormGroup;
@@ -50,8 +45,13 @@ export class SignupComponent implements OnInit {
         return;
       }
       console.log(user);
-      this.userService.createUser(user).subscribe(data => {
+      let observable = this.userService.createUser(user);
+
+      observable.subscribe((data: any) => {
+        this.notifyService.notification.next(data.message);
         this.router.navigate(['/login']);
+      }, error => {
+        this.notifyService.notification.next(error);
       });
     }
   }

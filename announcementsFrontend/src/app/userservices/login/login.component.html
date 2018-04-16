@@ -4,7 +4,7 @@
   <form class="container"
         novalidate
         [formGroup]="loginForm"
-        (ngSubmit)="login(loginForm.value, login.valid)">
+        (ngSubmit)="login(loginForm.value, loginForm.valid)">
 
     <mat-form-field class="form-field">
       <input matInput

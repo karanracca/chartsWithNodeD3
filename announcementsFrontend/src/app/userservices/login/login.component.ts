@@ -31,11 +31,13 @@ export class LoginComponent implements OnInit {
   }
 
   login(credentials: {username, password}, isValid: boolean) {
-    this.userService.login(credentials.username, credentials.password).subscribe((data: any) => {
-      this.notifyService.notification.next('Login Successful');
-      console.log(data);
-      localStorage.setItem('secretToken', data.token);
-      this.router.navigate(['/welcome']);
-    });
+    if (isValid) {
+      this.userService.login(credentials.username, credentials.password).subscribe((data: any) => {
+        this.notifyService.notification.next(data.message);
+        this.router.navigate(['/welcome']);
+      }, error => {
+        this.notifyService.notification.next(error);
+      });
+    }
   }
 }
