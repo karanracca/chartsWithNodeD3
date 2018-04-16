@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroupDirective, NgForm, Validators, FormGroup} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material';
 import {User} from './user.model';
@@ -12,6 +12,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -19,9 +20,11 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private userService: UserServices, private router: Router) { }
+  constructor(private userService: UserServices, private router: Router) {
+  }
 
   signupForm: FormGroup;
+  passwordMatchError = false;
 
 
   getEmailErrorMessage() {
@@ -35,15 +38,23 @@ export class SignupComponent implements OnInit {
 
   }
 
-  onSubmit(user: User, isValid: boolean) {
-    if (isValid) {
-      console.log(user);
-        this.userService.createUser(user).subscribe(data => {
-           this.router.navigate(['/login']);
-        });
-    }
+  getPasswordErrorMessage() {
+    return this.signupForm.controls.password.hasError('required') ? 'You must enter a value' :
+      this.signupForm.controls.password.hasError('minlength') ? 'Password must be minimum 8 characters long' : '';
   }
 
+  onSubmit(user: User, isValid: boolean) {
+    if (isValid) {
+      if (user.password !== user.confirmPassword) {
+        this.passwordMatchError = true;
+        return;
+      }
+      console.log(user);
+      this.userService.createUser(user).subscribe(data => {
+        this.router.navigate(['/login']);
+      });
+    }
+  }
 
 
   ngOnInit() {
@@ -55,9 +66,7 @@ export class SignupComponent implements OnInit {
         <any>Validators.pattern(/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/)]),
       username: new FormControl('', [<any>Validators.required]),
       password: new FormControl('', [<any>Validators.required, <any>Validators.minLength(8)]),
+      confirmPassword: new FormControl('', [<any>Validators.required, <any>Validators.minLength(8)])
     });
   }
-
-
-
 }
