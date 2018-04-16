@@ -19,6 +19,7 @@ import {AppConstants} from './Shared/appConstants';
 import {UserServices} from './userservices/user.service';
 import { FileSelectorComponent } from './Shared/file-selector/file-selector.component';
 import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
+import {LineChartComponent} from "./charts/line-chart/line-chart.component";
 import {ChartService} from './charts/charts.service';
 
 
@@ -33,7 +34,8 @@ import {ChartService} from './charts/charts.service';
     ForgotPasswordComponent,
     CreateChartComponent,
     FileSelectorComponent,
-    BarChartComponent
+    BarChartComponent,
+    LineChartComponent
   ],
   imports: [
     HttpClientModule,
