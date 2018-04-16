@@ -6,6 +6,7 @@ import {SignupComponent} from "../userservices/signup/signup.component";
 import {ForgotPasswordComponent} from "../userservices/forgot-password/forgot-password.component";
 import {LandingPageComponent} from '../welcome/landing-page/landing-page.component';
 import {BarChartComponent} from '../charts/bar-chart/bar-chart.component';
+import {LineChartComponent} from "../charts/line-chart/line-chart.component";
 
 const appRoutes: Routes = [
 
@@ -17,6 +18,7 @@ const appRoutes: Routes = [
 
   { path: 'welcome', component: LandingPageComponent , children: [
       {path: ':bar' ,  component: BarChartComponent},
+      {path: ':line', component: LineChartComponent}
     ]},
 
   { path: 'forgot-password', component: ForgotPasswordComponent}
