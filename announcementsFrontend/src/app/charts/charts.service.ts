@@ -19,7 +19,7 @@ export class ChartService {
     formData.append('barChartKeys', JSON.stringify(values));
 
     return this.http.post( `${this.appConstants.CHART_ENDPOINT}/createBarChart`, formData, httpOptions)
-      .map((result) => {
+      .map((result: any) => {
         if (result.success) {
           return result;
         }

@@ -29,7 +29,7 @@ export class BarChartComponent implements OnInit {
   onSubmit(selectedValues , isValid: boolean) {
     if (isValid && selectedValues.xaxis !== selectedValues.yaxis) {
       console.log(selectedValues);
-      this.chartService.createBarChart(selectedValues, this.file).subscribe((data) => {
+      this.chartService.createBarChart(selectedValues, this.file).subscribe((data: any) => {
         console.log(data);
         this.html = `data:image/png;base64,${data.payload}`;
       });

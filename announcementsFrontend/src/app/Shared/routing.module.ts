@@ -21,7 +21,7 @@ const appRoutes: Routes = [
       {path: ':line', component: LineChartComponent}
     ]},
 
-  { path: 'forgot-password', component: ForgotPasswordComponent}
+  { path: 'forgotPassword', component: ForgotPasswordComponent}
 
 ];
 

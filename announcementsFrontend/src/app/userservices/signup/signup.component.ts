@@ -1,17 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroupDirective, NgForm, Validators, FormGroup} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, Validators, FormGroup} from '@angular/forms';
 import {User} from './user.model';
 import {UserServices} from '../user.service';
 import {Router} from '@angular/router';
+import {NotificationService} from '../../Shared/notification.service';
+import {Observable} from 'rxjs/Observable';
 
-
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -19,9 +13,13 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private userService: UserServices, private router: Router) { }
+  constructor(private userService: UserServices,
+              private router: Router,
+              private notifyService: NotificationService) {
+  }
 
   signupForm: FormGroup;
+  passwordMatchError = false;
 
 
   getEmailErrorMessage() {
@@ -35,15 +33,28 @@ export class SignupComponent implements OnInit {
 
   }
 
-  onSubmit(user: User, isValid: boolean) {
-    if (isValid) {
-      console.log(user);
-        this.userService.createUser(user).subscribe(data => {
-           this.router.navigate(['/login']);
-        });
-    }
+  getPasswordErrorMessage() {
+    return this.signupForm.controls.password.hasError('required') ? 'You must enter a value' :
+      this.signupForm.controls.password.hasError('minlength') ? 'Password must be minimum 8 characters long' : '';
   }
 
+  onSubmit(user: User, isValid: boolean) {
+    if (isValid) {
+      if (user.password !== user.confirmPassword) {
+        this.passwordMatchError = true;
+        return;
+      }
+      console.log(user);
+      let observable = this.userService.createUser(user);
+
+      observable.subscribe((data: any) => {
+        this.notifyService.notification.next(data.message);
+        this.router.navigate(['/login']);
+      }, error => {
+        this.notifyService.notification.next(error);
+      });
+    }
+  }
 
 
   ngOnInit() {
@@ -55,9 +66,7 @@ export class SignupComponent implements OnInit {
         <any>Validators.pattern(/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/)]),
       username: new FormControl('', [<any>Validators.required]),
       password: new FormControl('', [<any>Validators.required, <any>Validators.minLength(8)]),
+      confirmPassword: new FormControl('', [<any>Validators.required, <any>Validators.minLength(8)])
     });
   }
-
-
-
 }

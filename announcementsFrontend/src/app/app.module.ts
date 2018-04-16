@@ -21,6 +21,7 @@ import { FileSelectorComponent } from './Shared/file-selector/file-selector.comp
 import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
 import {LineChartComponent} from "./charts/line-chart/line-chart.component";
 import {ChartService} from './charts/charts.service';
+import {NotificationService} from './Shared/notification.service';
 
 
 
@@ -50,7 +51,8 @@ import {ChartService} from './charts/charts.service';
   providers: [
     UserServices,
     AppConstants,
-    ChartService
+    ChartService,
+    NotificationService
   ],
   bootstrap: [AppComponent]
 })
