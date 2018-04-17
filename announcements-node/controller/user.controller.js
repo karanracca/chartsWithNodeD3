@@ -59,7 +59,10 @@ exports.authenticateUser = function (req, res) {
                 res.status(200).send({
                     success: true,
                     message: "User Authenticated",
-                    token: token
+                    payload: {
+                        token,
+                        userObject
+                    }
                 })
             } else {
                 return res.status(500).send({

@@ -26,7 +26,8 @@ import {
     MatNativeDateModule,
     MatCardModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+
   ],
   exports: [
     MatButtonModule,

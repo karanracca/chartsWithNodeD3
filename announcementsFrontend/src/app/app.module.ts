@@ -22,6 +22,7 @@ import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
 import {LineChartComponent} from "./charts/line-chart/line-chart.component";
 import {ChartService} from './charts/charts.service';
 import {NotificationService} from './Shared/notification.service';
+import {AuthGard} from './Shared/auth-gaurd.service';
 
 
 
@@ -52,7 +53,8 @@ import {NotificationService} from './Shared/notification.service';
     UserServices,
     AppConstants,
     ChartService,
-    NotificationService
+    NotificationService,
+    AuthGard
   ],
   bootstrap: [AppComponent]
 })
