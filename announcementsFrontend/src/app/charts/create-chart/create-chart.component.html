@@ -1,23 +1,21 @@
 <div>
-  <h2>Select type of chart</h2>
+  <h3>Select type of chart</h3>
 
   <div>
 
-
-
-    <mat-card class="type-card" (click)="navigate()">
-      <img mat-card-sm-image src="../../../assets/images/chart-image.svg">
-      Bar chart
+    <mat-card class="type-card box-container" (click)="navigate()">
+      <img mat-card-sm-image src="../../../assets/images/bar-chart.png">
+     <span class="name-conatiner"> Bar Chart </span>
     </mat-card>
 
-    <mat-card class="type-card" (click)="line()">
-      <img mat-card-sm-image src="../../../assets/images/line-image.svg">
-      Line chart
+    <mat-card class="type-card box-container" (click)="line()">
+      <img mat-card-sm-image src="../../../assets/images/line-chart.png">
+      <span class="name-conatiner"> Line Chart </span>
     </mat-card>
 
-    <mat-card class="type-card">
-      <img mat-card-sm-image src="../../../assets/images/pie-image.svg">
-      Pie Chart
+    <mat-card class="type-card box-container">
+      <img mat-card-sm-image src="../../../assets/images/Pie-Chart-icon.png">
+      <span class="name-conatiner"> Pie Chart </span>
     </mat-card>
 
     <router-outlet></router-outlet>

@@ -37,7 +37,7 @@ export class ChartService {
     formData.append('lineChartKeys', JSON.stringify(values));
 
     return this.http.post( `${this.appConstants.CHART_ENDPOINT}/createLineChart`, formData, httpOptions)
-      .map((result) => {
+      .map((result: any) => {
         if (result.success) {
           return result;
         }

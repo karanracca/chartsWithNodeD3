@@ -17,7 +17,7 @@ const appRoutes: Routes = [
   { path: 'signup', component: SignupComponent },
 
   { path: 'welcome', component: LandingPageComponent , children: [
-      {path: ':bar' ,  component: BarChartComponent},
+      //{path: ':bar' ,  component: BarChartComponent},
       {path: ':line', component: LineChartComponent}
     ]},
 
