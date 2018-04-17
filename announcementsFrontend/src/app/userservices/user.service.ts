@@ -45,7 +45,8 @@ export class UserServices {
       .map((result: any) => {
         if (result.success) {
           console.log(result);
-          localStorage.setItem('secretToken', result.token);
+          localStorage.setItem('secretToken', result.payload.token);
+          localStorage.setItem('user', JSON.stringify(result.payload.userObject));
           return result;
         }
       }).pipe(catchError(this.handleError));
