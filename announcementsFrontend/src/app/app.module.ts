@@ -21,6 +21,7 @@ import { FileSelectorComponent } from './Shared/file-selector/file-selector.comp
 import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
 import {ChartService} from './charts/charts.service';
 import {PieChartComponent} from './charts/pie-chart/pie-chart.component';
+import {NotificationService} from './Shared/notification.service';
 
 
 
@@ -50,7 +51,8 @@ import {PieChartComponent} from './charts/pie-chart/pie-chart.component';
   providers: [
     UserServices,
     AppConstants,
-    ChartService
+    ChartService,
+    NotificationService
   ],
   bootstrap: [AppComponent]
 })

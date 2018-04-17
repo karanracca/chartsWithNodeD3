@@ -14,24 +14,24 @@ export class ChartService {
       headers : new HttpHeaders({'x-access-token': localStorage.getItem('secretToken')})
     };
 
-    let formData: FormData = new FormData();
+    const formData: FormData = new FormData();
     formData.append('file', file);
     formData.append('barChartKeys', JSON.stringify(values));
 
     return this.http.post( `${this.appConstants.CHART_ENDPOINT}/createBarChart`, formData, httpOptions)
-      .map((result) => {
+      .map((result: any) => {
         if (result.success) {
           return result;
         }
       });
   }
 
-  createPieChart (values,file) {
+  createPieChart (values, file) {
     const httpOptions = {
       headers : new HttpHeaders({'x-access-token': localStorage.getItem('secretToken')})
     };
 
-    let formData: FormData = new FormData();
+    const formData: FormData = new FormData();
     formData.append('file', file);
     formData.append('pieChartKeys', JSON.stringify(values));
 

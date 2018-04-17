@@ -21,7 +21,7 @@ const appRoutes: Routes = [
       {path: ':pie' , component: PieChartComponent},
     ]},
 
-  { path: 'forgot-password', component: ForgotPasswordComponent}
+  { path: 'forgotPassword', component: ForgotPasswordComponent}
 
 ];
 

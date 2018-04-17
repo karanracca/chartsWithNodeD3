@@ -7,6 +7,7 @@ export class User {
     public phone: string,
     public username: string,
     public password: string,
+    public confirmPassword: string,
   ) {  }
 
 }
