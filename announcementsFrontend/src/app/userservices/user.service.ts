@@ -63,4 +63,7 @@ export class UserServices {
     return this.http.post(`${this.appConstants.USER_ENDPOINT}/createUser`, userInfo, httpOptions).pipe(catchError(this.handleError));
   }
 
+  isAuthenticated() {
+    return localStorage.getItem('secretToken') ? true : false;
+  }
 }

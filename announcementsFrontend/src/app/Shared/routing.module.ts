@@ -7,6 +7,7 @@ import {ForgotPasswordComponent} from '../userservices/forgot-password/forgot-pa
 import {LandingPageComponent} from '../welcome/landing-page/landing-page.component';
 import {BarChartComponent} from '../charts/bar-chart/bar-chart.component';
 import {CreateChartComponent} from '../charts/create-chart/create-chart.component';
+import {AuthGard} from './auth-gaurd.service';
 
 const appRoutes: Routes = [
 
@@ -19,7 +20,7 @@ const appRoutes: Routes = [
   {path: 'forgotPassword', component: ForgotPasswordComponent},
 
   {
-    path: 'welcome', component: LandingPageComponent, children: [
+    path: 'welcome', component: LandingPageComponent, canActivate: [AuthGard] , children: [
       {path: 'createCharts', component: CreateChartComponent}
     ]
   },
