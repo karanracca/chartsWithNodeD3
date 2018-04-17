@@ -2,8 +2,9 @@ const csv = require('csv');
 const d3 = require('d3-node')().d3;
 const output = require('d3node-output');
 const d3nBar = require('d3node-barchart');
-const d3nLine= require('d3node-linechart')
+const d3nLine= require('d3node-linechart');
 const {createFile} = require('./outputService');
+const parseTime = d3.timeParse('%d-%b-%y');
 
 exports.createBarChart = function (file, keys) {
 
@@ -45,7 +46,7 @@ exports.createLineChart = function (file, keys) {
                 let d3parsedData = d3.tsvParse(stringData, function (parsedData) {
                     //console.log(parsedData);
                     return {
-                        key: parsedData[keys.xaxis],
+                        key: parseTime(parsedData[keys.xaxis]),
                         value: parsedData[keys.yaxis]
                     };
                 });
