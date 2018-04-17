@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MatSnackBar} from '@angular/material';
-import {NotificationService} from './Shared/notification.service';
+import {NotificationService} from './shared/notification.service';
 
 
 @Component({

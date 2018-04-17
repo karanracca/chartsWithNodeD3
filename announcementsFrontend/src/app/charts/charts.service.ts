@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {AppConstants} from '../Shared/appConstants';
+import {AppConstants} from '../shared/appConstants';
 import 'rxjs/add/operator/map';
 
 @Injectable()

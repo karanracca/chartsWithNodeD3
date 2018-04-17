@@ -3,7 +3,7 @@ import {FormControl, Validators, FormGroup} from '@angular/forms';
 import {User} from './user.model';
 import {UserServices} from '../user.service';
 import {Router} from '@angular/router';
-import {NotificationService} from '../../Shared/notification.service';
+import {NotificationService} from '../../shared/notification.service';
 import {Observable} from 'rxjs/Observable';
 
 @Component({

@@ -1,25 +1,29 @@
-<div>
-  <h3>Select type of chart</h3>
+<div class="main-container">
+  <div class="text-center page-heading">Select type of chart</div>
 
-  <div>
+  <div class="type-container">
 
-
-    <mat-card class="type-card box-container" (click)="navigate()">
-      <img mat-card-sm-image src="../../../assets/images/bar-chart.png">
-     <span class="name-conatiner"> Bar Chart </span>
+    <mat-card  routerLink="../createBarCharts" class="type-card text-center">
+      <img mat-card-image class="card-image" src="../../../assets/images/bar-chart.png" alt="Bar Chart">
+      <mat-card-content>
+        <p>Bar Chart</p>
+      </mat-card-content>
     </mat-card>
 
-    <mat-card class="type-card box-container" (click)="line()">
-      <img mat-card-sm-image src="../../../assets/images/line-chart.png">
-      <span class="name-conatiner"> Line Chart </span>
+    <mat-card routerLink="./createLineChart" class="type-card text-center">
+      <img mat-card-image class="card-image" src="../../../assets/images/line-chart.png" alt="Line Chart">
+      <mat-card-content>
+        <p>Line Chart</p>
+      </mat-card-content>
     </mat-card>
 
-    <mat-card class="type-card box-container">
-      <img mat-card-sm-image src="../../../assets/images/Pie-Chart-icon.png">
-      <span class="name-conatiner"> Pie Chart </span>
+    <mat-card class="type-card text-center">
+      <img mat-card-image class="card-image" src="../../../assets/images/Pie-Chart-icon.png" alt="Pie Chart">
+      <mat-card-content>
+        <p>Pie Chart</p>
+      </mat-card-content>
     </mat-card>
 
-    <router-outlet></router-outlet>
   </div>
 
 </div>

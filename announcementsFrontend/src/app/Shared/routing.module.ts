@@ -22,17 +22,12 @@ const appRoutes: Routes = [
 
   {
     path: 'welcome', component: LandingPageComponent, canActivate: [AuthGard] , children: [
-      {path: 'createCharts', component: CreateChartComponent}
+      {path: 'createCharts', component: CreateChartComponent},
+      {path: 'createBarCharts', component: BarChartComponent},
+      {path: 'createLineCharts', component: LineChartComponent},
+      {path: 'createPieCharts', component: CreateChartComponent},
     ]
   },
-
-  {
-    path: 'createCharts', component: CreateChartComponent , children: [
-      {path: 'bar', component: BarChartComponent},
-      {path: 'line', component: LineChartComponent}
-    ]
-  },
-
 ];
 
 @NgModule({
