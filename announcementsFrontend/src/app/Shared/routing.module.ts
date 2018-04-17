@@ -26,6 +26,13 @@ const appRoutes: Routes = [
     ]
   },
 
+  {
+    path: 'createCharts', component: CreateChartComponent , children: [
+      {path: 'bar', component: BarChartComponent},
+      {path: 'line', component: LineChartComponent}
+    ]
+  },
+
 ];
 
 @NgModule({
