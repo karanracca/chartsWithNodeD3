@@ -20,6 +20,7 @@ import {UserServices} from './userservices/user.service';
 import { FileSelectorComponent } from './Shared/file-selector/file-selector.component';
 import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
 import {ChartService} from './charts/charts.service';
+import {PieChartComponent} from './charts/pie-chart/pie-chart.component';
 
 
 
@@ -33,7 +34,8 @@ import {ChartService} from './charts/charts.service';
     ForgotPasswordComponent,
     CreateChartComponent,
     FileSelectorComponent,
-    BarChartComponent
+    BarChartComponent,
+    PieChartComponent
   ],
   imports: [
     HttpClientModule,

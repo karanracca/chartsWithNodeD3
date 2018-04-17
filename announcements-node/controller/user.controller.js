@@ -32,10 +32,12 @@ exports.authenticateUser = function (req, res) {
                 let token = jwt.sign({"username": userObject.username, "password": userObject.password}, SECRET, {
                     expiresIn: "1d"
                 });
+                console.log(token);
                 res.send({
                     success: true,
                     message: "User Authenticated",
-                    token: token
+                    token: token,
+
                 })
             } else {
                 return res.status(500).send({
