@@ -19,11 +19,11 @@ import {AppConstants} from './Shared/appConstants';
 import {UserServices} from './userservices/user.service';
 import { FileSelectorComponent } from './Shared/file-selector/file-selector.component';
 import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
+import {LineChartComponent} from './charts/line-chart/line-chart.component';
 import {ChartService} from './charts/charts.service';
 import {PieChartComponent} from './charts/pie-chart/pie-chart.component';
 import {NotificationService} from './Shared/notification.service';
-
-
+import {AuthGard} from './Shared/auth-gaurd.service';
 
 
 @NgModule({
@@ -36,7 +36,8 @@ import {NotificationService} from './Shared/notification.service';
     CreateChartComponent,
     FileSelectorComponent,
     BarChartComponent,
-    PieChartComponent
+    PieChartComponent,
+    LineChartComponent
   ],
   imports: [
     HttpClientModule,
@@ -52,7 +53,8 @@ import {NotificationService} from './Shared/notification.service';
     UserServices,
     AppConstants,
     ChartService,
-    NotificationService
+    NotificationService,
+    AuthGard
   ],
   bootstrap: [AppComponent]
 })

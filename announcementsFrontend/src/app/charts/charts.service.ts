@@ -36,12 +36,30 @@ export class ChartService {
     formData.append('pieChartKeys', JSON.stringify(values));
 
     return this.http.post( `${this.appConstants.CHART_ENDPOINT}/createPieChart`, formData, httpOptions)
-      .map((result) => {
+      .map((result: any) => {
         if (result.success) {
           return result;
         }
       });
 
+  }
+
+  createLineChart (values, file) {
+
+    const httpOptions = {
+      headers : new HttpHeaders({'x-access-token': localStorage.getItem('secretToken')})
+    };
+
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    formData.append('lineChartKeys', JSON.stringify(values));
+
+    return this.http.post( `${this.appConstants.CHART_ENDPOINT}/createLineChart`, formData, httpOptions)
+      .map((result: any) => {
+        if (result.success) {
+          return result;
+        }
+      });
   }
 
 }
