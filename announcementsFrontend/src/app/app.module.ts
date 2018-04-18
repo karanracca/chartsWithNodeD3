@@ -19,12 +19,12 @@ import {AppConstants} from './shared/appConstants';
 import {UserServices} from './userservices/user.service';
 import { FileSelectorComponent } from './shared/file-selector/file-selector.component';
 import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
-import {LineChartComponent} from "./charts/line-chart/line-chart.component";
+import {LineChartComponent} from './charts/line-chart/line-chart.component';
 import {ChartService} from './charts/charts.service';
 import {NotificationService} from './shared/notification.service';
 import {AuthGard} from './shared/auth-gaurd.service';
 import {Ng2FileInputModule} from 'ng2-file-input';
-
+import {PieChartComponent} from './charts/pie-chart/pie-chart.component';
 
 
 
@@ -38,6 +38,7 @@ import {Ng2FileInputModule} from 'ng2-file-input';
     CreateChartComponent,
     FileSelectorComponent,
     BarChartComponent,
+    PieChartComponent,
     LineChartComponent
   ],
   imports: [
