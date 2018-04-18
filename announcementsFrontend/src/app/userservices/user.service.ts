@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {AppConstants} from '../Shared/appConstants';
+import {AppConstants} from '../shared/appConstants';
 import 'rxjs/add/operator/map';
 import {User} from './signup/user.model';
 import {ErrorObservable} from 'rxjs/observable/ErrorObservable';
@@ -46,7 +46,8 @@ export class UserServices {
       .map((result: any) => {
         if (result.success) {
           console.log(result);
-          localStorage.setItem('secretToken', result.token);
+          localStorage.setItem('secretToken', result.payload.token);
+          localStorage.setItem('user', JSON.stringify(result.payload.userObject));
           return result;
         }
       }).pipe(catchError(this.handleError));
@@ -80,6 +81,10 @@ export class UserServices {
           return result;
         }
       }).pipe(catchError(this.handleError));
+  }
+
+  isAuthenticated() {
+    return localStorage.getItem('secretToken') ? true : false;
   }
 
 }

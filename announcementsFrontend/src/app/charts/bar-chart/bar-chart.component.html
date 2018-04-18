@@ -1,32 +1,76 @@
-<div>
 
-  <div>
-    <app-file-selector (onFileSelected)="onFileSelected($event)"></app-file-selector>
+<div class="main-container">
+
+  <div class="text-center page-heading">
+    <img class="heading-image" src="../../../assets/images/bar-chart.png" alt="Bar Chart">
+    Create new bar chart
   </div>
 
-  <form novalidate [formGroup]="barChartForm" (ngSubmit)="onSubmit(barChartForm.value, barChartForm.valid)">
+  <div class="container inner-container">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="text-center inner-header">
+          <span class="sub-headings">Select a File to create a bar chart</span>
+        </div>
+        <div class="fu-container">
+          <app-file-selector (onFileSelected)="onFileSelected($event)"></app-file-selector>
+        </div>
+      </div>
 
-    <mat-form-field *ngIf="showDataFields">
-        <mat-select formControlName="xaxis" placeholder="X-Axis Value">
-          <mat-option *ngFor="let field of this.fileData.meta.fields" [value]="field">
-            {{ field }}
-          </mat-option>
-        </mat-select>
-      <mat-error *ngIf="barChartForm.controls.xaxis.invalid">X-Axis is required</mat-error>
-    </mat-form-field>
+      <div class="col-sm-8">
+        <div *ngIf="showDataFields">
+          <div class="text-center inner-header">
+            <span class="sub-headings">Select your configurations</span>
+          </div>
+        <form novalidate [formGroup]="barChartForm" (ngSubmit)="onSubmit(barChartForm.value, barChartForm.valid)">
 
-    <mat-form-field *ngIf="showDataFields">
-      <mat-select formControlName="yaxis" placeholder="Y-Axis Value">
-        <mat-option *ngFor="let field of this.fileData.meta.fields" [value]="field">
-          {{ field }}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="barChartForm.controls.yaxis.invalid">Y-Axis is required</mat-error>
-    </mat-form-field>
+          <div class="row">
+            <div class="col-sm-5 field-label">
+              <span>Select value for X-Axis on bar chart</span>
+            </div>
 
-    <button mat-raised-button color="primary">Submit</button>
-  </form>
+            <div class="col-sm-7">
+              <mat-form-field>
+                <mat-select formControlName="xaxis" placeholder="X-Axis Value">
+                  <mat-option *ngFor="let field of this.fileData.meta.fields" [value]="field">
+                    {{ field }}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="barChartForm.controls.xaxis.invalid">X-Axis is required</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
 
-  <img src="{{html}}"/>
+          <div class="row">
+            <div class="col-sm-5 field-label">
+              <span>Select value for Y-Axis on bar chart</span>
+            </div>
 
+            <div class="col-sm-7">
+              <mat-form-field>
+                <mat-select formControlName="yaxis" placeholder="Y-Axis Value">
+                  <mat-option *ngFor="let field of this.fileData.meta.fields" [value]="field">
+                    {{ field }}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="barChartForm.controls.yaxis.invalid">Y-Axis is required</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <button mat-raised-button color="primary">Submit</button>
+          </div>
+        </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div>
+    <img src="{{html}}"/>
+  </div>
 </div>
+
+

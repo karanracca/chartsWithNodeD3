@@ -1,26 +1,30 @@
-<div>
-  <h2>Select type of chart</h2>
+<div class="main-container">
+  <div class="text-center page-heading">Select type of chart</div>
 
-  <div>
+  <div class="type-container">
 
 
-
-    <mat-card class="type-card" (click)="navigate()">
-      <img mat-card-sm-image src="../../../assets/images/chart-image.svg">
-      Bar chart
+    <mat-card  routerLink="../createBarCharts" class="type-card text-center">
+      <img mat-card-image class="card-image" src="../../../assets/images/bar-chart.png" alt="Bar Chart">
+      <mat-card-content>
+        <p>Bar Chart</p>
+      </mat-card-content>
     </mat-card>
 
-    <mat-card class="type-card">
-      <img mat-card-sm-image src="../../../assets/images/line-image.svg">
-      Line chart
+    <mat-card routerLink="./createLineChart" class="type-card text-center">
+      <img mat-card-image class="card-image" src="../../../assets/images/line-chart.png" alt="Line Chart">
+      <mat-card-content>
+        <p>Line Chart</p>
+      </mat-card-content>
     </mat-card>
 
-    <mat-card class="type-card">
-      <img mat-card-sm-image src="../../../assets/images/pie-image.svg">
-      Pie Chart
+    <mat-card class="type-card text-center">
+      <img mat-card-image class="card-image" src="../../../assets/images/Pie-Chart-icon.png" alt="Pie Chart">
+      <mat-card-content>
+        <p>Pie Chart</p>
+      </mat-card-content>
     </mat-card>
 
-    <router-outlet></router-outlet>
   </div>
 
 </div>

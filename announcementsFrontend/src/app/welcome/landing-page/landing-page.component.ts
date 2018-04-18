@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { CreateChartComponent } from '../../charts/create-chart/create-chart.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-landing-page',
@@ -9,9 +9,16 @@ import { CreateChartComponent } from '../../charts/create-chart/create-chart.com
 })
 export class LandingPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
+
+  user: any;
 
   ngOnInit() {
+    this.user = JSON.parse(localStorage.getItem('user'));
   }
 
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/login']);
+  }
 }
