@@ -22,6 +22,7 @@ const appRoutes: Routes = [
 
   {
     path: 'welcome', component: LandingPageComponent, canActivate: [AuthGard] , children: [
+      {path: '', pathMatch: 'full', redirectTo: 'createCharts'},
       {path: 'createCharts', component: CreateChartComponent},
       {path: 'createBarCharts', component: BarChartComponent},
       {path: 'createLineCharts', component: LineChartComponent},
@@ -35,5 +36,4 @@ const appRoutes: Routes = [
   exports: [RouterModule]
 })
 
-export class RoutingModule {
-}
+export class RoutingModule {}

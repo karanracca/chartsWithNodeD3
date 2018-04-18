@@ -7,7 +7,34 @@
 
 .main-container {
   padding: 2%;
+  background: white;
+  width: 90%;
+  margin: auto;
+  margin-top: 1%;
 }
+
+.fu-container{
+
+}
+
+.inner-container {
+  margin-top: 3%;
+}
+
+.sub-headings{
+  @extend %sub-heading;
+}
+
+.inner-header{
+  margin: 2% 0;
+}
+
+.field-label{
+  margin: auto;
+}
+
+
+
 
 .heading-image{
   height: 5rem;

@@ -23,6 +23,7 @@ import {LineChartComponent} from "./charts/line-chart/line-chart.component";
 import {ChartService} from './charts/charts.service';
 import {NotificationService} from './shared/notification.service';
 import {AuthGard} from './shared/auth-gaurd.service';
+import {Ng2FileInputModule} from 'ng2-file-input';
 
 
 
@@ -47,7 +48,8 @@ import {AuthGard} from './shared/auth-gaurd.service';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    PapaParseModule
+    PapaParseModule,
+    Ng2FileInputModule.forRoot()
   ],
   providers: [
     UserServices,
