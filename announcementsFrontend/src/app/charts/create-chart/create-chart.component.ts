@@ -18,6 +18,6 @@ export class CreateChartComponent implements OnInit {
   }
 
   line(){
-    this.router.navigate(['createCharts','line']);
+    this.router.navigate(['createCharts', 'line']);
   }
 }
