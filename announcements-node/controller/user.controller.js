@@ -93,3 +93,20 @@ exports.deleteUser = function (req, res) {
         }
     });
 };
+
+exports.resetPassword = function (req, res) {
+    DBService.findOne({email: req.body.emailFormControl}, DBNAME, 'users').then(function (userObject) {
+        if(userObject.email === req.body.emailFormControl) {
+          res.status(200).send({
+              success: true,
+              message: 'A temporary password has been sent to your registered email Id'
+          })
+        } else {
+            console.log("Hiii");
+            return res.status(500).send({
+                success: false,
+                message: 'This email Id is not registered with us. Please enter the correct one'
+            });
+        }
+    });
+};
