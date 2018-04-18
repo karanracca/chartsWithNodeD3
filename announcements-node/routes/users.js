@@ -9,6 +9,8 @@ router.post('/authenticate', userController.authenticateUser);
 
 router.post('/createUser', userController.createUser);
 
+router.post('/resetPassword', userController.resetPassword);
+
 //Function to validate token
 router.use(function (req, res, next) {
 
