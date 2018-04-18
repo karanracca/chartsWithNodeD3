@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {AppConstants} from '../Shared/appConstants';
+import {AppConstants} from '../shared/appConstants';
 import 'rxjs/add/operator/map';
 import {User} from './signup/user.model';
 import {ErrorObservable} from 'rxjs/observable/ErrorObservable';
 import {catchError} from 'rxjs/operators';
 import {Observable} from 'rxjs/Observable';
+import {$} from "protractor";
 
 @Injectable()
 export class UserServices {
@@ -63,7 +64,27 @@ export class UserServices {
     return this.http.post(`${this.appConstants.USER_ENDPOINT}/createUser`, userInfo, httpOptions).pipe(catchError(this.handleError));
   }
 
+  resetPassword(emailFormControl: string) {
+
+    const httpOptions = {
+      headers: this.appConstants.headers
+    };
+
+    const body = {
+      'emailFormControl': emailFormControl
+    }
+
+    return this.http.post(`${this.appConstants.USER_ENDPOINT}/resetPassword`, body, httpOptions)
+      .map((result: any) => {
+        if(result.success) {
+          console.log(result);
+          return result;
+        }
+      }).pipe(catchError(this.handleError));
+  }
+
   isAuthenticated() {
     return localStorage.getItem('secretToken') ? true : false;
   }
+
 }

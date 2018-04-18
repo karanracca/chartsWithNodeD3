@@ -1,14 +1,14 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
-
 @Component({
   selector: 'app-file-selector',
-  template: `<input type="file" (change)="onSelectFile($event)" >`,
+  templateUrl: './file-selector.component.html',
   styleUrls: ['./file-selector.component.scss']
 })
 export class FileSelectorComponent implements OnInit {
 
   data: any;
+
 
   constructor() { }
 
@@ -16,9 +16,9 @@ export class FileSelectorComponent implements OnInit {
 
   ngOnInit() {}
 
-  onSelectFile(event) {
-    console.log(event.target.files);
-    this.onFileSelected.emit(event.target.files[0]);
+  onAction(event) {
+    console.log('File uploaded', event);
+    this.onFileSelected.emit(event.file);
   }
 
 }

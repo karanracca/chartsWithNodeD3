@@ -1,5 +1,36 @@
-.type-card {
-  max-width: 30%;
+@import "../../../styles/_common.scss";
+@import "../../../styles/_variables.scss";
+
+.page-heading {
+  @extend %page-heading;
+}
+
+.main-container {
+  padding: 2%;
+}
+
+.type-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  .type-card {
+    min-width: 20%;
+    margin: 1.5%;
+    cursor: pointer;
+    .card-image {
+      height: 10rem;
+      width: 10rem;
+      margin-top: 3%;
+    }
+    p {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+  }
+}
+
+.type-card:hover {
+  border: 2px solid $primary-color;
 }
 
 .name-conatiner{

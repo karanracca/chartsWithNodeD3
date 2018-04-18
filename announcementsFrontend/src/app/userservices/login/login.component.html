@@ -5,8 +5,6 @@
         novalidate
         [formGroup]="loginForm"
         (ngSubmit)="login(loginForm.value, loginForm.valid)">
-
-  <a routerLink="/forgot-password">Forgot Password?</a><br><br>
     <mat-form-field class="form-field">
       <input matInput
              placeholder="Username"
@@ -22,7 +20,6 @@
       <mat-icon matSuffix class="hover" (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       <mat-error *ngIf="loginForm.controls.password.invalid">{{getPasswordError()}}</mat-error>
     </mat-form-field>
-    <br>
 
     <div class="forgotPassword">
       <a routerLink="/forgotPassword">Forgot Password?</a>
