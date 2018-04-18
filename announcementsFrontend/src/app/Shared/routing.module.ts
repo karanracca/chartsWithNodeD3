@@ -25,7 +25,7 @@ const appRoutes: Routes = [
       {path: 'createCharts', component: CreateChartComponent},
       {path: 'createBarCharts', component: BarChartComponent},
       {path: 'createLineCharts', component: LineChartComponent},
-      {path: 'createPieCharts', component: CreateChartComponent},
+      {path: 'createPieCharts', component: PieChartComponent},
     ]
   },
 ];
