@@ -7,7 +7,6 @@ const d3nLine= require('d3node-linechart');
 const {createFile} = require('./outputService');
 const parseTime = d3.timeParse('%d-%b-%y');
 
-
 exports.createBarChart = function (file, keys) {
 
     return new Promise((resolve, reject) => {
@@ -86,3 +85,9 @@ exports.createLineChart = function (file, keys) {
         });
     });
 };
+
+// exports.createdonutChart = function (file, keys) {
+//     return new Promise((resolve, reject) => {
+//
+//     }
+// }
