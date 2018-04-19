@@ -25,6 +25,7 @@ import {NotificationService} from './shared/notification.service';
 import {AuthGard} from './shared/auth-gaurd.service';
 import {Ng2FileInputModule} from 'ng2-file-input';
 import {PieChartComponent} from './charts/pie-chart/pie-chart.component';
+import { DonutChartComponent } from './charts/donut-chart/donut-chart.component';
 
 
 
@@ -40,6 +41,7 @@ import {PieChartComponent} from './charts/pie-chart/pie-chart.component';
     BarChartComponent,
     PieChartComponent,
     LineChartComponent,
+    DonutChartComponent,
   ],
   imports: [
     HttpClientModule,
