@@ -26,6 +26,7 @@ import {AuthGard} from './shared/auth-gaurd.service';
 import {Ng2FileInputModule} from 'ng2-file-input';
 import {PieChartComponent} from './charts/pie-chart/pie-chart.component';
 import { DonutChartComponent } from './charts/donut-chart/donut-chart.component';
+import { UpdateAccountComponent } from './userservices/update-account/update-account.component';
 
 
 
@@ -42,6 +43,7 @@ import { DonutChartComponent } from './charts/donut-chart/donut-chart.component'
     PieChartComponent,
     LineChartComponent,
     DonutChartComponent,
+    UpdateAccountComponent
   ],
   imports: [
     HttpClientModule,
