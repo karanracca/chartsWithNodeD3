@@ -25,6 +25,8 @@ import {NotificationService} from './shared/notification.service';
 import {AuthGard} from './shared/auth-gaurd.service';
 import {Ng2FileInputModule} from 'ng2-file-input';
 import {PieChartComponent} from './charts/pie-chart/pie-chart.component';
+import {SpinnerService} from './shared/spinner.service';
+import { ChartResultComponent } from './charts/chart-result/chart-result.component';
 
 
 
@@ -39,7 +41,8 @@ import {PieChartComponent} from './charts/pie-chart/pie-chart.component';
     FileSelectorComponent,
     BarChartComponent,
     PieChartComponent,
-    LineChartComponent
+    LineChartComponent,
+    ChartResultComponent
   ],
   imports: [
     HttpClientModule,
@@ -57,7 +60,8 @@ import {PieChartComponent} from './charts/pie-chart/pie-chart.component';
     AppConstants,
     ChartService,
     NotificationService,
-    AuthGard
+    AuthGard,
+    SpinnerService
   ],
   bootstrap: [AppComponent]
 })

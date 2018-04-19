@@ -13,7 +13,8 @@ export class AppConstants {
   });
 
   readonly privateHeaders: HttpHeaders = new HttpHeaders({
-    'x-access-token': localStorage.getItem('privateToken'),
+    'x-access-token': localStorage.getItem('secretToken'),
+    'Content-Type': 'application/json'
   });
 
 }

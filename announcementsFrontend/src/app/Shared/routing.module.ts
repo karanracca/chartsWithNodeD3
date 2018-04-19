@@ -17,6 +17,7 @@ const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
 
   {path: 'signup', component: SignupComponent},
+
   {path: 'forgotPassword', component: ForgotPasswordComponent},
 
   {
@@ -25,7 +26,7 @@ const appRoutes: Routes = [
       {path: 'createCharts', component: CreateChartComponent},
       {path: 'createBarCharts', component: BarChartComponent},
       {path: 'createLineCharts', component: LineChartComponent},
-      {path: 'createPieCharts', component: CreateChartComponent},
+      {path: 'createPieCharts', component: PieChartComponent},
     ]
   },
 ];

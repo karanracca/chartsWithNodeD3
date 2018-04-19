@@ -1,0 +1,20 @@
+<div class="main-container">
+  <div class="text-center">
+    <span class="sub-headings">Chart Preview</span>
+  </div>
+
+  <div class="text-center result">
+    <img src="{{chartData.chart}}">
+  </div>
+
+  <div>
+    <mat-form-field>
+      <input matInput
+             placeholder="Chart name"
+             [(ngModel)]="chartName">
+      <mat-error *ngIf="this.showChartNameError">Chart Name is required</mat-error>
+    </mat-form-field>
+
+    <button mat-button (click)="saveChart()">Save</button>
+  </div>
+</div>

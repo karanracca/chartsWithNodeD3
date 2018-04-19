@@ -1,27 +1,29 @@
-const fs = require('fs');
-const csv = require('csv');
 const announcementService = require('../service/announcement.service');
-
-const d3nBar = require('d3node-barchart');
-const d3nPie = require('d3node-piechart');
-const d3nLine = require('d3node-linechart');
-const d3 = require('d3-node')().d3;
-const parseTime = d3.timeParse('%d-%b-%y');
+//const parseTime = d3.timeParse('%d-%b-%y');
 
 
 exports.createBarChart = async function (req, res) {
     if (req.file && req.body.barChartKeys) {
-        let htmlFile = await announcementService.createBarChart(req.file, JSON.parse(req.body.barChartKeys));
-        res.status(200).send({
-            success: true,
-            payload: htmlFile,
-            message: "Chart created",
-        })
+
+        try {
+            let chartData = await announcementService.createBarChart(req.file, JSON.parse(req.body.barChartKeys));
+
+            res.status(200).send({
+                success: true,
+                payload: chartData,
+                message: "Bar Chart created",
+            })
+        } catch (error) {
+            res.status(500).send({
+                success: false,
+                message: "Something went wrong",
+            })
+        }
 
     } else {
         res.status(400).send({
             success: false,
-            message: "Incorrect data provided",
+            message: "Not enough data provided",
         })
     }
 };
