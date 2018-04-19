@@ -2,6 +2,7 @@ const {USER_ROLE, DBNAME, SECRET} = require('../shared/app-constants');
 const DBService = require('../shared/db.service');
 const jwt = require('jsonwebtoken');
 const ObjectID = require('mongodb').ObjectID;
+var nodemailer = require('nodemailer');
 
 
 exports.createUser = function (req, res) {
@@ -100,6 +101,30 @@ exports.deleteUser = function (req, res) {
 exports.resetPassword = function (req, res) {
     DBService.findOne({email: req.body.emailFormControl}, DBNAME, 'users').then(function (userObject) {
         if(userObject.email === req.body.emailFormControl) {
+            var transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'youremail@gmail.com',
+                    pass: 'yourpassword'
+                }
+            });
+
+            var mailOptions = {
+                from: 'youremail@gmail.com',
+                to: req.body.emailFormControl,
+                subject: 'Reset Password Mail',
+                text: 'Your temporary password is 12345'
+            };
+
+            transporter.sendMail(mailOptions, function(error, info){
+                console.log(mailOptions);
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
+
           res.status(200).send({
               success: true,
               message: 'A temporary password has been sent to your registered email Id'
