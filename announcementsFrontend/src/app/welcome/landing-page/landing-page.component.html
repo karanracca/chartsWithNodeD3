@@ -17,7 +17,8 @@
   <a mat-tab-link
      class="logout"
      (click)="logout()">
-    Logout
+    logout &nbsp;
+    <i class="material-icons">power_settings_new</i>
   </a>
 
   <a mat-tab-link
@@ -25,7 +26,7 @@
      [routerLink]="['getHistory']"
      routerLinkActive #rla="routerLinkActive"
      [active]="rla.isActive">
-    <span class="user-name">Hi, {{user.firstName}}</span>
+    <span class="user-name">Hi, {{user.firstname}}</span>
     <mat-icon class="user-icon">person</mat-icon>
   </a>
 </nav>
