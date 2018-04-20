@@ -27,6 +27,7 @@ import {Ng2FileInputModule} from 'ng2-file-input';
 import {PieChartComponent} from './charts/pie-chart/pie-chart.component';
 import {SpinnerService} from './shared/spinner.service';
 import { ChartResultComponent } from './charts/chart-result/chart-result.component';
+import { CreateAnnouncementsComponent } from './announcements/create-announcements/create-announcements.component';
 
 
 
@@ -42,7 +43,8 @@ import { ChartResultComponent } from './charts/chart-result/chart-result.compone
     BarChartComponent,
     PieChartComponent,
     LineChartComponent,
-    ChartResultComponent
+    ChartResultComponent,
+    CreateAnnouncementsComponent
   ],
   imports: [
     HttpClientModule,

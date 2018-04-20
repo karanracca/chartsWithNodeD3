@@ -29,40 +29,40 @@ exports.createBarChart = async function (req, res) {
 };
 
 
-    exports.createPieChart = async function (req, res) {
-        console.log("xyz");
-        if (req.file && req.body.pieChartKeys) {
-            let htmlFile = await announcementService.createPieChart(req.file, JSON.parse(req.body.pieChartKeys));
-            res.status(200).send({
-                success: true,
-                payload: htmlFile,
-                message: "Chart created",
-            })
+exports.createPieChart = async function (req, res) {
+    console.log("xyz");
+    if (req.file && req.body.pieChartKeys) {
+        let htmlFile = await announcementService.createPieChart(req.file, JSON.parse(req.body.pieChartKeys));
+        res.status(200).send({
+            success: true,
+            payload: htmlFile,
+            message: "Chart created",
+        })
 
-        } else {
-            res.status(400).send({
-                success: false,
-                message: "Incorrect data provided",
-            })
-        }
-    };
+    } else {
+        res.status(400).send({
+            success: false,
+            message: "Incorrect data provided",
+        })
+    }
+};
 
-    exports.createLineChart = async function (req, res) {
-        if (req.file && req.body.lineChartKeys) {
-            let htmlFile = await announcementService.createLineChart(req.file, JSON.parse(req.body.lineChartKeys));
-            res.status(200).send({
-                success: true,
-                payload: htmlFile,
-                message: "Chart created",
-            })
+exports.createLineChart = async function (req, res) {
+    if (req.file && req.body.lineChartKeys) {
+        let htmlFile = await announcementService.createLineChart(req.file, JSON.parse(req.body.lineChartKeys));
+        res.status(200).send({
+            success: true,
+            payload: htmlFile,
+            message: "Chart created",
+        })
 
-        } else {
-            res.status(400).send({
-                success: false,
-                message: "Incorrect data provided",
-            })
-        }
-    };
+    } else {
+        res.status(400).send({
+            success: false,
+            message: "Incorrect data provided",
+        })
+    }
+};
 
 // exports.createLineChart = function (req, res) {
 //     console.log("File", req.file);
@@ -81,3 +81,30 @@ exports.createBarChart = async function (req, res) {
 //         });
 //     });
 // };
+
+exports.saveGeneratedChart = async function (req, res) {
+    if (req.body.fileName && req.body.chart) {
+        try {
+            let result = await announcementService.saveChart(req.body, req.header('x-access-token'));
+            if (result === 1) {
+                res.status(200).json({
+                    success: true,
+                    message: "Chart saved successfully"
+                })
+            } else {
+                throw new Error();
+            }
+        } catch (error) {
+            res.status(400).send({
+                success: false,
+                message: "Something went wrong",
+            })
+        }
+    }
+    else {
+        res.status(400).send({
+            success: false,
+            message: "File name missing",
+        })
+    }
+};

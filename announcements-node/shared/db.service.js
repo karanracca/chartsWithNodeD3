@@ -18,19 +18,22 @@ exports.connect = async function () {
 };
 
 // Function to add new user to the database
-exports.insertOne = async function (data, dbName) {
+exports.insertOne = async function (data, dbName, collectionName) {
     try {
+        console.log("insert called");
         const client = await this.connect();
         const db = client.db(dbName);
-        db.collection('users').insertOne(data, function (err, r) {
-            assert.equal(null, err);
-            console.log("Status", r);
-            assert.equal(1, r.insertedCount);
-            return;
-        })
+        return new Promise((resolve, reject) => {
+            db.collection(collectionName).insertOne(data, function (err, r) {
+                assert.equal(null, err);
+                console.log("Status", r.insertedCount);
+                assert.equal(1, r.insertedCount);
+                resolve(r.insertedCount);
+            })
+        });
     } catch (e) {
         console.log(e);
-        throw Error('Error adding new user to the database');
+        throw Error('Error adding entry to the database');
     }
 };
 

@@ -4,8 +4,11 @@ const output = require('d3node-output');
 const d3nBar = require('d3node-barchart');
 const d3nPie = require('d3node-piechart');
 const d3nLine= require('d3node-linechart');
-const {createFile} = require('./outputService');
+const {createFile} = require('./output.service');
 const parseTime = d3.timeParse('%d-%b-%y');
+const commonService = require('./common.service');
+const DBService = require('../shared/db.service');
+const {DBNAME, CHARTS_COLLECTION} = require('../shared/app-constants');
 
 /*Parse CSV file sent by the user and create chart according to keys provided by user*/
 exports.createBarChart = function (file, keys) {
@@ -86,4 +89,28 @@ exports.createLineChart = function (file, keys) {
             });
         });
     });
+};
+
+exports.saveChart = async function (chartData, token) {
+    try {
+        console.log("save chart called");
+        let userInfo = await commonService.decodeToken(token);
+
+        let chart = {
+            username: userInfo.user.username,
+            fileName: chartData.fileName,
+            chartName: chartData.chartName,
+            chart: chartData.chart
+        };
+        let result = await DBService.insertOne(chart, DBNAME, CHARTS_COLLECTION);
+        return result;
+
+    } catch (error) {
+        return error;
+    }
+
+
+    /*
+    console.log("Result service", result);
+    return result;*/
 };

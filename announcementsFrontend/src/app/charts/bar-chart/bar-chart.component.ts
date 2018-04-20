@@ -35,7 +35,7 @@ export class BarChartComponent implements OnInit {
       this.chartService.createBarChart(selectedValues, this.file).subscribe((data: any) => {
         console.log(data);
         this.chartData = data;
-        this.chartData.chart = `data:image/png;base64,${data.payload.chart}`;
+        this.chartData.chart = `data:image/png;base64,${data.chart}`;
       });
     }
   }

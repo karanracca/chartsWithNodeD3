@@ -7,11 +7,10 @@
   </a>
 
   <a mat-tab-link
-     disabled
-     [routerLink]="['getHistory']"
+     [routerLink]="'./createAnnouncements'"
      routerLinkActive #rla="routerLinkActive"
-     [active]="rla.isActive">
-    Previous Charts
+     [active]="'/welcome/createAnnouncements'">
+    Create Announcements
   </a>
 
   <a mat-tab-link

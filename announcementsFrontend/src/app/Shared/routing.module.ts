@@ -9,6 +9,7 @@ import {PieChartComponent} from '../charts/pie-chart/pie-chart.component';
 import {LineChartComponent} from '../charts/line-chart/line-chart.component';
 import {CreateChartComponent} from '../charts/create-chart/create-chart.component';
 import {AuthGard} from './auth-gaurd.service';
+import {CreateAnnouncementsComponent} from '../announcements/create-announcements/create-announcements.component';
 
 const appRoutes: Routes = [
 
@@ -27,6 +28,8 @@ const appRoutes: Routes = [
       {path: 'createBarCharts', component: BarChartComponent},
       {path: 'createLineCharts', component: LineChartComponent},
       {path: 'createPieCharts', component: PieChartComponent},
+
+      {path: 'createAnnouncements', component: CreateAnnouncementsComponent},
     ]
   },
 ];

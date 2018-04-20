@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {ChartService} from '../charts.service';
+import {NotificationService} from '../../shared/notification.service';
 
 @Component({
   selector: 'app-chart-result',
@@ -13,7 +14,7 @@ export class ChartResultComponent implements OnInit {
   chartName = '';
   showChartNameError = false;
 
-  constructor( private chartServices: ChartService) { }
+  constructor( private chartServices: ChartService, private notify: NotificationService) { }
 
   ngOnInit() {}
 
@@ -23,12 +24,13 @@ export class ChartResultComponent implements OnInit {
      return;
     } else {
       this.showChartNameError = false;
-      this.chartServices.saveGeneratedChart(this.chartData).subscribe((result) => {
+      this.chartData.chartName = this.chartName;
+      console.log('ChartData', this.chartData);
+      this.chartServices.saveGeneratedChart(this.chartData).subscribe((result: any) => {
         console.log(result);
+        this.notify.notification.next(result.message);
       });
     }
-
-
   }
 
 

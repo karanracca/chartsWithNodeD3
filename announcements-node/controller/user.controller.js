@@ -1,4 +1,4 @@
-const {USER_ROLE, DBNAME, SECRET} = require('../shared/app-constants');
+const {USER_ROLE, DBNAME, SECRET, USER_COLLECTION} = require('../shared/app-constants');
 const DBService = require('../shared/db.service');
 const jwt = require('jsonwebtoken');
 const ObjectID = require('mongodb').ObjectID;
@@ -32,7 +32,7 @@ exports.createUser = function (req, res) {
                 credits: 10
             };
 
-            DBService.insertOne(userInfo, DBNAME).then(function () {
+            DBService.insertOne(userInfo, DBNAME, USER_COLLECTION).then(function () {
                 console.log('User added Successfully');
                 res.status(200).json({
                     success: true,
@@ -53,7 +53,7 @@ exports.authenticateUser = function (req, res) {
     DBService.findOne({username: req.body.username}, DBNAME, 'users').then(function (userObject) {
         if (userObject) {
             if (userObject.password === req.body.password) {
-                let token = jwt.sign({"username": userObject.username, "password": userObject.password}, SECRET, {
+                let token = jwt.sign({"user": userObject}, SECRET, {
                     expiresIn: "1d"
                 });
                 res.status(200).send({

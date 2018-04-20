@@ -47,7 +47,7 @@ export class ChartService {
       .map((result: any) => {
         if (result.success) {
           this.spinner.showSpinner.next(false);
-          return result;
+          return result.payload;
         }
       }).pipe(catchError(this.handleError.bind(this)));
   }
@@ -94,13 +94,6 @@ export class ChartService {
     };
 
     return this.http.post( `${this.appConstants.CHART_ENDPOINT}/saveChart`, chartData, httpOptions)
-      .map((result: any) => {
-        if (result.success) {
-          return result;
-        }
-      });
+      .pipe(catchError(this.handleError.bind(this)));
   }
-
-
-
 }
