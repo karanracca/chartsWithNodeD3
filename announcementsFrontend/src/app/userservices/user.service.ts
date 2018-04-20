@@ -6,6 +6,7 @@ import {User} from './signup/user.model';
 import {ErrorObservable} from 'rxjs/observable/ErrorObservable';
 import {catchError} from 'rxjs/operators';
 import {Observable} from 'rxjs/Observable';
+import {$} from "protractor";
 
 @Injectable()
 export class UserServices {
@@ -63,7 +64,36 @@ export class UserServices {
     return this.http.post(`${this.appConstants.USER_ENDPOINT}/createUser`, userInfo, httpOptions).pipe(catchError(this.handleError));
   }
 
+  resetPassword(emailFormControl: string) {
+
+    const httpOptions = {
+      headers: this.appConstants.headers
+    };
+
+    const body = {
+      'emailFormControl': emailFormControl
+    }
+
+    return this.http.post(`${this.appConstants.USER_ENDPOINT}/resetPassword`, body, httpOptions)
+      .map((result: any) => {
+        if(result.success) {
+          console.log(result);
+          return result;
+        }
+      }).pipe(catchError(this.handleError));
+  }
+
+  updateUser(userInfo: User) {
+    console.log('called');
+    const httpOptions = {
+      headers: this.appConstants.headers
+    };
+
+    return this.http.post(`${this.appConstants.USER_ENDPOINT}/updateUser`, userInfo, httpOptions).pipe(catchError(this.handleError));
+  }
+
   isAuthenticated() {
     return localStorage.getItem('secretToken') ? true : false;
   }
+
 }

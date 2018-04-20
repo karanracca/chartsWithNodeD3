@@ -23,5 +23,6 @@ export class CreateChartComponent implements OnInit {
 
   navigatePie() {
     this.router.navigate(['createCharts', 'pie']);
+
   }
 }

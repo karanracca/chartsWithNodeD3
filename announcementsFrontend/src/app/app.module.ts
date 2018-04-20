@@ -30,8 +30,9 @@ import { ChartResultComponent } from './charts/chart-result/chart-result.compone
 import { CreateAnnouncementsComponent } from './announcements/create-announcements/create-announcements.component';
 import { AnnouncementsSidebarComponent } from './announcements/announcements-sidebar/announcements-sidebar.component';
 import {AnnouncementService} from './announcements/announcement.service';
-
-
+import { DonutChartComponent } from './charts/donut-chart/donut-chart.component';
+import { UpdateAccountComponent } from './userservices/update-account/update-account.component';
+import { ResetPasswordComponent } from './userservices/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,10 @@ import {AnnouncementService} from './announcements/announcement.service';
     LineChartComponent,
     ChartResultComponent,
     CreateAnnouncementsComponent,
-    AnnouncementsSidebarComponent
+    AnnouncementsSidebarComponent,
+    DonutChartComponent,
+    UpdateAccountComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     HttpClientModule,

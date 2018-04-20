@@ -13,7 +13,9 @@ import {
   MatSelectModule,
   MatSnackBarModule,
   MatProgressSpinnerModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatMenuModule,
+  MatAutocompleteModule,
 } from '@angular/material';
 
 @NgModule({
@@ -30,8 +32,9 @@ import {
     MatSelectModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    MatExpansionModule
-
+    MatExpansionModule,
+    MatMenuModule,
+    MatAutocompleteModule
   ],
   exports: [
     MatButtonModule,
@@ -46,7 +49,9 @@ import {
     MatSelectModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatMenuModule,
+    MatAutocompleteModule,
   ]
 })
 

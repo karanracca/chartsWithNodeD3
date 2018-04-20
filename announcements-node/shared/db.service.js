@@ -91,3 +91,19 @@ exports.deleteOne = async function (query, dbName, collectionName) {
     }
 };
 
+exports.updateOne = async function (data, dbName) {
+    try {
+        const client = await this.connect();
+        const db = client.db(dbName);
+        db.collection('users').updateOne(data, function (err, r) {
+            assert.equal(null, err);
+            console.log("Status", r);
+            assert.equal(0, r.matchedCount);
+            assert.equal(1, r.upsertedCount);
+            return;
+        })
+    } catch (e) {
+        console.log(e);
+        throw Error('Error updating the database');
+    }
+};

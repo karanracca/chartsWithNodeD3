@@ -4,6 +4,8 @@ var path = require('path');
 const bodyParser = require('body-parser');
 var logger = require('morgan');
 const DBService = require('./shared/db.service');
+const exphbs = require('express-handlebars');
+const nodemailer = require('nodemailer');
 
 const { MONGOURL } = require('./shared/app-constants');
 

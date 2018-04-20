@@ -26,6 +26,29 @@ a:hover{
   float: right;
 }
 
+.menuType{
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: black;
+  opacity: 1;
+  margin-top: 0.45rem;
+  margin-right: 2rem;
+}
+
+.menuType:hover{
+    text-decoration: none !important;
+    color: $primary-color !important;
+}
+
+.margin{
+  margin-top: -0.5rem;
+}
+
+.credits{
+  float: right;
+  cursor: auto;
+}
+
 
 
 

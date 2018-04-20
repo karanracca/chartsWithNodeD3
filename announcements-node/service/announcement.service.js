@@ -10,7 +10,6 @@ const commonService = require('./common.service');
 const DBService = require('../shared/db.service');
 const {DBNAME, CHARTS_COLLECTION, USER_COLLECTION} = require('../shared/app-constants');
 
-/*Parse CSV file sent by the user and create chart according to keys provided by user*/
 exports.createBarChart = function (file, keys) {
     return new Promise((resolve, reject) => {
         //Parse Csv File
@@ -124,3 +123,9 @@ exports.getCharts = async function (token) {
         return error;
     }
 };
+
+// exports.createdonutChart = function (file, keys) {
+//     return new Promise((resolve, reject) => {
+//
+//     }
+// }
