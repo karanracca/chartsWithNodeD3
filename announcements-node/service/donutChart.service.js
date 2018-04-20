@@ -1,3 +1,10 @@
+const csv = require('csv');
+const d3 = require('d3-node')().d3;
+const output = require('d3node-output');
+const {createFile} = require('./outputService');
+const d3nDonut = require('../d3Donut');
+
+
 exports.createDonutChart = function (file,keys) {
 
     return new Promise((resolve, reject) =>{
@@ -11,7 +18,7 @@ exports.createDonutChart = function (file,keys) {
                         value: parsedData[keys.yaxis]
                     };
                 });
-                createFile('./chartsOutput/pieChart', d3nDonut({data:d3parsedData})).then((htmlFile) => {
+                createFile('./chartsOutput/DonutChart', d3nDonut({data:d3parsedData})).then((htmlFile) => {
                     resolve(htmlFile);
                 }).catch(error => {
                     console.log(error);
