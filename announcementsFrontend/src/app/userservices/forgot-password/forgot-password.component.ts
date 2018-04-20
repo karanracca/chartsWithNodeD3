@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';  
+import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material/core";
 import { UserServices } from "../user.service";
@@ -45,7 +45,7 @@ export class ForgotPasswordComponent implements OnInit {
       this.userService.resetPassword(credentials.emailFormControl).subscribe((data: any) => {
         this.notifyService.notification.next(data.message);
         this.router.navigate(['/login']);
-      },error => {
+      }, error => {
         this.notifyService.notification.next(error);
       });
     }

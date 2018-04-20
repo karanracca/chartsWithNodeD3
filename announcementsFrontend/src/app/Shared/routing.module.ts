@@ -11,6 +11,7 @@ import {LineChartComponent} from '../charts/line-chart/line-chart.component';
 import {CreateChartComponent} from '../charts/create-chart/create-chart.component';
 import {AuthGard} from './auth-gaurd.service';
 import {DonutChartComponent} from "../charts/donut-chart/donut-chart.component";
+import {UpdateAccountComponent} from "../userservices/update-account/update-account.component";
 
 const appRoutes: Routes = [
 
@@ -29,7 +30,8 @@ const appRoutes: Routes = [
       {path: 'createBarCharts', component: BarChartComponent},
       {path: 'createLineCharts', component: LineChartComponent},
       {path: 'createPieCharts', component: PieChartComponent},
-      {path: 'createDonutCharts', component: DonutChartComponent}
+      {path: 'createDonutCharts', component: DonutChartComponent},
+      {path: 'updateAccount', component: UpdateAccountComponent}
     ]
   },
 ];

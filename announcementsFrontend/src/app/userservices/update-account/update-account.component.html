@@ -5,17 +5,17 @@
   <form novalidate [formGroup]="updateForm" (ngSubmit)="onSubmit(updateForm.value, updateForm.valid)">
 
     <div>
-      <mat-autocomplete class="inline-form-field">
+      <mat-form-field class="inline-form-field">
         <input matInput
-               formControlName="firstname" [(ngModel)]="user.firstname">
-        <!--placeholder="First Name">-->
+               formControlName="firstname"
+               placeholder="First Name">
         <mat-error *ngIf="updateForm.controls.firstname.invalid">First name is required</mat-error>
-      </mat-autocomplete>
+      </mat-form-field>
 
       <mat-form-field class="inline-form-field">
         <input matInput
                formControlName="lastname"
-               [(ngModel)]="user.lastname">
+               placeholder="Last Name">
         <mat-error *ngIf="updateForm.controls.lastname.invalid">Last name is required</mat-error>
       </mat-form-field>
     </div>
@@ -24,14 +24,13 @@
       <mat-form-field class="inline-form-field">
         <input matInput
                formControlName="email"
-               [(ngModel)]="user.email">
+               placeholder="Email ">
         <mat-error *ngIf="updateForm.controls.email.invalid">{{getEmailErrorMessage()}}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="inline-form-field">
-        <input matInput
-               [(ngModel)]="user.phone"
-               formControlName="phone">
+        <input matInput formControlName="phone"
+               placeholder="Phone No.">
         <mat-error *ngIf="updateForm.controls.phone.invalid">{{getPhoneErrorMessage()}}</mat-error>
       </mat-form-field>
     </div>
@@ -39,8 +38,8 @@
     <div>
       <mat-form-field class="form-field">
         <input matInput
-               [(ngModel)]="user.username"
-               formControlName="username">
+               formControlName="username"
+               placeholder="Username">
         <mat-error *ngIf="updateForm.controls.username.invalid">Username is required</mat-error>
       </mat-form-field>
     </div>
@@ -48,18 +47,20 @@
     <div>
       <mat-form-field class="inline-form-field">
         <input matInput
-               [(ngModel)]="user.password"
+
                [type]="hide ? 'text' : 'password'"
-               formControlName="password">
+               formControlName="password"
+               placeholder="Password">
         <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
         <mat-error *ngIf="updateForm.controls.password.invalid">{{getPasswordErrorMessage()}}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="inline-form-field">
         <input matInput
-               [(ngModel)]="user.confirmPassword"
+
                [type]="hide ? 'text' : 'password'"
-               formControlName="confirmPassword">
+               formControlName="confirmPassword"
+               placeholder="Confirm Password">
         <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
         <mat-error *ngIf="updateForm.controls.confirmPassword.invalid">{{getPasswordErrorMessage()}}</mat-error>
       </mat-form-field>
