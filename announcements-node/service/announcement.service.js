@@ -8,7 +8,7 @@ const {createFile} = require('./output.service');
 const parseTime = d3.timeParse('%d-%b-%y');
 const commonService = require('./common.service');
 const DBService = require('../shared/db.service');
-const {DBNAME, CHARTS_COLLECTION} = require('../shared/app-constants');
+const {DBNAME, CHARTS_COLLECTION, USER_COLLECTION} = require('../shared/app-constants');
 
 /*Parse CSV file sent by the user and create chart according to keys provided by user*/
 exports.createBarChart = function (file, keys) {
@@ -93,7 +93,6 @@ exports.createLineChart = function (file, keys) {
 
 exports.saveChart = async function (chartData, token) {
     try {
-        console.log("save chart called");
         let userInfo = await commonService.decodeToken(token);
 
         let chart = {
@@ -108,9 +107,20 @@ exports.saveChart = async function (chartData, token) {
     } catch (error) {
         return error;
     }
+};
 
+exports.getCharts = async function (token) {
+    try {
+        let userInfo = await commonService.decodeToken(token);
 
-    /*
-    console.log("Result service", result);
-    return result;*/
+        let result = await DBService.find({username:userInfo.user.username}, DBNAME, CHARTS_COLLECTION);
+
+        if (result.length > 0) {
+            return result;
+        } else {
+            throw new Error("No records in database");
+        }
+    } catch (error) {
+        return error;
+    }
 };

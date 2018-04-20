@@ -28,6 +28,8 @@ import {PieChartComponent} from './charts/pie-chart/pie-chart.component';
 import {SpinnerService} from './shared/spinner.service';
 import { ChartResultComponent } from './charts/chart-result/chart-result.component';
 import { CreateAnnouncementsComponent } from './announcements/create-announcements/create-announcements.component';
+import { AnnouncementsSidebarComponent } from './announcements/announcements-sidebar/announcements-sidebar.component';
+import {AnnouncementService} from './announcements/announcement.service';
 
 
 
@@ -44,7 +46,8 @@ import { CreateAnnouncementsComponent } from './announcements/create-announcemen
     PieChartComponent,
     LineChartComponent,
     ChartResultComponent,
-    CreateAnnouncementsComponent
+    CreateAnnouncementsComponent,
+    AnnouncementsSidebarComponent
   ],
   imports: [
     HttpClientModule,
@@ -63,7 +66,8 @@ import { CreateAnnouncementsComponent } from './announcements/create-announcemen
     ChartService,
     NotificationService,
     AuthGard,
-    SpinnerService
+    SpinnerService,
+    AnnouncementService
   ],
   bootstrap: [AppComponent]
 })

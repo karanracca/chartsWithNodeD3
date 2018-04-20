@@ -1,15 +1,17 @@
 <nav mat-tab-nav-bar>
   <a mat-tab-link
      [routerLink]="'./createCharts'"
-     routerLinkActive #rla="routerLinkActive"
-     [active]="'/welcome/createCharts'">
+     routerLinkActive #rlac="routerLinkActive"
+     [routerLinkActiveOptions]="{exact:true}"
+     [active]="rlac.isActive">
     Create Charts
   </a>
 
   <a mat-tab-link
      [routerLink]="'./createAnnouncements'"
-     routerLinkActive #rla="routerLinkActive"
-     [active]="'/welcome/createAnnouncements'">
+     routerLinkActive #rlaa="routerLinkActive"
+     [routerLinkActiveOptions]="{exact:true}"
+     [active]="rlaa.isActive">
     Create Announcements
   </a>
 
@@ -22,8 +24,8 @@
   <a mat-tab-link
      class="user-profile"
      [routerLink]="['getHistory']"
-     routerLinkActive #rla="routerLinkActive"
-     [active]="rla.isActive">
+     routerLinkActive #rlau="routerLinkActive"
+     [active]="rlau.isActive">
     <span class="user-name">Hi, {{user.firstName}}</span>
     <mat-icon class="user-icon">person</mat-icon>
   </a>

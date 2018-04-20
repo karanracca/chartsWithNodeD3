@@ -42,4 +42,6 @@ router.post('/createLineChart', uploadFile.single('file'), announcementControlle
 
 router.post('/saveChart', announcementController.saveGeneratedChart);
 
+router.get('/getAllCharts', announcementController.getCharts);
+
 module.exports = router;

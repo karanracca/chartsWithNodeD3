@@ -108,3 +108,23 @@ exports.saveGeneratedChart = async function (req, res) {
         })
     }
 };
+
+exports.getCharts = async function (req, res) {
+    try {
+
+        let allCharts = await announcementService.getCharts(req.header('x-access-token'));
+
+        res.status(200).json({
+            success: true,
+            payload: allCharts,
+            message: "All user charts"
+        })
+
+    } catch (error) {
+        res.status(400).send({
+            success: false,
+            message: "Data not found",
+        })
+    }
+
+};
