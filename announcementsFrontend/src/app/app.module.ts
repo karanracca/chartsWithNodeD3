@@ -27,6 +27,7 @@ import {Ng2FileInputModule} from 'ng2-file-input';
 import {PieChartComponent} from './charts/pie-chart/pie-chart.component';
 import { DonutChartComponent } from './charts/donut-chart/donut-chart.component';
 import { UpdateAccountComponent } from './userservices/update-account/update-account.component';
+import { ResetPasswordComponent } from './userservices/reset-password/reset-password.component';
 
 
 
@@ -43,7 +44,8 @@ import { UpdateAccountComponent } from './userservices/update-account/update-acc
     PieChartComponent,
     LineChartComponent,
     DonutChartComponent,
-    UpdateAccountComponent
+    UpdateAccountComponent,
+    ResetPasswordComponent
   ],
   imports: [
     HttpClientModule,

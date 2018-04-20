@@ -3,6 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 import { LoginComponent } from '../userservices/login/login.component';
 import {SignupComponent} from '../userservices/signup/signup.component';
 import {ForgotPasswordComponent} from '../userservices/forgot-password/forgot-password.component';
+import {ResetPasswordComponent} from "../userservices/reset-password/reset-password.component";
 import {LandingPageComponent} from '../welcome/landing-page/landing-page.component';
 import {BarChartComponent} from '../charts/bar-chart/bar-chart.component';
 import {PieChartComponent} from '../charts/pie-chart/pie-chart.component';
@@ -19,6 +20,7 @@ const appRoutes: Routes = [
 
   {path: 'signup', component: SignupComponent},
   {path: 'forgotPassword', component: ForgotPasswordComponent},
+  {path: 'reset', component: ResetPasswordComponent},
 
   {
     path: 'welcome', component: LandingPageComponent, canActivate: [AuthGard] , children: [
