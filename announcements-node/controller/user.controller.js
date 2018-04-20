@@ -1,8 +1,9 @@
-const {USER_ROLE, DBNAME, SECRET} = require('../shared/app-constants');
+const {USER_ROLE, DBNAME, SECRET, USER_COLLECTION} = require('../shared/app-constants');
 const DBService = require('../shared/db.service');
 const jwt = require('jsonwebtoken');
 const ObjectID = require('mongodb').ObjectID;
-var nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer');
+const generator = require('generate-password');
 
 
 exports.createUser = function (req, res) {
@@ -33,7 +34,7 @@ exports.createUser = function (req, res) {
                 credits: 10
             };
 
-            DBService.insertOne(userInfo, DBNAME).then(function () {
+            DBService.insertOne(userInfo, DBNAME, USER_COLLECTION).then(function () {
                 console.log('User added Successfully');
                 var transporter = nodemailer.createTransport({
                     service: 'gmail',
@@ -60,7 +61,7 @@ exports.createUser = function (req, res) {
                 });
                 res.status(200).json({
                     success: true,
-                    message: `User ${userInfo.username} registered.`
+                    message: `User ${userInfo.firstName} registered.`
                 });
             }).catch(function (error) {
                 console.log('Unable to add user', error);
@@ -77,7 +78,7 @@ exports.authenticateUser = function (req, res) {
     DBService.findOne({username: req.body.username}, DBNAME, 'users').then(function (userObject) {
         if (userObject) {
             if (userObject.password === req.body.password) {
-                let token = jwt.sign({"username": userObject.username, "password": userObject.password}, SECRET, {
+                let token = jwt.sign({"user": userObject}, SECRET, {
                     expiresIn: "1d"
                 });
                 res.status(200).send({
@@ -124,6 +125,7 @@ exports.deleteUser = function (req, res) {
 exports.resetPassword = function (req, res) {
     DBService.findOne({email: req.body.emailFormControl}, DBNAME, 'users').then(function (userObject) {
         if(userObject.email === req.body.emailFormControl) {
+
             var transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
@@ -132,11 +134,17 @@ exports.resetPassword = function (req, res) {
                 }
             });
 
+
+            var newPassword = generator.generate({
+                length: 10,
+                numbers: true
+            });
+
             var mailOptions = {
                 from: 'youremail@gmail.com',
                 to: req.body.emailFormControl,
                 subject: 'Reset Password Mail',
-                text: 'Your temporary password is 12345'
+                text: 'Your new password is '+newPassword
             };
 
             transporter.sendMail(mailOptions, function(error, info){
@@ -147,6 +155,14 @@ exports.resetPassword = function (req, res) {
                     console.log('Email sent: ' + info.response);
                 }
             });
+
+            /*let userInfo = {
+                password: userObject.password
+
+            };
+
+
+            DBService.updateOne({$set: {password: newPassword}}, DBNAME);*/
 
           res.status(200).send({
               success: true,

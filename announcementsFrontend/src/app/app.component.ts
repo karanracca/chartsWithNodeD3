@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MatSnackBar} from '@angular/material';
 import {NotificationService} from './shared/notification.service';
+import {SpinnerService} from './shared/spinner.service';
 
 
 @Component({
@@ -10,12 +11,20 @@ import {NotificationService} from './shared/notification.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor( private snackBar: MatSnackBar, private notifyService: NotificationService) {
+  private activate: boolean;
+
+  constructor( private snackBar: MatSnackBar,
+               private notifyService: NotificationService,
+               private spinner: SpinnerService) {
   }
 
   ngOnInit() {
     this.notifyService.notification.subscribe((message: string) => {
       this.openSnackBar(message);
+    });
+
+    this.spinner.showSpinner.subscribe((showSpinner: boolean) => {
+      this.activate = showSpinner;
     });
   }
 

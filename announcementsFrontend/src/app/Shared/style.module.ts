@@ -12,8 +12,10 @@ import {
   MatCardModule,
   MatSelectModule,
   MatSnackBarModule,
+  MatProgressSpinnerModule,
+  MatExpansionModule,
   MatMenuModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
 } from '@angular/material';
 
 @NgModule({
@@ -29,6 +31,8 @@ import {
     MatCardModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
+    MatExpansionModule,
     MatMenuModule,
     MatAutocompleteModule
   ],
@@ -44,8 +48,10 @@ import {
     MatCardModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
+    MatExpansionModule,
     MatMenuModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
   ]
 })
 

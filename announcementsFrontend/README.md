@@ -30,3 +30,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 1. Improve File upload Module.
 2. Preview File which is uploaded.
+3. Encrypt password in mongod

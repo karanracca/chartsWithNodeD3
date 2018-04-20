@@ -3,5 +3,7 @@ module.exports = {
     DBNAME : "announcement",
     SECRET : 'announcementApplication',
     USER_ROLE: "USER",
-    ADMIN_ROLE: "ADMIN"
+    ADMIN_ROLE: "ADMIN",
+    CHARTS_COLLECTION: 'charts',
+    USER_COLLECTION: 'users'
 };
