@@ -45,7 +45,7 @@ export class UpdateAccountComponent implements OnInit {
         return;
       }
       console.log(user);
-      let observable = this.userService.createUser(user);
+      let observable = this.userService.updateUser(user);
 
       observable.subscribe((data: any) => {
         this.notifyService.notification.next(data.message);
