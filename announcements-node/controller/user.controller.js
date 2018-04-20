@@ -141,7 +141,7 @@ exports.resetPassword = function (req, res) {
             });
 
             var mailOptions = {
-                from: 'pjratedpj@gmail.com',
+                from: 'youremail@gmail.com',
                 to: req.body.emailFormControl,
                 subject: 'Reset Password Mail',
                 text: 'Your new password is '+newPassword
