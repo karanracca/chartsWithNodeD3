@@ -21,4 +21,8 @@ export class LandingPageComponent implements OnInit {
     localStorage.clear();
     this.router.navigate(['/login']);
   }
+
+  updateForm(){
+    this.router.navigate(['/welcome/updateAccount']);
+  }
 }

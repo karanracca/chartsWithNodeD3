@@ -83,6 +83,15 @@ export class UserServices {
       }).pipe(catchError(this.handleError));
   }
 
+  updateUser(userInfo: User) {
+    console.log('called');
+    const httpOptions = {
+      headers: this.appConstants.headers
+    };
+
+    return this.http.post(`${this.appConstants.USER_ENDPOINT}/updateUser`, userInfo, httpOptions).pipe(catchError(this.handleError));
+  }
+
   isAuthenticated() {
     return localStorage.getItem('secretToken') ? true : false;
   }

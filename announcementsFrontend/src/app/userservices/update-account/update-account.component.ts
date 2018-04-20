@@ -17,6 +17,7 @@ export class UpdateAccountComponent implements OnInit {
               private notifyService: NotificationService) {
 
   }
+  user:any;
   updateForm: FormGroup;
   passwordMatchError = false;
 
@@ -44,7 +45,7 @@ export class UpdateAccountComponent implements OnInit {
         return;
       }
       console.log(user);
-      let observable = this.userService.createUser(user);
+      let observable = this.userService.updateUser(user);
 
       observable.subscribe((data: any) => {
         this.notifyService.notification.next(data.message);
@@ -56,15 +57,17 @@ export class UpdateAccountComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.user = JSON.parse(localStorage.getItem('user'));
+
     this.updateForm = new FormGroup({
-      firstname: new FormControl('', [<any>Validators.required]),
-      lastname: new FormControl('', [<any>Validators.required]),
-      email: new FormControl('', [<any>Validators.required, <any>Validators.email]),
-      phone: new FormControl('', [<any>Validators.required,
+      firstname: new FormControl(this.user.firstName, [<any>Validators.required]),
+      lastname: new FormControl(this.user.lastName, [<any>Validators.required]),
+      email: new FormControl(this.user.email, [<any>Validators.required, <any>Validators.email]),
+      phone: new FormControl(this.user.phone, [<any>Validators.required,
         <any>Validators.pattern(/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/)]),
-      username: new FormControl('', [<any>Validators.required]),
-      password: new FormControl('', [<any>Validators.required, <any>Validators.minLength(8)]),
-      confirmPassword: new FormControl('', [<any>Validators.required, <any>Validators.minLength(8)])
+      username: new FormControl(this.user.username, [<any>Validators.required]),
+      password: new FormControl(this.user.password, [<any>Validators.required, <any>Validators.minLength(8)]),
+      confirmPassword: new FormControl(this.user.password, [<any>Validators.required, <any>Validators.minLength(8)])
     });
   }
 

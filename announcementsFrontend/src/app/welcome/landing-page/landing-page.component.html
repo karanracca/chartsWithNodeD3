@@ -33,7 +33,7 @@
   <a mat-button [matMenuTriggerFor]="menu" class="user-profile menuType">Hi, {{user.firstName}}
     <mat-icon class="user-icon margin">person</mat-icon></a>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item>Account Settings</button>
+    <button mat-menu-item (click)="updateForm()">Account Settings</button>
     <button mat-menu-item class="logout"
             (click)="logout()">Logout</button>
   </mat-menu>
