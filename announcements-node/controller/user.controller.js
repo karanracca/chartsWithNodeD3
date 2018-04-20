@@ -156,13 +156,13 @@ exports.resetPassword = function (req, res) {
                 }
             });
 
-            let userInfo = {
+            /*let userInfo = {
                 password: userObject.password
 
             };
 
 
-            DBService.updateOne({$set: {password: newPassword}}, DBNAME);
+            DBService.updateOne({$set: {password: newPassword}}, DBNAME);*/
 
           res.status(200).send({
               success: true,
