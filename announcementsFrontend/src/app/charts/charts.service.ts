@@ -62,4 +62,22 @@ export class ChartService {
       });
   }
 
+  createDonutChart (values, file) {
+    const httpOptions = {
+      headers : new HttpHeaders({'x-access-token': localStorage.getItem('secretToken')})
+    };
+
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    formData.append('donutChartKeys', JSON.stringify(values));
+
+    return this.http.post( `${this.appConstants.CHART_ENDPOINT}/createDonutChart`, formData, httpOptions)
+      .map((result: any) => {
+        if (result.success) {
+          return result;
+        }
+      });
+
+  }
+
 }

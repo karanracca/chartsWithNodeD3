@@ -7,16 +7,16 @@
     <div>
       <mat-form-field class="inline-form-field">
         <input matInput
-               formControlName="firstname">{{user.firstname}}
-        <!--placeholder="First Name">-->
+               formControlName="firstname"
+               placeholder="First Name">
         <mat-error *ngIf="updateForm.controls.firstname.invalid">First name is required</mat-error>
       </mat-form-field>
 
       <mat-form-field class="inline-form-field">
         <input matInput
-               formControlName="firstname">{{user.lastname}}
-        <!--placeholder="First Name">-->
-        <mat-error *ngIf="updateForm.controls.firstname.invalid">First name is required</mat-error>
+               formControlName="lastname"
+               placeholder="Last Name">
+        <mat-error *ngIf="updateForm.controls.lastname.invalid">Last name is required</mat-error>
       </mat-form-field>
     </div>
 
@@ -24,12 +24,13 @@
       <mat-form-field class="inline-form-field">
         <input matInput
                formControlName="email"
-               > {{user.email}}
+               placeholder="Email ">
         <mat-error *ngIf="updateForm.controls.email.invalid">{{getEmailErrorMessage()}}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="inline-form-field">
-        <input matInput formControlName="phone"> {{user.phone}}
+        <input matInput formControlName="phone"
+               placeholder="Phone No.">
         <mat-error *ngIf="updateForm.controls.phone.invalid">{{getPhoneErrorMessage()}}</mat-error>
       </mat-form-field>
     </div>
@@ -37,7 +38,8 @@
     <div>
       <mat-form-field class="form-field">
         <input matInput
-               formControlName="username"> {{user.username}}
+               formControlName="username"
+               placeholder="Username">
         <mat-error *ngIf="updateForm.controls.username.invalid">Username is required</mat-error>
       </mat-form-field>
     </div>
@@ -47,7 +49,8 @@
         <input matInput
 
                [type]="hide ? 'text' : 'password'"
-               formControlName="password"> {{user.password}}
+               formControlName="password"
+               placeholder="Password">
         <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
         <mat-error *ngIf="updateForm.controls.password.invalid">{{getPasswordErrorMessage()}}</mat-error>
       </mat-form-field>
@@ -56,7 +59,8 @@
         <input matInput
 
                [type]="hide ? 'text' : 'password'"
-               formControlName="confirmPassword">{{user.password}}
+               formControlName="confirmPassword"
+               placeholder="Confirm Password">
         <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
         <mat-error *ngIf="updateForm.controls.confirmPassword.invalid">{{getPasswordErrorMessage()}}</mat-error>
       </mat-form-field>

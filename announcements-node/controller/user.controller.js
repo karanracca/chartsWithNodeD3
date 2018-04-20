@@ -161,3 +161,23 @@ exports.resetPassword = function (req, res) {
         }
     });
 };
+
+exports.updateUser = function (req, res) {
+
+    DBService.findOne({$or: [{username: req.body.username}, {email: req.body.email}]}, DBNAME, 'users').then(function (userObject){
+            let userInfo = {
+                username: req.body.username,
+                password: req.body.password,
+                firstName: req.body.firstname,
+                lastName: req.body.lastname,
+                email: req.body.email,
+                phone: req.body.phone,
+                role: USER_ROLE,
+                credits: 10
+            };
+
+            DBService.updateOne(userInfo, DBNAME).then(function () {
+                console.log('User updated Successfully');
+            })
+    });
+};
