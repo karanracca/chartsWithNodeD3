@@ -28,6 +28,7 @@ import {PieChartComponent} from './charts/pie-chart/pie-chart.component';
 import { DonutChartComponent } from './charts/donut-chart/donut-chart.component';
 import { UpdateAccountComponent } from './userservices/update-account/update-account.component';
 import { ResetPasswordComponent } from './userservices/reset-password/reset-password.component';
+import { AddCreditsComponent } from './userservices/add-credits/add-credits.component';
 
 
 
@@ -45,7 +46,8 @@ import { ResetPasswordComponent } from './userservices/reset-password/reset-pass
     LineChartComponent,
     DonutChartComponent,
     UpdateAccountComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    AddCreditsComponent
   ],
   imports: [
     HttpClientModule,
