@@ -8,6 +8,9 @@ export class User {
     public username: string,
     public password: string,
     public confirmPassword: string,
+    public _id: any,
+    public credits: number,
+    public role: string
   ) {  }
 
 }

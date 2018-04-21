@@ -17,7 +17,7 @@ export class UpdateAccountComponent implements OnInit {
               private notifyService: NotificationService) {
 
   }
-  user:any;
+  user: any;
   updateForm: FormGroup;
   passwordMatchError = false;
 
@@ -45,20 +45,17 @@ export class UpdateAccountComponent implements OnInit {
         return;
       }
       console.log(user);
-      let observable = this.userService.updateUser(user);
-
-      observable.subscribe((data: any) => {
+      this.userService.updateUser(user).subscribe((data: any) => {
         this.notifyService.notification.next(data.message);
-        this.router.navigate(['/login']);
+        this.user = data.payload.userObject;
+        this.loadUserForm(this.user);
       }, error => {
         this.notifyService.notification.next(error);
       });
     }
   }
 
-  ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem('user'));
-
+  loadUserForm(user: User) {
     this.updateForm = new FormGroup({
       firstname: new FormControl(this.user.firstName, [<any>Validators.required]),
       lastname: new FormControl(this.user.lastName, [<any>Validators.required]),
@@ -67,8 +64,15 @@ export class UpdateAccountComponent implements OnInit {
         <any>Validators.pattern(/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/)]),
       username: new FormControl(this.user.username, [<any>Validators.required]),
       password: new FormControl(this.user.password, [<any>Validators.required, <any>Validators.minLength(8)]),
-      confirmPassword: new FormControl(this.user.password, [<any>Validators.required, <any>Validators.minLength(8)])
+      confirmPassword: new FormControl(this.user.password, [<any>Validators.required, <any>Validators.minLength(8)]),
+      credits: new FormControl(this.user.credits),
+      _id: new FormControl(this.user._id)
     });
+  }
+
+  ngOnInit() {
+    this.user = JSON.parse(localStorage.getItem('user'));
+    this.loadUserForm(this.user);
   }
 
 }

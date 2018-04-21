@@ -1,4 +1,4 @@
-const announcementService = require('../service/announcement.service');
+const chartsService = require('../service/charts.service');
 const d3nBar = require('d3node-barchart');
 const d3nPie = require('d3node-piechart');
 const d3nLine = require('d3node-linechart');
@@ -9,7 +9,7 @@ exports.createBarChart = async function (req, res) {
     if (req.file && req.body.barChartKeys) {
 
         try {
-            let chartData = await announcementService.createBarChart(req.file, JSON.parse(req.body.barChartKeys));
+            let chartData = await chartsService.createBarChart(req.file, JSON.parse(req.body.barChartKeys));
 
             res.status(200).send({
                 success: true,
@@ -31,11 +31,37 @@ exports.createBarChart = async function (req, res) {
     }
 };
 
+exports.createDonutChart = async function (req, res) {
+  if (req.file && req.body.donutChartKeys) {
+      try {
+          let chartData = await chartsService.createDonutChart(req.file, JSON.parse(req.body.donutChartKeys));
+
+          res.status(200).send({
+              success: true,
+              payload: chartData,
+              message: "Donut Chart created",
+          })
+      } catch (error) {
+          res.status(500).send({
+              success: false,
+              message: "Something went wrong",
+          })
+      }
+
+  } else {
+      res.status(400).send({
+          success: false,
+          message: "Not enough data provided",
+      })
+  }
+
+};
+
 
 exports.createPieChart = async function (req, res) {
     console.log("xyz");
     if (req.file && req.body.pieChartKeys) {
-        let htmlFile = await announcementService.createPieChart(req.file, JSON.parse(req.body.pieChartKeys));
+        let htmlFile = await chartsService.createPieChart(req.file, JSON.parse(req.body.pieChartKeys));
         res.status(200).send({
             success: true,
             payload: htmlFile,
@@ -53,7 +79,7 @@ exports.createPieChart = async function (req, res) {
 exports.createLineChart = async function (req, res) {
     if (req.file && req.body.lineChartKeys) {
         let htmlFile = await
-            announcementService.createLineChart(req.file, JSON.parse(req.body.lineChartKeys));
+            chartsService.createLineChart(req.file, JSON.parse(req.body.lineChartKeys));
         res.status(200).send({
             success: true,
             payload: htmlFile,
@@ -65,7 +91,7 @@ exports.createLineChart = async function (req, res) {
 exports.createPieChart = async function (req, res) {
     console.log("xyz");
     if (req.file && req.body.pieChartKeys) {
-        let htmlFile = await announcementService.createPieChart(req.file, JSON.parse(req.body.pieChartKeys));
+        let htmlFile = await chartsService.createPieChart(req.file, JSON.parse(req.body.pieChartKeys));
         res.status(200).send({
             success: true,
             payload: htmlFile,
@@ -83,7 +109,7 @@ exports.createPieChart = async function (req, res) {
 
 exports.createLineChart = async function (req, res) {
     if (req.file && req.body.lineChartKeys) {
-        let htmlFile = await announcementService.createLineChart(req.file, JSON.parse(req.body.lineChartKeys));
+        let htmlFile = await chartsService.createLineChart(req.file, JSON.parse(req.body.lineChartKeys));
         res.status(200).send({
             success: true,
             payload: htmlFile,
@@ -119,7 +145,7 @@ exports.createLineChart = async function (req, res) {
 exports.saveGeneratedChart = async function (req, res) {
     if (req.body.fileName && req.body.chart) {
         try {
-            let result = await announcementService.saveChart(req.body, req.header('x-access-token'));
+            let result = await chartsService.saveChart(req.body, req.header('x-access-token'));
             if (result === 1) {
                 res.status(200).json({
                     success: true,
@@ -146,7 +172,7 @@ exports.saveGeneratedChart = async function (req, res) {
 exports.getCharts = async function (req, res) {
     try {
 
-        let allCharts = await announcementService.getCharts(req.header('x-access-token'));
+        let allCharts = await chartsService.getCharts(req.header('x-access-token'));
 
         res.status(200).json({
             success: true,

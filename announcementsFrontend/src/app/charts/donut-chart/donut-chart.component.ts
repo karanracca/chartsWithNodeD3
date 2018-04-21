@@ -19,13 +19,13 @@ export class DonutChartComponent implements OnInit {
 
   ngOnInit() {
     this.donutChartForm = new FormGroup({
-      xaxis: new FormControl('', [<any>Validators.required]),
-      yaxis: new FormControl('', [<any>Validators.required]),
+      label: new FormControl('', [<any>Validators.required]),
+      values: new FormControl('', [<any>Validators.required]),
     });
   }
 
   onSubmit(selectedValues , isValid: boolean) {
-    if (isValid && selectedValues.xaxis !== selectedValues.yaxis) {
+    if (isValid && selectedValues.label !== selectedValues.values) {
       console.log(selectedValues);
       this.chartService.createDonutChart(selectedValues, this.file).subscribe((data) => {
         console.log(data);

@@ -111,7 +111,7 @@ export class ChartService {
         if (result.success) {
           return result;
         }
-      });
+      }).pipe(catchError(this.handleError.bind(this)));
 
   }
 }

@@ -31,29 +31,29 @@
 
               <div class="col-sm-7">
                 <mat-form-field>
-                  <mat-select formControlName="xaxis" placeholder="X-Axis Value">
+                  <mat-select formControlName="label" placeholder="Label">
                     <mat-option *ngFor="let field of this.fileData.meta.fields" [value]="field">
                       {{ field }}
                     </mat-option>
                   </mat-select>
-                  <mat-error *ngIf="donutChartForm.controls.xaxis.invalid">X-Axis is required</mat-error>
+                  <mat-error *ngIf="donutChartForm.controls.label.invalid">Label is required</mat-error>
                 </mat-form-field>
               </div>
             </div>
 
             <div class="row">
               <div class="col-sm-5 field-label">
-                <span>Select value for Y-Axis on Donut chart</span>
+                <span>Select value for Values on Donut chart</span>
               </div>
 
               <div class="col-sm-7">
                 <mat-form-field>
-                  <mat-select formControlName="yaxis" placeholder="Y-Axis Value">
+                  <mat-select formControlName="values" placeholder="Values">
                     <mat-option *ngFor="let field of this.fileData.meta.fields" [value]="field">
                       {{ field }}
                     </mat-option>
                   </mat-select>
-                  <mat-error *ngIf="donutChartForm.controls.yaxis.invalid">Y-Axis is required</mat-error>
+                  <mat-error *ngIf="donutChartForm.controls.values.invalid">Values is required</mat-error>
                 </mat-form-field>
               </div>
             </div>

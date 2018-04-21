@@ -42,4 +42,6 @@ router.use(function (req, res, next) {
 
 router.delete('/deleteUser/:id', userController.deleteUser);
 
+router.post('/updateUser/:id', userController.updateUser);
+
 module.exports = router;

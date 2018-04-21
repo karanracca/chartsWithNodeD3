@@ -15,7 +15,7 @@ const app = express();
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var announcementsRouter = require('./routes/announcementsRouter');
+var announcementsRouter = require('./routes/chartsRouter');
 
 var port = process.env.PORT || 8080;
 

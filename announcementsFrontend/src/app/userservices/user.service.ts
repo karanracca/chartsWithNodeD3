@@ -78,13 +78,18 @@ export class UserServices {
       .pipe(catchError(this.handleError));
   }
 
-  updateUser(userInfo: User) {
-    console.log('called');
+  updateUser(user: User) {
     const httpOptions = {
-      headers: this.appConstants.headers
+      headers: this.appConstants.privateHeaders
     };
 
-    return this.http.post(`${this.appConstants.USER_ENDPOINT}/updateUser`, userInfo, httpOptions).pipe(catchError(this.handleError));
+    return this.http.post(`${this.appConstants.USER_ENDPOINT}/updateUser/${user._id}`, user, httpOptions).map((result: any) => {
+      if (result.success) {
+        console.log(result);
+        localStorage.setItem('user', JSON.stringify(result.payload.userObject));
+        return result;
+      }
+    }).pipe(catchError(this.handleError));
   }
 
   isAuthenticated() {

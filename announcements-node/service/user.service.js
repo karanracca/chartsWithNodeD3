@@ -2,6 +2,7 @@ const DBService = require('../shared/db.service');
 const {DBNAME, USER_COLLECTION} = require('../shared/app-constants');
 const mailer = require('../shared/mailer.service');
 const generator = require('generate-password');
+const ObjectID = require('mongodb').ObjectID;
 
 exports.forgotPassword = async function (email) {
 
@@ -29,17 +30,45 @@ exports.forgotPassword = async function (email) {
 
                 console.log('Update Status', updateStatus);
 
-                if (updateStatus.ok === 1) {
-                    return true;
-                }
-
+                if (updateStatus.ok === 1) return true;
             }
-
         } else {
             throw new Error("This email Id is not registered with us. Please enter the correct one");
         }
+    } catch (err) { throw err };
+};
 
-    } catch (err) {
-        throw err;
+exports.updateUser =  async function (user, id) {
+
+    try {
+
+        let updatedUser = {
+            username: user.username,
+            password: user.password,
+            firstName: user.firstname,
+            lastName: user.lastname,
+            email: user.email,
+            phone: user.phone,
+            role: user.role,
+            credits: user.credits
+        };
+
+        let result = await DBService.replaceOne({_id: ObjectID(id)}, DBNAME, USER_COLLECTION, updatedUser);
+        console.log("Outside", result);
+        if (result.ok === 1) {
+            console.log("Inside");
+            let userData = await DBService.findOne({_id: ObjectID(id)}, DBNAME, USER_COLLECTION);
+            console.log('userData', userData);
+            if (userData) {
+                return {userObject:userData};
+            } else {
+                throw new Error("Updated user not found");
+            }
+        } else {
+            throw new Error("Unable to update user details");
+        }
+    } catch (error) {
+        throw error;
     }
+
 };

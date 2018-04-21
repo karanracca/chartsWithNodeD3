@@ -2,7 +2,7 @@
 const jwt = require('jsonwebtoken');
 const {SECRET} = require('../shared/app-constants');
 const router = require('express').Router();
-const announcementController = require('../controller/announcement.controller');
+const chartsController = require('../controller/charts.controller');
 const multer = require('multer');
 const uploadFile = multer();
 
@@ -34,14 +34,16 @@ router.use(function (req, res, next) {
     }
 });
 
-router.post('/createPieChart', uploadFile.single('file'), announcementController.createPieChart);
+router.post('/createPieChart', uploadFile.single('file'), chartsController.createPieChart);
 
-router.post('/createBarChart', uploadFile.single('file'), announcementController.createBarChart);
+router.post('/createBarChart', uploadFile.single('file'), chartsController.createBarChart);
 
-router.post('/createLineChart', uploadFile.single('file'), announcementController.createLineChart);
+router.post('/createLineChart', uploadFile.single('file'), chartsController.createLineChart);
 
-router.post('/saveChart', announcementController.saveGeneratedChart);
+router.post('/createDonutChart', uploadFile.single('file'), chartsController.createDonutChart);
 
-router.get('/getAllCharts', announcementController.getCharts);
+router.post('/saveChart', chartsController.saveGeneratedChart);
+
+router.get('/getAllCharts', chartsController.getCharts);
 
 module.exports = router;
