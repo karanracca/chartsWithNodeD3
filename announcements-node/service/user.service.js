@@ -60,7 +60,7 @@ exports.updateUser =  async function (user, id) {
             let userData = await DBService.findOne({_id: ObjectID(id)}, DBNAME, USER_COLLECTION);
             console.log('userData', userData);
             if (userData) {
-                return {userObject:userData};
+                return userData;
             } else {
                 throw new Error("Updated user not found");
             }

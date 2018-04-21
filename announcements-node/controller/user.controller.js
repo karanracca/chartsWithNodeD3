@@ -128,16 +128,16 @@ exports.resetPassword = async function (req, res) {
     }
 };
 
-exports.updateUser = function (req, res) {
+exports.updateUser = async function (req, res) {
     if (req.params.id) {
 
         try {
-            let result = userService.updateUser(req.body, req.params.id);
-
+            let result = await userService.updateUser(req.body, req.params.id);
+            console.log('final', result);
             if (result) {
                 res.status(200).send({
                     success: true,
-                    payload: result,
+                    payload: {userObject : result},
                     message: "User data updated successfully"
                 });
             }

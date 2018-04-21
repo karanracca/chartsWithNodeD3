@@ -34,6 +34,9 @@ import { DonutChartComponent } from './charts/donut-chart/donut-chart.component'
 import { UpdateAccountComponent } from './userservices/update-account/update-account.component';
 import { ResetPasswordComponent } from './userservices/reset-password/reset-password.component';
 
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import { EditorAreaComponent } from './announcements/editor-area/editor-area.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,6 +55,7 @@ import { ResetPasswordComponent } from './userservices/reset-password/reset-pass
     DonutChartComponent,
     UpdateAccountComponent,
     ResetPasswordComponent,
+    EditorAreaComponent,
   ],
   imports: [
     HttpClientModule,
@@ -62,7 +66,9 @@ import { ResetPasswordComponent } from './userservices/reset-password/reset-pass
     FormsModule,
     ReactiveFormsModule,
     PapaParseModule,
-    Ng2FileInputModule.forRoot()
+    Ng2FileInputModule.forRoot(),
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot()
   ],
   providers: [
     UserServices,

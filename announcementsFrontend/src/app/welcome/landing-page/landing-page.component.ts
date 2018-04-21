@@ -22,7 +22,7 @@ export class LandingPageComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  updateForm(){
+  updateForm() {
     this.router.navigate(['/welcome/updateAccount']);
   }
 }
