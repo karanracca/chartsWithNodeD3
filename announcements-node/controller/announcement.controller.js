@@ -36,12 +36,19 @@ exports.createBarChart = async function (req, res) {
 exports.createPieChart = async function (req, res) {
     console.log("xyz");
     if (req.file && req.body.pieChartKeys) {
-        let chartData = await announcementService.createPieChart(req.file, JSON.parse(req.body.pieChartKeys));
-        res.status(200).send({
-            success: true,
-            payload: htmlFile,
-            message: "Chart created",
-        })
+        try {
+            let chartData = await announcementService.createPieChart(req.file, JSON.parse(req.body.pieChartKeys));
+            res.status(200).send({
+                success: true,
+                payload: chartData,
+                message: "Pie Chart created",
+            })
+        } catch (error) {
+            res.status(500).send({
+                success: false,
+                message: "Something went wrong",
+            })
+        }
 
     } else {
         res.status(400).send({

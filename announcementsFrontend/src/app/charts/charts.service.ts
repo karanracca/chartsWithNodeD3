@@ -53,6 +53,7 @@ export class ChartService {
   }
 
   createPieChart (values, file) {
+    this.spinner.showSpinner.next(true);
     const httpOptions = {
       headers : new HttpHeaders({'x-access-token': localStorage.getItem('secretToken')})
     };
@@ -64,10 +65,11 @@ export class ChartService {
     return this.http.post( `${this.appConstants.CHART_ENDPOINT}/createPieChart`, formData, httpOptions)
       .map((result: any) => {
         if (result.success) {
-          return result;
-        }
-      });
+          this.spinner.showSpinner.next(false);
+          return result.payload;
 
+        }
+      }).pipe(catchError(this.handleError.bind(this)));
   }
 
   createLineChart (values, file) {

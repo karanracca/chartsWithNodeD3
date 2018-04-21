@@ -42,8 +42,8 @@ exports.createBarChart = function (file, keys) {
 
 //function to create pie chart
 exports.createPieChart = function (file,keys) {
-
     return new Promise((resolve, reject) =>{
+
         csv.parse(file.buffer, function(err, data){
             if (err) throw err;
             csv.stringify(data, function(err, stringData) {
@@ -54,8 +54,9 @@ exports.createPieChart = function (file,keys) {
                         value: parsedData[keys.yaxis]
                     };
                 });
-                createFile('./chartsOutput/pieChart', d3nPie({data:d3parsedData})).then((htmlFile) => {
-                    resolve(htmlFile);
+                let timestamp = Date.now();
+                createFile(`./chartsOutput/pieChart${timestamp}`, d3nPie({data:d3parsedData})).then((chart) => {
+                    resolve({chart, fileName : `pieChart${timestamp}`});
                 }).catch(error => {
                     console.log(error);
                     reject(error);
