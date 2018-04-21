@@ -5,6 +5,7 @@ const d3nLine = require('d3node-linechart');
 const d3 = require('d3-node')().d3;
 const parseTime = d3.timeParse('%d-%b-%y');
 
+//Code to  create bar chart
 exports.createBarChart = async function (req, res) {
     if (req.file && req.body.barChartKeys) {
 
@@ -31,7 +32,7 @@ exports.createBarChart = async function (req, res) {
     }
 };
 
-
+//code to create pie chart
 exports.createPieChart = async function (req, res) {
     console.log("xyz");
     if (req.file && req.body.pieChartKeys) {
@@ -50,37 +51,7 @@ exports.createPieChart = async function (req, res) {
     }
 };
 
-exports.createLineChart = async function (req, res) {
-    if (req.file && req.body.lineChartKeys) {
-        let htmlFile = await
-            announcementService.createLineChart(req.file, JSON.parse(req.body.lineChartKeys));
-        res.status(200).send({
-            success: true,
-            payload: htmlFile,
-            message: "Chart created",
-        })
-    }
-}
-
-exports.createPieChart = async function (req, res) {
-    console.log("xyz");
-    if (req.file && req.body.pieChartKeys) {
-        let htmlFile = await announcementService.createPieChart(req.file, JSON.parse(req.body.pieChartKeys));
-        res.status(200).send({
-            success: true,
-            payload: htmlFile,
-            message: "Chart created",
-        })
-
-    } else {
-        res.status(400).send({
-            success: false,
-            message: "Incorrect data provided",
-        })
-    }
-};
-
-
+//code to create line chart
 exports.createLineChart = async function (req, res) {
     if (req.file && req.body.lineChartKeys) {
         let htmlFile = await announcementService.createLineChart(req.file, JSON.parse(req.body.lineChartKeys));
@@ -115,7 +86,7 @@ exports.createLineChart = async function (req, res) {
 //     });
 // };
 
-
+//code to save the generated charts
 exports.saveGeneratedChart = async function (req, res) {
     if (req.body.fileName && req.body.chart) {
         try {
@@ -143,6 +114,7 @@ exports.saveGeneratedChart = async function (req, res) {
     }
 };
 
+//code to get the charts from the history
 exports.getCharts = async function (req, res) {
     try {
 

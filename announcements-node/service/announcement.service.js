@@ -10,6 +10,8 @@ const commonService = require('./common.service');
 const DBService = require('../shared/db.service');
 const {DBNAME, CHARTS_COLLECTION, USER_COLLECTION} = require('../shared/app-constants');
 
+
+//function to create bar chart
 exports.createBarChart = function (file, keys) {
     return new Promise((resolve, reject) => {
         //Parse Csv File
@@ -38,6 +40,7 @@ exports.createBarChart = function (file, keys) {
     });
 };
 
+//function to create pie chart
 exports.createPieChart = function (file,keys) {
 
     return new Promise((resolve, reject) =>{
@@ -62,7 +65,7 @@ exports.createPieChart = function (file,keys) {
     });
 };
 
-
+//function to create line chart
 exports.createLineChart = function (file, keys) {
 
     return new Promise((resolve, reject) => {
@@ -90,6 +93,7 @@ exports.createLineChart = function (file, keys) {
     });
 };
 
+//function to save the chart
 exports.saveChart = async function (chartData, token) {
     try {
         let userInfo = await commonService.decodeToken(token);
@@ -108,6 +112,7 @@ exports.saveChart = async function (chartData, token) {
     }
 };
 
+//function to get the chart from it's history
 exports.getCharts = async function (token) {
     try {
         let userInfo = await commonService.decodeToken(token);
