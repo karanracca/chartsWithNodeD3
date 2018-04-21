@@ -25,10 +25,14 @@ import {NotificationService} from './shared/notification.service';
 import {AuthGard} from './shared/auth-gaurd.service';
 import {Ng2FileInputModule} from 'ng2-file-input';
 import {PieChartComponent} from './charts/pie-chart/pie-chart.component';
+import {SpinnerService} from './shared/spinner.service';
+import { ChartResultComponent } from './charts/chart-result/chart-result.component';
+import { CreateAnnouncementsComponent } from './announcements/create-announcements/create-announcements.component';
+import { AnnouncementsSidebarComponent } from './announcements/announcements-sidebar/announcements-sidebar.component';
+import {AnnouncementService} from './announcements/announcement.service';
 import { DonutChartComponent } from './charts/donut-chart/donut-chart.component';
 import { UpdateAccountComponent } from './userservices/update-account/update-account.component';
-
-
+import { ResetPasswordComponent } from './userservices/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -42,8 +46,12 @@ import { UpdateAccountComponent } from './userservices/update-account/update-acc
     BarChartComponent,
     PieChartComponent,
     LineChartComponent,
+    ChartResultComponent,
+    CreateAnnouncementsComponent,
+    AnnouncementsSidebarComponent,
     DonutChartComponent,
-    UpdateAccountComponent
+    UpdateAccountComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     HttpClientModule,
@@ -61,7 +69,9 @@ import { UpdateAccountComponent } from './userservices/update-account/update-acc
     AppConstants,
     ChartService,
     NotificationService,
-    AuthGard
+    AuthGard,
+    SpinnerService,
+    AnnouncementService
   ],
   bootstrap: [AppComponent]
 })

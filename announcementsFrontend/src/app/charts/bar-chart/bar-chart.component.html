@@ -68,9 +68,12 @@
     </div>
   </div>
 
-  <div>
+
+  <app-chart-result *ngIf="chartData" [chartData]="chartData"></app-chart-result>
+
+  <!--<div>
     <img src="{{html}}"/>
-  </div>
+  </div>-->
 </div>
 
 
