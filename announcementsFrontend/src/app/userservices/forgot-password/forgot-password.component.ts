@@ -1,17 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from "@angular/forms";
-import { ErrorStateMatcher } from "@angular/material/core";
-import { UserServices } from "../user.service";
-import {Router} from "@angular/router";
-import {NotificationService} from "../../shared/notification.service";
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { UserServices } from '../user.service';
+import {Router} from '@angular/router';
+import {NotificationService} from '../../shared/notification.service';
 
-// /** Error when invalid control is dirty, touched, or submitted. */
-// export class MyErrorStateMatcher implements ErrorStateMatcher {
-//   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-//     const isSubmitted = form && form.submitted;
-//     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-//   }
-// }
 
 @Component({
   selector: 'app-forgot-password',
@@ -32,8 +24,6 @@ export class ForgotPasswordComponent implements OnInit {
       emailFormControl: new FormControl('', [Validators.required, Validators.email])
     });
   }
-
-  // matcher = new MyErrorStateMatcher();
 
   getEmailErrorMessage() {
     return this.resetPasswordForm.controls.email.hasError('required') ? 'You must enter a value' :

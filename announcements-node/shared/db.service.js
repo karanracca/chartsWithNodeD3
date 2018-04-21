@@ -55,6 +55,23 @@ exports.findOne = async function (query, dbName, collectionName) {
     }
 };
 
+exports.findOneAndUpdate = async function (query, dbName, collectionName, data) {
+    try {
+        const client = await this.connect();
+        const db = client.db(dbName);
+        return new Promise((resolve, reject)=> {
+            db.collection(collectionName).findOneAndUpdate(query, data, function (err, r) {
+                assert.equal(null, err);
+                console.log(`Result for query`, r);
+                resolve(r);
+            });
+        })
+    } catch (e) {
+        console.log(e);
+        throw Error('No results in the database');
+    }
+};
+
 exports.find = async function (query, dbName, collectionName) {
     try {
         const client = await this.connect();

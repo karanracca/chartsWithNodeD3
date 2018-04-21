@@ -71,16 +71,11 @@ export class UserServices {
     };
 
     const body = {
-      'emailFormControl': emailFormControl
-    }
+      'email': emailFormControl
+    };
 
     return this.http.post(`${this.appConstants.USER_ENDPOINT}/resetPassword`, body, httpOptions)
-      .map((result: any) => {
-        if(result.success) {
-          console.log(result);
-          return result;
-        }
-      }).pipe(catchError(this.handleError));
+      .pipe(catchError(this.handleError));
   }
 
   updateUser(userInfo: User) {

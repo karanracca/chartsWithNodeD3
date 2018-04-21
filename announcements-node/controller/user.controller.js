@@ -3,8 +3,8 @@ const DBService = require('../shared/db.service');
 const jwt = require('jsonwebtoken');
 const ObjectID = require('mongodb').ObjectID;
 const nodemailer = require('nodemailer');
-const generator = require('generate-password');
 
+const userService = require('../service/user.service');
 
 exports.createUser = function (req, res) {
 
@@ -122,9 +122,36 @@ exports.deleteUser = function (req, res) {
     });
 };
 
-exports.resetPassword = function (req, res) {
-    DBService.findOne({email: req.body.emailFormControl}, DBNAME, 'users').then(function (userObject) {
-        if(userObject.email === req.body.emailFormControl) {
+exports.resetPassword = async function (req, res) {
+
+    if (req.body.email) {
+        try {
+            let result = await userService.forgotPassword(req.body.email);
+
+            if (result) {
+                res.status(200).send({
+                    success: true,
+                    message: "A temporary password has been sent to your registered email Id"
+                });
+            }
+        } catch (error) {
+            res.status(400).send({
+                success: false,
+                message: error.message
+            });
+        }
+    } else {
+        return res.status(400).send({
+            success: false,
+            message: 'Incorrect parameters passed'
+        });
+    }
+
+
+
+
+   /* DBService.findOne({email: req.body.email}, DBNAME, 'users').then(function (userObject) {
+        if(userObject.email === req.body.email) {
 
             var transporter = nodemailer.createTransport({
                 service: 'gmail',
@@ -156,13 +183,13 @@ exports.resetPassword = function (req, res) {
                 }
             });
 
-            /*let userInfo = {
+            /!*let userInfo = {
                 password: userObject.password
 
             };
 
 
-            DBService.updateOne({$set: {password: newPassword}}, DBNAME);*/
+            DBService.updateOne({$set: {password: newPassword}}, DBNAME);*!/
 
           res.status(200).send({
               success: true,
@@ -175,7 +202,7 @@ exports.resetPassword = function (req, res) {
                 message: 'This email Id is not registered with us. Please enter the correct one'
             });
         }
-    });
+    });*/
 };
 
 exports.updateUser = function (req, res) {
