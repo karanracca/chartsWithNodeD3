@@ -2,7 +2,10 @@ const {USER_ROLE, DBNAME, SECRET, USER_COLLECTION} = require('../shared/app-cons
 const DBService = require('../shared/db.service');
 const jwt = require('jsonwebtoken');
 const ObjectID = require('mongodb').ObjectID;
-const nodemailer = require('nodemailer');
+var nodemailer = require('nodemailer');
+var accountSid = 'ACbdc6403769edfc193cc8cc9799def491';
+var authToken = '1b514df52af8fbcb2dfd85bc05114c54';
+const client = require('twilio')(accountSid, authToken);
 const generator = require('generate-password');
 
 //Function to create a new user
@@ -58,6 +61,12 @@ exports.createUser = function (req, res) {
                     } else {
                         console.log('Email sent: ' + info.response);
                     }
+                });
+
+                client.messages.create({
+                    body: "Dear User,\nThank You for registering with us.",
+                    to: '+18573188747',
+                    from: '+13396746626'
                 });
                 res.status(200).json({
                     success: true,
