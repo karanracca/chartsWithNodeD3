@@ -8,10 +8,10 @@ var authToken = '1b514df52af8fbcb2dfd85bc05114c54';
 const client = require('twilio')(accountSid, authToken);
 const generator = require('generate-password');
 
-
+//Function to create a new user
 exports.createUser = function (req, res) {
 
-    DBService.findOne({$or: [{username: req.body.username}, {email: req.body.email}]}, DBNAME, 'users').then(function (userObject){
+    DBService.findOne({$or: [{username: req.body.username}, {email: req.body.email}]}, DBNAME, 'users').then(function (userObject) {
         if (userObject) {
             if (userObject.email === req.body.email) {
                 return res.status(500).send({
@@ -51,10 +51,10 @@ exports.createUser = function (req, res) {
                     from: 'acharya.rupesh0@gmail.com',
                     to: req.body.email,
                     subject: 'Greetings from Announcments',
-                    text: 'Dear ' +req.body.username + ',\nThank you for registering with us you can now make charts using your credits.\n\nRegards,\nAnnouncemnts Team'
+                    text: 'Dear ' + req.body.username + ',\nThank you for registering with us you can now make charts using your credits.\n\nRegards,\nAnnouncemnts Team'
                 };
 
-                transporter.sendMail(mailOptions, function(error, info){
+                transporter.sendMail(mailOptions, function (error, info) {
                     console.log(mailOptions);
                     if (error) {
                         console.log(error);
@@ -75,7 +75,7 @@ exports.createUser = function (req, res) {
             }).catch(function (error) {
                 console.log('Unable to add user', error);
                 res.status(400).json({
-                    success:false,
+                    success: false,
                     message: error.message
                 })
             })
@@ -83,6 +83,7 @@ exports.createUser = function (req, res) {
     });
 };
 
+//Function to verify the valid user while logging
 exports.authenticateUser = function (req, res) {
     DBService.findOne({username: req.body.username}, DBNAME, 'users').then(function (userObject) {
         if (userObject) {
@@ -113,6 +114,7 @@ exports.authenticateUser = function (req, res) {
     });
 };
 
+//Code to delete the user
 exports.deleteUser = function (req, res) {
     console.log('ID', req.params.id);
     DBService.deleteOne({_id: ObjectID(req.params.id)}, DBNAME, 'users').then(function (result) {
@@ -131,9 +133,10 @@ exports.deleteUser = function (req, res) {
     });
 };
 
+//Function to reset the password
 exports.resetPassword = function (req, res) {
     DBService.findOne({email: req.body.emailFormControl}, DBNAME, 'users').then(function (userObject) {
-        if(userObject.email === req.body.emailFormControl) {
+        if (userObject.email === req.body.emailFormControl) {
 
             var transporter = nodemailer.createTransport({
                 service: 'gmail',
@@ -153,10 +156,10 @@ exports.resetPassword = function (req, res) {
                 from: 'youremail@gmail.com',
                 to: req.body.emailFormControl,
                 subject: 'Reset Password Mail',
-                text: 'Your new password is '+newPassword
+                text: 'Your new password is ' + newPassword
             };
 
-            transporter.sendMail(mailOptions, function(error, info){
+            transporter.sendMail(mailOptions, function (error, info) {
                 console.log(mailOptions);
                 if (error) {
                     console.log(error);
@@ -173,10 +176,10 @@ exports.resetPassword = function (req, res) {
 
             DBService.updateOne({$set: {password: newPassword}}, DBNAME);*/
 
-          res.status(200).send({
-              success: true,
-              message: 'A temporary password has been sent to your registered email Id'
-          })
+            res.status(200).send({
+                success: true,
+                message: 'A temporary password has been sent to your registered email Id'
+            })
         } else {
             console.log("Hiii");
             return res.status(500).send({
@@ -187,10 +190,12 @@ exports.resetPassword = function (req, res) {
     });
 };
 
+//Function to update user
 exports.updateUser = function (req, res) {
 
-    DBService.findOne({$or: [{username: req.body.username}, {email: req.body.email}]}, DBNAME, 'users').then(function (userObject){
-            let userInfo = {
+    DBService.findOne({$or: [{username: req.body.username}, {email: req.body.email}]}, DBNAME, 'users').then(function (userObject) {
+        let userInfo = {
+            $set: {
                 username: req.body.username,
                 password: req.body.password,
                 firstName: req.body.firstname,
@@ -199,10 +204,11 @@ exports.updateUser = function (req, res) {
                 phone: req.body.phone,
                 role: USER_ROLE,
                 credits: 10
-            };
+            }
+        };
 
-            DBService.updateOne(userInfo, DBNAME).then(function () {
-                console.log('User updated Successfully');
-            })
+        DBService.updateOne(userInfo, DBNAME).then(function () {
+            console.log('User updated Successfully');
+        })
     });
 };
