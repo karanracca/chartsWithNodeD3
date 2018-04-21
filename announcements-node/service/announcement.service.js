@@ -82,8 +82,9 @@ exports.createLineChart = function (file, keys) {
                         value: parsedData[keys.yaxis]
                     };
                 });
-                createFile('./chartsOutput/lineChart', d3nLine({data: d3parsedData})).then((htmlFile) => {
-                    resolve(htmlFile);
+                let timestamp = Date.now();
+                createFile(`./chartsOutput/lineChart${timestamp}`, d3nLine({data: d3parsedData})).then((chart) => {
+                    resolve({chart, fileName : `lineChart${timestamp}`});
                 }).catch(error => {
                     console.log(error);
                     reject(error);

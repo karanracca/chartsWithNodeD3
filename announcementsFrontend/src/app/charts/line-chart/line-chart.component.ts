@@ -1,7 +1,8 @@
 import {Component, OnInit, ViewEncapsulation } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {PapaParseService} from "ngx-papaparse";
-import {ChartService} from "../charts.service";
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {PapaParseService} from 'ngx-papaparse';
+import {ChartService} from '../charts.service';
+import {SpinnerService} from '../../Shared/spinner.service';
 
 @Component({
   selector: 'app-line-chart',
@@ -15,9 +16,11 @@ export class LineChartComponent implements OnInit {
   fileData: any;
   file: File;
   showDataFields = false;
-  html: any;
+  chart: any;
+  chartData: any;
 
-  constructor(private papa: PapaParseService, private chartService: ChartService) { }
+  constructor(private papa: PapaParseService,
+              private chartService: ChartService) { }
 
   ngOnInit() {
     this.lineChartForm = new FormGroup({
@@ -31,7 +34,10 @@ export class LineChartComponent implements OnInit {
       console.log(selectedValues);
       this.chartService.createLineChart(selectedValues, this.file).subscribe((data: any) => {
         console.log(data);
-        this.html = `data:image/png;base64,${data.payload}`;
+        this.chartData = data;
+        this.chartData.chart = `data:image/png;base64,${data.chart}`;
+
+
       });
     }
   }

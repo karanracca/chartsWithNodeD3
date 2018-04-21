@@ -9,7 +9,7 @@ import {AnnouncementService} from '../announcement.service';
 })
 export class AnnouncementsSidebarComponent implements OnInit {
 
-  allCharts: Array = [];
+  allCharts: Array<1> = [];
 
   constructor(private annService: AnnouncementService) { }
 
