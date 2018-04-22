@@ -6,7 +6,9 @@ export class AppConstants {
 
   readonly USER_ENDPOINT: string = `${AppConstants.BASE_ENDPOINT}/users`;
 
-  readonly CHART_ENDPOINT: string = `${AppConstants.BASE_ENDPOINT}/announcements`;
+  readonly CHART_ENDPOINT: string = `${AppConstants.BASE_ENDPOINT}/charts`;
+
+  readonly ANNOUNCEMENT_ENDPOINT: string = `${AppConstants.BASE_ENDPOINT}/announcements`;
 
   readonly headers: HttpHeaders = new HttpHeaders({
       'Content-Type': 'application/json'

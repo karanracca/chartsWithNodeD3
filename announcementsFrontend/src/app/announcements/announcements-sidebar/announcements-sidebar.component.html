@@ -1,17 +1,69 @@
-<div *ngIf="allCharts.length > 0">
-  <div *ngFor="let chart of allCharts" class="chart-card container">
-    <div class="row">
-      <div class="col-sm-3">
-        <img src="{{chart.chart}}" class="img-thumbnail"/>
-      </div>
-      <div class="col-sm-9">
+<div class="sidebar">
+<!--For saved charts-->
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title class="accordion-title">
+        Select from Saved Charts
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <span class="drag-drop-text">To add charts, drag and drop charts to editor</span>
+
+    <div *ngIf="allCharts.length > 0">
+      <div *ngFor="let chart of allCharts" class="chart-card container">
         <div class="row">
-          {{chart.chartName}}
-        </div>
-        <div class="row">
-          Time
+          <div class="col-sm-5">
+            <img src="{{chart.chart}}" class="img-thumbnail"/>
+          </div>
+          <div class="col-sm-7">
+            <div class="row">
+              <span class="name">{{chart.chartName}}</span>
+            </div>
+            <div class="row">
+              <span class="time">Time</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+
+  </mat-expansion-panel>
+</mat-accordion>
+
+
+<!--For receivers-->
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title class="accordion-title">
+          Select receivers
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div class="enter-email">
+        <div>Enter email address of receivers</div>
+      </div>
+
+      <div>
+        <form>
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Email" [formControl]="emailFormControl">
+            <button mat-button matSuffix mat-icon-button aria-label="Clear">
+              <mat-icon>add circle outline</mat-icon>
+            </button>
+            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+              Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="emailFormControl.hasError('required')">
+              Email is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </form>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>
+
+
+

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AnnouncementService} from '../announcement.service';
 
 @Component({
   selector: 'app-editor-area',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditorAreaComponent implements OnInit {
 
-  constructor() { }
+  constructor(private announceService: AnnouncementService) { }
 
   editorContent = 'Enter announcement content here!!!';
 
@@ -15,7 +16,9 @@ export class EditorAreaComponent implements OnInit {
   }
 
   createAnnouncement() {
-    
+    this.announceService.createAnnouncement(this.editorContent).subscribe((data: any) => {
+      console.log(data);
+    });
   }
 
 }

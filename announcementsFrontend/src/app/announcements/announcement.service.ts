@@ -40,4 +40,22 @@ export class AnnouncementService {
       .pipe(catchError(this.handleError.bind(this)));
 
   }
+
+  createAnnouncement(editorContent) {
+    const httpOptions = {
+      headers : this.appConstants.privateHeaders
+    };
+
+    let body = {
+      editorContent
+    };
+
+    return this.http.post( `${this.appConstants.ANNOUNCEMENT_ENDPOINT}/createAnnouncement`, body , httpOptions)
+      .map((result: any) => {
+        if (result.success) {
+          return result;
+        }
+      })
+      .pipe(catchError(this.handleError.bind(this)));
+  }
 }

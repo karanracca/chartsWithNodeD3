@@ -1,12 +1,13 @@
 const {EMAIL_FROM} = require('../shared/app-constants');
 const nodemailer = require('nodemailer');
 
-exports.createMailConfiguration = function (to, subject, text) {
+exports.createMailConfiguration = function (to, subject, text, html) {
     return  {
         from: EMAIL_FROM,
         to: to,
         subject: subject,
-        text: text
+        text: text,
+        html: html
     };
 };
 
