@@ -1,36 +1,19 @@
 <nav mat-tab-nav-bar>
   <a mat-tab-link
      [routerLink]="'./createCharts'"
-     routerLinkActive #rla="routerLinkActive"
-     [active]="'/welcome/createCharts'">
+     routerLinkActive #rlac="routerLinkActive"
+     [routerLinkActiveOptions]="{exact:true}"
+     [active]="rlac.isActive">
     Create Charts
   </a>
 
   <a mat-tab-link
-     disabled
-     [routerLink]="['getHistory']"
-     routerLinkActive #rla="routerLinkActive"
-     [active]="rla.isActive">
-    Previous Charts
+     [routerLink]="'./createAnnouncements'"
+     routerLinkActive #rlaa="routerLinkActive"
+     [routerLinkActiveOptions]="{exact:true}"
+     [active]="rlaa.isActive">
+    Create Announcements
   </a>
-
-
-  <!--<a mat-tab-link
-     class="logout"
-     (click)="logout()">
-    logout &nbsp;
-    <i class="material-icons">power_settings_new</i>
-  </a>
-
-  <a mat-tab-link
-     class="user-profile"
-     [routerLink]="['getHistory']"
-     routerLinkActive #rla="routerLinkActive"
-     [active]="rla.isActive">
-    <span class="user-name">Hi, {{user.firstname}}</span>
-    <mat-icon class="user-icon">person</mat-icon>
-  </a>-->
-
 
   <a mat-button [matMenuTriggerFor]="menu" class="user-profile menuType">Hi, {{user.firstName}}
     <mat-icon class="user-icon margin">person</mat-icon></a>

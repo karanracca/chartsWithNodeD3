@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 const {SECRET} = require('../shared/app-constants');
 const router = require('express').Router();
 const announcementController = require('../controller/announcement.controller');
-const DBService = require('../shared/db.service');
 const multer = require('multer');
 const uploadFile = multer();
 
@@ -20,18 +19,15 @@ router.use(function (req, res, next) {
         // verifies secret and checks exp
         jwt.verify(token, SECRET, function(err, decoded) {
             if (err) {
-                return res.status(400).json({status:400, success: false, message: 'Failed to authenticate token.' });
+                return res.status(400).json({success: false, message: 'Failed to authenticate token.' });
             } else {
                 // if everything is good, save to request for use in other routes
-                console.log("----------------sdfsdsd");
                 req.decoded = decoded;
-                console.log("sdfsdsd----------------");
                 next();
             }
         });
     } else {
         return res.status(403).send({
-            status: 403,
             success: false,
             message: 'No token provided.'
         });
@@ -43,5 +39,9 @@ router.post('/createPieChart', uploadFile.single('file'), announcementController
 router.post('/createBarChart', uploadFile.single('file'), announcementController.createBarChart);
 
 router.post('/createLineChart', uploadFile.single('file'), announcementController.createLineChart);
+
+router.post('/saveChart', announcementController.saveGeneratedChart);
+
+router.get('/getAllCharts', announcementController.getCharts);
 
 module.exports = router;
