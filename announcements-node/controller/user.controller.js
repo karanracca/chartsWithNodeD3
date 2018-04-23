@@ -197,3 +197,23 @@ exports.updateUser = function (req, res) {
             })
     });
 };
+
+exports.addCredits = function (req, res) {
+    DBService.findOne({credits: req.body.credits}, DBNAME, 'users').then(function (userObject) {
+        if(userObject.credits === req.body.credits) {
+
+            DBService.updateOne();
+
+            res.status(200).send({
+                success: true,
+                message: 'Credits Added!'
+            })
+        } else {
+            console.log("Hiii");
+            return res.status(500).send({
+                success: false,
+                message: 'Transaction failed. Credits could not be added'
+            });
+        }
+    });
+};
