@@ -12,6 +12,7 @@ import {CreateChartComponent} from '../charts/create-chart/create-chart.componen
 import {AuthGard} from './auth-gaurd.service';
 import {DonutChartComponent} from "../charts/donut-chart/donut-chart.component";
 import {UpdateAccountComponent} from "../userservices/update-account/update-account.component";
+import {AddCreditsComponent} from "../userservices/add-credits/add-credits.component";
 
 const appRoutes: Routes = [
 
@@ -21,7 +22,6 @@ const appRoutes: Routes = [
 
   {path: 'signup', component: SignupComponent},
   {path: 'forgotPassword', component: ForgotPasswordComponent},
-  {path: 'reset', component: ResetPasswordComponent},
 
   {
     path: 'welcome', component: LandingPageComponent, canActivate: [AuthGard] , children: [
@@ -31,7 +31,9 @@ const appRoutes: Routes = [
       {path: 'createLineCharts', component: LineChartComponent},
       {path: 'createPieCharts', component: PieChartComponent},
       {path: 'createDonutCharts', component: DonutChartComponent},
-      {path: 'updateAccount', component: UpdateAccountComponent}
+      {path: 'updateAccount', component: UpdateAccountComponent},
+      {path: 'reset', component: ResetPasswordComponent},
+      {path: 'addCredits', component: AddCreditsComponent}
     ]
   },
 ];

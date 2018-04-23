@@ -83,6 +83,24 @@ export class UserServices {
       }).pipe(catchError(this.handleError));
   }
 
+  addCredits(credits: number) {
+    const httpOptions = {
+      headers: this.appConstants.headers
+    };
+
+    const body = {
+      'credits': credits
+    }
+
+    return this.http.post(`${this.appConstants.USER_ENDPOINT}/addCredits`, body, httpOptions)
+      .map((result: any) => {
+        if(result.success) {
+          console.log(result);
+          return result;
+        }
+      }).pipe(catchError(this.handleError));
+  }
+
   updateUser(userInfo: User) {
     console.log('called');
     const httpOptions = {

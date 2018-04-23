@@ -11,6 +11,8 @@ router.post('/createUser', userController.createUser);
 
 router.post('/resetPassword', userController.resetPassword);
 
+router.post('/addCredits', userController.addCredits);
+
 //Function to validate token
 router.use(function (req, res, next) {
 
