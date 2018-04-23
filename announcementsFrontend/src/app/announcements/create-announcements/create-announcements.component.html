@@ -5,15 +5,13 @@
     <div class="container-fluid inner-container ">
       <div class="row">
         <div class="col-sm-3 no-padding">
-
-              <app-announcements-sidebar></app-announcements-sidebar>
-
-
-
+          <app-announcements-sidebar (receivers)="onReceivers($event)"></app-announcements-sidebar>
         </div>
         <div class="col-sm-9">
-          <app-editor-area></app-editor-area>
+          <app-editor-area (editorText)="setEditorText($event)"></app-editor-area>
         </div>
+
+        <button mat-raised-button disabled="{{checkValues()}}" (click)="createAnnouncement()">Create</button>
       </div>
     </div>
   </div>

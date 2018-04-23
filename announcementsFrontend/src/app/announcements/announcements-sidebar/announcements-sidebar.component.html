@@ -8,7 +8,7 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <span class="drag-drop-text">To add charts, drag and drop charts to editor</span>
+    <span class="desc-text">To add charts, drag and drop charts to editor</span>
 
     <div *ngIf="allCharts.length > 0">
       <div *ngFor="let chart of allCharts" class="chart-card container">
@@ -41,26 +41,69 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
 
-      <div class="enter-email">
-        <div>Enter email address of receivers</div>
+      <mat-radio-group class="" [(ngModel)]="receiversType">
+        <mat-radio-button class="" [value]="'input'">Enter Email</mat-radio-button>
+        <mat-radio-button class="" [value]="'file'">Upload CSV File</mat-radio-button>
+      </mat-radio-group>
+
+      {{receiversType}}
+
+      <div *ngIf="receiversType === 'input'">
+        <div class="enter-email">
+          <span class="desc-text">Enter email address of receivers</span>
+        </div>
+
+        <div>
+          <form>
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Email" [formControl]="emailFormControl">
+              <button mat-button
+                      matSuffix
+                      mat-icon-button
+                      (click)="addEmail()"
+                      disabled="{{emailFormControl.hasError('email') || emailFormControl.hasError('required')}}"
+                      aria-label="Clear">
+                <mat-icon>add circle outline</mat-icon>
+              </button>
+              <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                Please enter a valid email address
+              </mat-error>
+            </mat-form-field>
+          </form>
+        </div>
+
+        <mat-chip-list *ngIf="emailList.length > 0" #chipList>
+          <mat-chip *ngFor="let email of emailList; let i = index"
+                    [removable]="true"
+                    (remove)="removeEmail(i)">
+            {{email}}
+            <mat-icon matChipRemove >cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+
       </div>
 
-      <div>
-        <form>
-          <mat-form-field class="full-width">
-            <input matInput placeholder="Email" [formControl]="emailFormControl">
-            <button mat-button matSuffix mat-icon-button aria-label="Clear">
-              <mat-icon>add circle outline</mat-icon>
-            </button>
-            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-              Please enter a valid email address
-            </mat-error>
-            <mat-error *ngIf="emailFormControl.hasError('required')">
-              Email is <strong>required</strong>
-            </mat-error>
+
+      <div *ngIf="receiversType === 'file'">
+
+        <div class="enter-email">
+          <span class="desc-text">Upload CSV file with email list</span>
+        </div>
+
+        <app-file-selector (onFileSelected)="onFileSelected($event)"></app-file-selector>
+        <div *ngIf="showDataFields">
+          <mat-form-field >
+            <mat-select placeholder="Email Field" [(value)]="emailField">
+              <mat-option *ngFor="let field of this.fileData.meta.fields" [value]="field">
+                {{ field }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
-        </form>
+        </div>
       </div>
+
+      <button mat-button (click)="saveReceivers()">Save</button>
+
     </mat-expansion-panel>
   </mat-accordion>
 </div>

@@ -3,6 +3,7 @@ const {DBNAME, USER_COLLECTION} = require('../shared/app-constants');
 const mailer = require('../shared/mailer.service');
 const generator = require('generate-password');
 const ObjectID = require('mongodb').ObjectID;
+const common = require('./common.service');
 
 exports.forgotPassword = async function (email) {
 
@@ -41,7 +42,6 @@ exports.forgotPassword = async function (email) {
 exports.updateUser =  async function (user, id) {
 
     try {
-
         let updatedUser = {
             username: user.username,
             password: user.password,
@@ -71,4 +71,17 @@ exports.updateUser =  async function (user, id) {
         throw error;
     }
 
+};
+
+exports.getCredits = async function (token) {
+    try {
+        let userInfo = await common.decodeToken(token);
+        console.log(userInfo);
+        let result = await DBService.findOne({_id: ObjectID(userInfo.user._id)}, DBNAME, USER_COLLECTION);
+        console.log(result);
+        return result.credits;
+
+    } catch (error) {
+        throw error;
+    }
 };

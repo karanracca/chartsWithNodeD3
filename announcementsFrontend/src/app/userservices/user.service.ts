@@ -96,4 +96,20 @@ export class UserServices {
     return localStorage.getItem('secretToken') ? true : false;
   }
 
+  getCredits() {
+    const httpOptions = {
+      headers: this.appConstants.privateHeaders
+    };
+
+    return this.http.get(`${this.appConstants.USER_ENDPOINT}/getCredits/`, httpOptions).map((result: any) => {
+      if (result.success) {
+        console.log(result);
+        let user = JSON.parse(localStorage.getItem('user'));
+        user.credits = result.payload;
+        localStorage.setItem('user', JSON.stringify(user));
+        return user;
+      }
+    }).pipe(catchError(this.handleError));
+  }
+
 }

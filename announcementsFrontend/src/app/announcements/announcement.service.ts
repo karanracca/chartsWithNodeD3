@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {AppConstants} from '../shared/appConstants';
 import 'rxjs/add/operator/map';
 import {SpinnerService} from '../shared/spinner.service';
@@ -31,26 +31,28 @@ export class AnnouncementService {
       error.error.message || 'Something went wrong; please try again later.');
   }
 
-  getAllCharts () {
+  getAllCharts() {
     const httpOptions = {
-      headers : this.appConstants.privateHeaders
+      headers: this.appConstants.privateHeaders
     };
 
-    return this.http.get( `${this.appConstants.CHART_ENDPOINT}/getAllCharts`, httpOptions)
+    return this.http.get(`${this.appConstants.CHART_ENDPOINT}/getAllCharts`, httpOptions)
       .pipe(catchError(this.handleError.bind(this)));
 
   }
 
-  createAnnouncement(editorContent) {
+  createAnnouncement(receivers, editorContent) {
+
     const httpOptions = {
-      headers : this.appConstants.privateHeaders
+      headers: this.appConstants.privateHeaders
     };
 
     let body = {
-      editorContent
+      editorContent,
+      receivers,
     };
 
-    return this.http.post( `${this.appConstants.ANNOUNCEMENT_ENDPOINT}/createAnnouncement`, body , httpOptions)
+    return this.http.post(`${this.appConstants.ANNOUNCEMENT_ENDPOINT}/createAnnouncement`, body, httpOptions)
       .map((result: any) => {
         if (result.success) {
           return result;

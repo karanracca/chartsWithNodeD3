@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {AnnouncementService} from '../announcement.service';
 
 @Component({
@@ -8,17 +8,17 @@ import {AnnouncementService} from '../announcement.service';
 })
 export class EditorAreaComponent implements OnInit {
 
-  constructor(private announceService: AnnouncementService) { }
+  @Output() editorText = new EventEmitter<string>();
+
+  constructor() { }
 
   editorContent = 'Enter announcement content here!!!';
 
   ngOnInit() {
   }
 
-  createAnnouncement() {
-    this.announceService.createAnnouncement(this.editorContent).subscribe((data: any) => {
-      console.log(data);
-    });
+  saveEditorText() {
+    this.editorText.emit(this.editorContent);
   }
 
 }

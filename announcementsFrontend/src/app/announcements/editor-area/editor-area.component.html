@@ -1,17 +1,7 @@
 <div class="main-container">
 
-  <div class="text-center sub-headings">
-    Create Announcement
-  </div>
-
   <div [froalaEditor] [(froalaModel)]="editorContent"></div>
 
-  <div>
-    <button mat-raised-button (click)="createAnnouncement()">Create Announcement</button>
-  </div>
-
-  <div>
-    {{editorContent}}
-  </div>
+  <button mat-button (click)="saveEditorText()">Save</button>
 
 </div>

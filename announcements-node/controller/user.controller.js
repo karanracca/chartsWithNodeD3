@@ -154,3 +154,15 @@ exports.updateUser = async function (req, res) {
         });
     }
 };
+
+exports.getCredits = async function (req, res) {
+    let credits = await userService.getCredits(req.header('x-access-token'));
+    console.log("Credits", credits);
+    if (credits) {
+        res.status(200).send({
+            success: true,
+            payload: credits,
+            message: 'Credits retrived'
+        })
+    }
+};

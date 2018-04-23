@@ -36,6 +36,8 @@ import { ResetPasswordComponent } from './userservices/reset-password/reset-pass
 
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { EditorAreaComponent } from './announcements/editor-area/editor-area.component';
+import {ModelBoxComponent} from './shared/model-box/model-box.component';
+import {CreditsService} from './shared/credits.service';
 
 @NgModule({
   declarations: [
@@ -56,6 +58,7 @@ import { EditorAreaComponent } from './announcements/editor-area/editor-area.com
     UpdateAccountComponent,
     ResetPasswordComponent,
     EditorAreaComponent,
+    ModelBoxComponent
   ],
   imports: [
     HttpClientModule,
@@ -77,7 +80,11 @@ import { EditorAreaComponent } from './announcements/editor-area/editor-area.com
     NotificationService,
     AuthGard,
     SpinnerService,
-    AnnouncementService
+    AnnouncementService,
+    CreditsService
+  ],
+  entryComponents: [
+    ModelBoxComponent
   ],
   bootstrap: [AppComponent]
 })

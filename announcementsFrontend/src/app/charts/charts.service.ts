@@ -89,6 +89,7 @@ export class ChartService {
   }
 
   saveGeneratedChart (chartData: any) {
+
     const httpOptions = {
       headers : this.appConstants.privateHeaders
     };

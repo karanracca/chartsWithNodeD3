@@ -44,4 +44,6 @@ router.delete('/deleteUser/:id', userController.deleteUser);
 
 router.post('/updateUser/:id', userController.updateUser);
 
+router.get('/getCredits', userController.getCredits);
+
 module.exports = router;
