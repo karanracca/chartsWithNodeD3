@@ -11,6 +11,7 @@
 
 .inner-container{
   padding-top: 3%;
+  min-height: 35rem;
 
   .no-padding{
     padding: 0;
@@ -20,4 +21,8 @@
 
 .btn-secondary{
   @extend %btn-secondary
+}
+
+.create-btn{
+  margin: 3% 0;
 }

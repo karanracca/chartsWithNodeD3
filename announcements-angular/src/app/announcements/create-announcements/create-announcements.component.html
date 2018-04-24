@@ -1,4 +1,4 @@
-<div class="main-container">
+<div class="text-center main-container">
   <div class="text-center page-heading">Crete New Announcements</div>
 
   <div class="mat-card">
@@ -10,9 +10,9 @@
         <div class="col-sm-8">
           <app-editor-area (editorText)="setEditorText($event)"></app-editor-area>
         </div>
-
-        <button class="btn btn-secondary" disabled="{{checkValues()}}" (click)="createAnnouncement()">Create Announcement</button>
       </div>
+
+      <button class="btn btn-secondary create-btn" (click)="createAnnouncement()">Create Announcement</button>
     </div>
   </div>
 </div>
