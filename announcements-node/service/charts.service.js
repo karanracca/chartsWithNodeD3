@@ -4,6 +4,7 @@ const d3nBar = require('d3node-barchart');
 const d3nPie = require('d3node-piechart');
 const d3nLine= require('d3node-linechart');
 const d3nDonut = require('../util/d3Donut');
+const tsv = require('tsv');
 const {createFile} = require('./output.service');
 const parseTime = d3.timeParse('%d-%b-%y');
 const commonService = require('./common.service');
@@ -44,6 +45,12 @@ exports.createBarChart = function (file, keys) {
     });
 };
 
+/**
+ * Function to create donut chart with user data.
+ * @param file - CSV file uploaded by user
+ * @param keys - X and Y axis values for donut chart
+ * @returns {Promise<any>} resolving to donut chart
+ */
 exports.createDonutChart = function (file, keys) {
     return new Promise((resolve, reject) => {
         //Parse Csv File
@@ -54,13 +61,12 @@ exports.createDonutChart = function (file, keys) {
                 //console.log(stringData);
                 let d3parsedData = d3.csvParse(stringData, function (parsedData) {
                     return {
-                        label: parsedData[keys.xaxis],
-                        value: parsedData[keys.yaxis]
+                        label: parsedData[keys.label],
+                        value: parsedData[keys.values]
                     };
                 });
 
                 let timestamp = Date.now();
-                //Math.floor((Math.random() * 1000) + 1);
                 createFile(`./chartsOutput/donutChart${timestamp}`, d3nDonut({data: d3parsedData})).then((chart) => {
                     resolve({chart, fileName : `donutChart${timestamp}`});
                 }).catch(error => {
@@ -75,7 +81,7 @@ exports.createDonutChart = function (file, keys) {
 /**
  *  Function to create pie chart with user data.
  * @param file - CSV file uploaded by user
- * @param keys
+ * @param keys -
  * @returns {Promise<any>}resolving to pie chart
  */
 exports.createPieChart = function (file,keys) {
@@ -93,7 +99,7 @@ exports.createPieChart = function (file,keys) {
                 });
 
                 let timestamp = Date.now();
-                createFile('./chartsOutput/pieChart${timestamp}', d3nPie({data:d3parsedData})).then((chart) => {
+                createFile(`./chartsOutput/pieChart${timestamp}`, d3nPie({data:d3parsedData})).then((chart) => {
                     resolve({chart, fileName : `pieChart${timestamp}`});
                 }).catch(error => {
                     console.log(error);
@@ -104,30 +110,99 @@ exports.createPieChart = function (file,keys) {
     });
 };
 
+exports.testFunction = function(data) {
+    let tdata = data.map(v=>v.join(" "));
+    console.log(tdata);
+};
+
+
+/**
+ *  Function to create line chart with user data.
+ * @param file - CSV file uploaded by user
+ * @param keys - X and Y axis values for line chart
+ * @returns {Promise<any>}resolving to line chart
+ */
 exports.createLineChart = function (file, keys) {
 
     return new Promise((resolve, reject) => {
         //Parse Csv File
-        csv.parse(file.buffer, function (err, data) {
+       /* let finalData = csv.parse(file.buffer, function (err, data) {
             if (err) throw err;
 
-            csv.stringify(data, function (err, stringData) {
-                console.log(stringData);
-                let d3parsedData = d3.tsvParse(stringData, function (parsedData) {
-                    //console.log(parsedData);
+            let datasdaa = csv.transform(data, function(tdata) {
+                return tdata.join(" ");
+                /!*console.log(tdata);
+                console.log(tdata.join(" "));*!/
+            });
+
+            console.log(datasdaa);
+        });*/
+
+
+
+
+        csv.parse(file.buffer, function(err, data) {
+            //console.log("Final", data);
+            let tdata = data.map(v=>[v.join('\t')]);
+            console.log("Final", tdata);
+
+            csv.stringify(tdata, function(err, ttdata){
+                console.log("Final", ttdata);
+
+                let d3parsedData = d3.tsvParse(ttdata, function (parsedData) {
+                    console.log(parsedData);
                     return {
-                        key: parseTime(parsedData[keys.xaxis]),
+                        key: parsedData[keys.xaxis],
                         value: parsedData[keys.yaxis]
                     };
                 });
-                createFile('./chartsOutput/lineChart', d3nLine({data: d3parsedData})).then((htmlFile) => {
-                    resolve(htmlFile);
+                console.log(d3parsedData);
+                let timestamp = Date.now();
+                createFile(`./chartsOutput/lineChart${timestamp}`, d3nLine({data: d3parsedData})).then((chart) => {
+                    resolve({chart, fileName : `lineChart${timestamp}`});
                 }).catch(error => {
                     console.log(error);
                     reject(error);
                 });
             });
+
+
+
+
+
+            /*csv.transform(data, function(data) {
+                return data.map(function(value){return value.join("")});
+            }, function(err, data){
+                console.log("Final", data);
+                /!*csv.stringify(data, function(err, data){
+                    console.log("Final", data);
+                });*!/
+            });*/
         });
+
+        //console.log(finalData);
+
+
+                /*csv.stringify(data, function (err, stringData) {
+                console.log(stringData);*/
+
+                /*let d3parsedData = d3.csvParse(stringData, function (parsedData) {
+                    //console.log(parsedData);
+                    return {
+                        key: parsedData[keys.xaxis],
+                        value: parsedData[keys.yaxis]
+                    };
+                });
+
+                let timestamp = Date.now();
+                createFile(`./chartsOutput/lineChart${timestamp}`, d3nLine({data: d3parsedData})).then((chart) => {
+                    resolve({chart, fileName : `lineChart${timestamp}`});
+                }).catch(error => {
+                    console.log(error);
+                    reject(error);
+                });*/
+            /*});*/
+
     });
 };
 
