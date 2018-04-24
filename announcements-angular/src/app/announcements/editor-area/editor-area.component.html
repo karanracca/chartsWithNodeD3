@@ -1,7 +1,9 @@
 <div class="main-container">
 
-  <div [froalaEditor] [(froalaModel)]="editorContent"></div>
+  <div class="editor-content" [froalaEditor] [(froalaModel)]="editorContent"></div>
 
-  <button mat-button (click)="saveEditorText()">Save</button>
+  <div class="text-center">
+    <button mat-raised-button class="save-btn" color="primary" (click)="saveEditorText()">Save</button>
+  </div>
 
 </div>

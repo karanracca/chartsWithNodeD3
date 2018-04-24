@@ -30,23 +30,23 @@ export class CreateAnnouncementsComponent implements OnInit {
     this.editorText = text;
   }
 
-  checkValues() {
-    if (this.receivers !== null) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
   openDialog(): void {
     let dialogRef = this.dialog.open(ModelBoxComponent, {
       width: '250px'
     });
   }
 
-
-
   createAnnouncement() {
+    if (this.receivers === null || !this.receivers.length > 0) {
+      this.notify.notification.next("Please select receivers for the announcement");
+      return;
+    }
+
+    if (this.editorText === null || this.editorText === 'Enter content here...') {
+      this.notify.notification.next("Please enter content for announcement");
+      return;
+    }
+
     this.announceService.createAnnouncement(this.receivers, this.editorText).subscribe((data: any) => {
       this.notify.notification.next(data.message);
       this.openDialog();

@@ -12,13 +12,11 @@ export class EditorAreaComponent implements OnInit {
 
   constructor() { }
 
-  editorContent = 'Enter announcement content here!!!';
+  editorContent = 'Enter content here...';
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   saveEditorText() {
     this.editorText.emit(this.editorContent);
   }
-
 }

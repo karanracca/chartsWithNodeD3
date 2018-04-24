@@ -125,84 +125,26 @@ exports.testFunction = function(data) {
 exports.createLineChart = function (file, keys) {
 
     return new Promise((resolve, reject) => {
-        //Parse Csv File
-       /* let finalData = csv.parse(file.buffer, function (err, data) {
+        csv.parse(file.buffer, function(err, data){
             if (err) throw err;
+            csv.stringify(data, function(err, stringData) {
 
-            let datasdaa = csv.transform(data, function(tdata) {
-                return tdata.join(" ");
-                /!*console.log(tdata);
-                console.log(tdata.join(" "));*!/
-            });
-
-            console.log(datasdaa);
-        });*/
-
-
-
-
-        csv.parse(file.buffer, function(err, data) {
-            //console.log("Final", data);
-            let tdata = data.map(v=>[v.join('\t')]);
-            console.log("Final", tdata);
-
-            csv.stringify(tdata, function(err, ttdata){
-                console.log("Final", ttdata);
-
-                let d3parsedData = d3.tsvParse(ttdata, function (parsedData) {
-                    console.log(parsedData);
+                let d3parsedData = d3.csvParse(stringData, function (parsedData) {
                     return {
                         key: parsedData[keys.xaxis],
                         value: parsedData[keys.yaxis]
                     };
                 });
-                console.log(d3parsedData);
+
                 let timestamp = Date.now();
-                createFile(`./chartsOutput/lineChart${timestamp}`, d3nLine({data: d3parsedData})).then((chart) => {
+                createFile(`./chartsOutput/lineChart${timestamp}`, d3nLine({data:d3parsedData})).then((chart) => {
                     resolve({chart, fileName : `lineChart${timestamp}`});
                 }).catch(error => {
                     console.log(error);
                     reject(error);
                 });
             });
-
-
-
-
-
-            /*csv.transform(data, function(data) {
-                return data.map(function(value){return value.join("")});
-            }, function(err, data){
-                console.log("Final", data);
-                /!*csv.stringify(data, function(err, data){
-                    console.log("Final", data);
-                });*!/
-            });*/
         });
-
-        //console.log(finalData);
-
-
-                /*csv.stringify(data, function (err, stringData) {
-                console.log(stringData);*/
-
-                /*let d3parsedData = d3.csvParse(stringData, function (parsedData) {
-                    //console.log(parsedData);
-                    return {
-                        key: parsedData[keys.xaxis],
-                        value: parsedData[keys.yaxis]
-                    };
-                });
-
-                let timestamp = Date.now();
-                createFile(`./chartsOutput/lineChart${timestamp}`, d3nLine({data: d3parsedData})).then((chart) => {
-                    resolve({chart, fileName : `lineChart${timestamp}`});
-                }).catch(error => {
-                    console.log(error);
-                    reject(error);
-                });*/
-            /*});*/
-
     });
 };
 
@@ -240,8 +182,3 @@ exports.getCharts = async function (token) {
     }
 };
 
-// exports.createdonutChart = function (file, keys) {
-//     return new Promise((resolve, reject) => {
-//
-//     }
-// }

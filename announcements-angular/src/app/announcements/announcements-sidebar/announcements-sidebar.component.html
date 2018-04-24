@@ -1,7 +1,7 @@
 <div class="sidebar">
 <!--For saved charts-->
 <mat-accordion>
-  <mat-expansion-panel>
+  <mat-expansion-panel class=" text-center expantion-panel">
     <mat-expansion-panel-header>
       <mat-panel-title class="accordion-title">
         Select from Saved Charts
@@ -27,14 +27,13 @@
         </div>
       </div>
     </div>
-
   </mat-expansion-panel>
 </mat-accordion>
 
 
 <!--For receivers-->
   <mat-accordion>
-    <mat-expansion-panel>
+    <mat-expansion-panel class=" text-center expantion-panel">
       <mat-expansion-panel-header>
         <mat-panel-title class="accordion-title">
           Select receivers
@@ -45,8 +44,6 @@
         <mat-radio-button class="" [value]="'input'">Enter Email</mat-radio-button>
         <mat-radio-button class="" [value]="'file'">Upload CSV File</mat-radio-button>
       </mat-radio-group>
-
-      {{receiversType}}
 
       <div *ngIf="receiversType === 'input'">
         <div class="enter-email">
@@ -63,7 +60,7 @@
                       (click)="addEmail()"
                       disabled="{{emailFormControl.hasError('email') || emailFormControl.hasError('required')}}"
                       aria-label="Clear">
-                <mat-icon>add circle outline</mat-icon>
+                <mat-icon class="add-icon">add_circle</mat-icon>
               </button>
               <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                 Please enter a valid email address
@@ -102,7 +99,9 @@
         </div>
       </div>
 
-      <button mat-button (click)="saveReceivers()">Save</button>
+      <div class="save-btn">
+        <button mat-raised-button color="primary" (click)="saveReceivers()">Save</button>
+      </div>
 
     </mat-expansion-panel>
   </mat-accordion>
