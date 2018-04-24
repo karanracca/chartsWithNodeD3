@@ -40,11 +40,13 @@ exports.createUser = function (req, res) {
             };
 
             DBService.insertOne(userInfo, DBNAME, USER_COLLECTION).then(function () {
+
                 mailer.sendMail(mailer.createMailConfiguration(
                     req.body.email,
                     'Welcome to Charts',
                     'Dear ' +req.body.firstName + ',\nThank you for registering with us you can now make charts using your credits.\n\nRegards,\nCharts Team'
                 ));
+
                 var mailOptions = {
                     from: 'acharya.rupesh0@gmail.com',
                     to: req.body.email,
@@ -192,7 +194,6 @@ exports.getCredits = async function (req, res) {
             message: 'Credits retrived'
         })
     }
-
 };
 
 exports.addCredits = function (req, res) {

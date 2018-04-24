@@ -1,7 +1,6 @@
 const {USER_ROLE, DBNAME, SECRET, USER_COLLECTION} = require('../shared/app-constants');
 const announceService = require('../service/announcement.service');
 
-
 exports.createAnnouncement = async function (req, res) {
     if (req.body.editorContent && req.body.receivers) {
         //console.log(req.body.editorContent);
