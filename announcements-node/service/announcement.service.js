@@ -4,9 +4,6 @@ const common = require('../service/common.service');
 const ObjectID = require('mongodb').ObjectID;
 const {DBNAME, CHARTS_COLLECTION, USER_COLLECTION} = require('../shared/app-constants');
 
-<<<<<<< HEAD
-exports.createAnnouncement = async function createAnnouncement(content, receivers, token) {
-=======
 
 //function to create bar chart
 exports.createBarChart = function (file, keys) {
@@ -94,7 +91,6 @@ exports.createLineChart = function (file, keys) {
 
 //function to save the chart
 exports.saveChart = async function (chartData, token) {
->>>>>>> f9604679fdf8ae06219ff37dbd9af1d3e4908882
     try {
         let config = mailer.createMailConfiguration(receivers, "New Announcement from Charts", "", content);
 
@@ -115,12 +111,10 @@ exports.saveChart = async function (chartData, token) {
     }
 };
 
-<<<<<<< HEAD
-exports.reduceCredits = async function (token) {
-=======
+
 //function to get the chart from it's history
 exports.getCharts = async function (token) {
->>>>>>> f9604679fdf8ae06219ff37dbd9af1d3e4908882
+
     try {
         let userInfo = await common.decodeToken(token);
 
