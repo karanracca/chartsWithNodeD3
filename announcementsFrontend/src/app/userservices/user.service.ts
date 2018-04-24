@@ -92,6 +92,13 @@ export class UserServices {
     return this.http.post(`${this.appConstants.USER_ENDPOINT}/updateUser`, userInfo, httpOptions).pipe(catchError(this.handleError));
   }
 
+  deleteUser(userInfo: User) {
+    console.log('Delete called');
+    const httpOptions = {
+      headers: this.appConstants.headers
+    };
+  }
+
   isAuthenticated() {
     return localStorage.getItem('secretToken') ? true : false;
   }

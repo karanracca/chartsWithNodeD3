@@ -55,6 +55,9 @@ export class UpdateAccountComponent implements OnInit {
       });
     }
   }
+  deactivate(user: User) {
+    let obeservable = this.userService.deleteUser(user);
+  }
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('user'));

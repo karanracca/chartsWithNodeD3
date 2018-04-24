@@ -31,6 +31,8 @@ export class AppComponent implements OnInit {
   openSnackBar(msg: string) {
     this.snackBar.open(msg, ' ', {
       duration: 3000,
+      verticalPosition: 'top',
+      horizontalPosition: 'right'
     });
   }
 }
