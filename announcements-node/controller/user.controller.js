@@ -2,6 +2,8 @@ const {USER_ROLE, DBNAME, SECRET, USER_COLLECTION} = require('../shared/app-cons
 const DBService = require('../shared/db.service');
 const jwt = require('jsonwebtoken');
 const ObjectID = require('mongodb').ObjectID;
+const userService = require('../service/user.service');
+
 var nodemailer = require('nodemailer');
 var accountSid = 'ACbdc6403769edfc193cc8cc9799def491';
 var authToken = '1b514df52af8fbcb2dfd85bc05114c54';
@@ -38,15 +40,11 @@ exports.createUser = function (req, res) {
             };
 
             DBService.insertOne(userInfo, DBNAME, USER_COLLECTION).then(function () {
-                console.log('User added Successfully');
-                var transporter = nodemailer.createTransport({
-                    service: 'gmail',
-                    auth: {
-                        user: 'acharya.rupesh0@gmail.com',
-                        pass: 'dishaclasses'
-                    }
-                });
-
+                mailer.sendMail(mailer.createMailConfiguration(
+                    req.body.email,
+                    'Welcome to Charts',
+                    'Dear ' +req.body.firstName + ',\nThank you for registering with us you can now make charts using your credits.\n\nRegards,\nCharts Team'
+                ));
                 var mailOptions = {
                     from: 'acharya.rupesh0@gmail.com',
                     to: req.body.email,
@@ -133,84 +131,68 @@ exports.deleteUser = function (req, res) {
     });
 };
 
-//Function to reset the password
-exports.resetPassword = function (req, res) {
-    DBService.findOne({email: req.body.emailFormControl}, DBNAME, 'users').then(function (userObject) {
-        if (userObject.email === req.body.emailFormControl) {
+exports.resetPassword = async function (req, res) {
+    if (req.body.email) {
+        try {
+            let result = await userService.forgotPassword(req.body.email);
 
-            var transporter = nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
-                    user: 'youremail@gmail.com',
-                    pass: 'yourpassword'
-                }
-            });
-
-
-            var newPassword = generator.generate({
-                length: 10,
-                numbers: true
-            });
-
-            var mailOptions = {
-                from: 'youremail@gmail.com',
-                to: req.body.emailFormControl,
-                subject: 'Reset Password Mail',
-                text: 'Your new password is ' + newPassword
-            };
-
-            transporter.sendMail(mailOptions, function (error, info) {
-                console.log(mailOptions);
-                if (error) {
-                    console.log(error);
-                } else {
-                    console.log('Email sent: ' + info.response);
-                }
-            });
-
-            /*let userInfo = {
-                password: userObject.password
-
-            };
-
-
-            DBService.updateOne({$set: {password: newPassword}}, DBNAME);*/
-
-            res.status(200).send({
-                success: true,
-                message: 'A temporary password has been sent to your registered email Id'
-            })
-        } else {
-            console.log("Hiii");
-            return res.status(500).send({
+            if (result) {
+                res.status(200).send({
+                    success: true,
+                    message: "A temporary password has been sent to your registered email Id"
+                });
+            }
+        } catch (error) {
+            res.status(400).send({
                 success: false,
-                message: 'This email Id is not registered with us. Please enter the correct one'
+                message: error.message
             });
         }
-    });
+    } else {
+        return res.status(400).send({
+            success: false,
+            message: 'Incorrect parameters passed'
+        });
+    }
 };
 
-//Function to update user
-exports.updateUser = function (req, res) {
-
-    DBService.findOne({$or: [{username: req.body.username}, {email: req.body.email}]}, DBNAME, 'users').then(function (userObject) {
-        let userInfo = {
-            $set: {
-                username: req.body.username,
-                password: req.body.password,
-                firstName: req.body.firstname,
-                lastName: req.body.lastname,
-                email: req.body.email,
-                phone: req.body.phone,
-                role: USER_ROLE,
-                credits: 10
+exports.updateUser = async function (req, res) {
+    if (req.params.id) {
+        try {
+            let result = await userService.updateUser(req.body, req.params.id);
+            console.log('final', result);
+            if (result) {
+                res.status(200).send({
+                    success: true,
+                    payload: {userObject : result},
+                    message: "User data updated successfully"
+                });
             }
-        };
+        } catch (error) {
+            res.status(400).send({
+                success: false,
+                message: error.message
+            });
+        }
+    } else {
+        res.status(400).send({
+            success: false,
+            message: "Invalid parameters passed"
+        });
+    }
+};
 
-        DBService.updateOne(userInfo, DBNAME).then(function () {
-            console.log('User updated Successfully');
+exports.getCredits = async function (req, res) {
+    let credits = await userService.getCredits(req.header('x-access-token'));
+    console.log("Credits", credits);
+    if (credits) {
+        res.status(200).send({
+            success: true,
+            payload: credits,
+            message: 'Credits retrived'
         })
-    });
+    }
+
 };
 
 exports.addCredits = function (req, res) {
@@ -224,7 +206,6 @@ exports.addCredits = function (req, res) {
                 message: 'Credits Added!'
             })
         } else {
-            console.log("Hiii");
             return res.status(500).send({
                 success: false,
                 message: 'Transaction failed. Credits could not be added'

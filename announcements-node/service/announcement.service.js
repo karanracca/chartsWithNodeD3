@@ -1,13 +1,7 @@
-const csv = require('csv');
-const d3 = require('d3-node')().d3;
-const output = require('d3node-output');
-const d3nBar = require('d3node-barchart');
-const d3nPie = require('d3node-piechart');
-const d3nLine= require('d3node-linechart');
-const {createFile} = require('./output.service');
-const parseTime = d3.timeParse('%d-%b-%y');
-const commonService = require('./common.service');
+const mailer = require('../shared/mailer.service');
 const DBService = require('../shared/db.service');
+const common = require('../service/common.service');
+const ObjectID = require('mongodb').ObjectID;
 const {DBNAME, CHARTS_COLLECTION, USER_COLLECTION} = require('../shared/app-constants');
 
 
@@ -98,41 +92,46 @@ exports.createLineChart = function (file, keys) {
 //function to save the chart
 exports.saveChart = async function (chartData, token) {
     try {
-        let userInfo = await commonService.decodeToken(token);
+        let config = mailer.createMailConfiguration(receivers, "New Announcement from Charts", "", content);
 
-        let chart = {
-            username: userInfo.user.username,
-            fileName: chartData.fileName,
-            chartName: chartData.chartName,
-            chart: chartData.chart
-        };
-        let result = await DBService.insertOne(chart, DBNAME, CHARTS_COLLECTION);
-        return result;
+        let mail = await mailer.sendMail(config);
 
+        if (mail.rejected.length === 0) {
+            //Save Data in DB
+            //Reduce credits
+            if( await this.reduceCredits(token)) {
+                return {
+                    accepted: mail.accepted,
+                    rejected: mail.rejected
+                }
+            }
+        }
     } catch (error) {
-        return error;
+        throw error;
     }
 };
+
 
 //function to get the chart from it's history
 exports.getCharts = async function (token) {
+
     try {
-        let userInfo = await commonService.decodeToken(token);
+        let userInfo = await common.decodeToken(token);
 
-        let result = await DBService.find({username:userInfo.user.username}, DBNAME, CHARTS_COLLECTION);
+        let user = await DBService.findOne({_id: ObjectID(userInfo.user._id)}, DBNAME, USER_COLLECTION);
 
-        if (result.length > 0) {
-            return result;
+        console.log(user);
+
+        let result = await DBService.findOneAndUpdate({_id: ObjectID(userInfo.user._id)}, DBNAME, USER_COLLECTION, {$inc: {credits: -1}})
+
+        if (result.ok === 1) {
+            return true;
         } else {
-            throw new Error("No records in database");
+            return false;
         }
+
+
     } catch (error) {
-        return error;
+        console.log(error);
     }
 };
-
-// exports.createdonutChart = function (file, keys) {
-//     return new Promise((resolve, reject) => {
-//
-//     }
-// }
