@@ -1,10 +1,16 @@
-const announcementService = require('../service/announcement.service');
-const d3nBar = require('d3node-barchart');
-const d3nPie = require('d3node-piechart');
-const d3nLine = require('d3node-linechart');
-const d3 = require('d3-node')().d3;
-const parseTime = d3.timeParse('%d-%b-%y');
+const {USER_ROLE, DBNAME, SECRET, USER_COLLECTION} = require('../shared/app-constants');
+const announceService = require('../service/announcement.service');
 
+<<<<<<< HEAD
+exports.createAnnouncement = async function (req, res) {
+    if (req.body.editorContent && req.body.receivers) {
+        //console.log(req.body.editorContent);
+        let result = await announceService.createAnnouncement(req.body.editorContent, req.body.receivers, req.header('x-access-token'));
+
+        if (result) {
+            if (result.rejected.length === 0) {
+                res.status(200).send({
+=======
 //Code to  create bar chart
 exports.createBarChart = async function (req, res) {
     if (req.file && req.body.barChartKeys) {
@@ -109,18 +115,20 @@ exports.saveGeneratedChart = async function (req, res) {
             let result = await announcementService.saveChart(req.body, req.header('x-access-token'));
             if (result === 1) {
                 res.status(200).json({
+>>>>>>> f9604679fdf8ae06219ff37dbd9af1d3e4908882
                     success: true,
-                    message: "Chart saved successfully"
+                    message: "Announcement successfully created",
                 })
-            } else {
-                throw new Error();
+            } else if (result.rejected.length > 0){
+                res.status(400).send({
+                    success: false,
+                    message: "Could not create announcement for some receivers",
+                })
             }
-        } catch (error) {
-            res.status(400).send({
-                success: false,
-                message: "Something went wrong",
-            })
         }
+<<<<<<< HEAD
+    } else {
+=======
     }
     else {
         res.status(400).send({
@@ -143,11 +151,10 @@ exports.getCharts = async function (req, res) {
         })
 
     } catch (error) {
+>>>>>>> f9604679fdf8ae06219ff37dbd9af1d3e4908882
         res.status(400).send({
             success: false,
-            message: "Data not found",
+            message: "Not enough data provided",
         })
     }
-
 };
-

@@ -5,5 +5,6 @@ module.exports = {
     USER_ROLE: "USER",
     ADMIN_ROLE: "ADMIN",
     CHARTS_COLLECTION: 'charts',
-    USER_COLLECTION: 'users'
+    USER_COLLECTION: 'users',
+    EMAIL_FROM: 'acharya.rupesh0@gmail.com'
 };

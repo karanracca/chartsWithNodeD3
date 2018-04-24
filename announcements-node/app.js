@@ -14,8 +14,9 @@ const app = express();
 
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var announcementsRouter = require('./routes/announcementsRouter');
+var usersRouter = require('./routes/usersRouter');
+var chartsRouter = require('./routes/chartsRouter');
+var announcementRouter = require('./routes/announcementRouter');
 
 var port = process.env.PORT || 8080;
 
@@ -55,7 +56,7 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.options("/*", function(req, res, next){
+app.options("/*", function(req, res){
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, x-access-token');
@@ -64,7 +65,8 @@ app.options("/*", function(req, res, next){
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/announcements', announcementsRouter);
+app.use('/charts', chartsRouter);
+app.use('/announcements', announcementRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
