@@ -28,7 +28,7 @@ export class LandingPageComponent implements OnInit {
     localStorage.clear();
     this.router.navigate(['/login']);
   }
-
+  
   updateCredits() {
     this.userService.getCredits().subscribe(userObject => {
       this.user = userObject;

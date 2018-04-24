@@ -17,7 +17,8 @@ export class LineChartComponent implements OnInit {
   chart: any;
   chartData: any;
 
-  constructor(private papa: PapaParseService, private chartService: ChartService) { }
+  constructor(private papa: PapaParseService,
+              private chartService: ChartService) { }
 
   ngOnInit() {
     this.lineChartForm = new FormGroup({
@@ -30,7 +31,7 @@ export class LineChartComponent implements OnInit {
     if (isValid && selectedValues.xaxis !== selectedValues.yaxis) {
       console.log(selectedValues);
       this.chartService.createLineChart(selectedValues, this.file).subscribe((data: any) => {
-        //console.log(data);
+        console.log(data);
         this.chartData = data;
         this.chartData.chart = `data:image/png;base64,${data.chart}`;
       });

@@ -37,6 +37,7 @@ exports.insertOne = async function (data, dbName, collectionName) {
     }
 };
 
+//Function to find the user in the database
 exports.findOne = async function (query, dbName, collectionName) {
     try {
         const client = await this.connect();

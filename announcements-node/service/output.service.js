@@ -1,6 +1,7 @@
 const fs = require('fs');
 const svg2png = require('svg2png');
 
+//code to get the image output of the charts created
 exports.createFile = function (dest, d3n) {
 
     return new Promise((resolve, reject) => {

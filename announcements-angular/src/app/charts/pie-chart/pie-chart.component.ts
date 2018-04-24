@@ -2,6 +2,7 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {PapaParseService} from 'ngx-papaparse';
 import { ChartService } from '../charts.service';
+import {SpinnerService} from '../../shared/spinner.service';
 
 @Component({
   selector: 'app-pie-chart',
@@ -18,7 +19,8 @@ export class PieChartComponent implements OnInit {
   chart: any;
   chartData: any;
 
-  constructor(private papa: PapaParseService, private chartService: ChartService) { }
+  constructor(private papa: PapaParseService,
+              private chartService: ChartService) { }
 
   ngOnInit() {
     this.pieChartForm = new FormGroup({
@@ -31,6 +33,7 @@ export class PieChartComponent implements OnInit {
     if (isValid && selectedValues.label !== selectedValues.value) {
       console.log('Selected Values', selectedValues);
       this.chartService.createPieChart(selectedValues, this.file).subscribe((data) => {
+        console.log(data);
         this.chartData = data;
         this.chartData.chart = `data:image/png;base64,${data.chart}`;
       });

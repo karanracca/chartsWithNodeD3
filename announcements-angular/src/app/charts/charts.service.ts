@@ -65,9 +65,7 @@ export class ChartService {
    * @returns {Promise<any>}resolving to pie chart
    */
   createPieChart (values, file) {
-
     this.spinner.showSpinner.next(true);
-
     const httpOptions = {
       headers : new HttpHeaders({'x-access-token': localStorage.getItem('secretToken')})
     };
@@ -94,7 +92,6 @@ export class ChartService {
   createLineChart (values, file) {
 
     this.spinner.showSpinner.next(true);
-
     const httpOptions = {
       headers : new HttpHeaders({'x-access-token': localStorage.getItem('secretToken')})
     };

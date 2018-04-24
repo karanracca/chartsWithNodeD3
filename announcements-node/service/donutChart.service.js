@@ -4,8 +4,13 @@ const output = require('d3node-output');
 const {createFile} = require('./outputService');
 const d3nDonut = require('../util/d3Donut');
 
+<<<<<<< HEAD
 
 exports.createDonutChart = function (file, keys) {
+=======
+//code to create a donut chart
+exports.createDonutChart = function (file,keys) {
+>>>>>>> f9604679fdf8ae06219ff37dbd9af1d3e4908882
 
     return new Promise((resolve, reject) =>{
         csv.parse(file.buffer, function(err, data){
