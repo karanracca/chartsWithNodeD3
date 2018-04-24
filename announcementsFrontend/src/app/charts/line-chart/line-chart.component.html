@@ -1,4 +1,3 @@
-
 <div class="main-container">
 
   <div class="text-center page-heading">
@@ -8,7 +7,7 @@
 
   <div class="container inner-container">
     <div class="row">
-      <div class="col-sm-4">
+      <div class="col-sm">
         <div class="text-center inner-header">
           <span class="sub-headings">Select a File to create a line chart</span>
         </div>
@@ -17,60 +16,58 @@
         </div>
       </div>
 
-      <div class="col-sm-8">
-        <div *ngIf="showDataFields">
-          <div class="text-center inner-header">
-            <span class="sub-headings">Select your configurations</span>
-          </div>
-          <form novalidate [formGroup]="lineChartForm" (ngSubmit)="onSubmit(lineChartForm.value, lineChartForm.valid)">
-
-            <div class="row">
-              <div class="col-sm-5 field-label">
-                <span>Select value for X-Axis on line chart</span>
-              </div>
-
-              <div class="col-sm-7">
-                <mat-form-field>
-                  <mat-select formControlName="xaxis" placeholder="X-Axis Value">
-                    <mat-option *ngFor="let field of this.fileData.meta.fields" [value]="field">
-                      {{ field }}
-                    </mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="lineChartForm.controls.xaxis.invalid">X-Axis is required</mat-error>
-                </mat-form-field>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-sm-5 field-label">
-                <span>Select value for Y-Axis on line chart</span>
-              </div>
-
-              <div class="col-sm-7">
-                <mat-form-field>
-                  <mat-select formControlName="yaxis" placeholder="Y-Axis Value">
-                    <mat-option *ngFor="let field of this.fileData.meta.fields" [value]="field">
-                      {{ field }}
-                    </mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="lineChartForm.controls.yaxis.invalid">Y-Axis is required</mat-error>
-                </mat-form-field>
-              </div>
-            </div>
-
-            <div class="text-center">
-              <button mat-raised-button color="primary">Submit</button>
-            </div>
-          </form>
+      <div class="col-sm" *ngIf="showDataFields">
+        <div class="text-center inner-header">
+          <span class="sub-headings">Select your configurations</span>
         </div>
+
+        <form novalidate [formGroup]="lineChartForm" (ngSubmit)="onSubmit(lineChartForm.value, lineChartForm.valid)">
+
+          <div class="row">
+            <div class="col-sm-5 field-label">
+              <span>Select value for X-Axis on line chart</span>
+            </div>
+
+            <div class="col-sm-7">
+              <mat-form-field>
+                <mat-select formControlName="xaxis" placeholder="X-Axis Value">
+                  <mat-option *ngFor="let field of this.fileData.meta.fields" [value]="field">
+                    {{ field }}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="lineChartForm.controls.xaxis.invalid">X-Axis is required</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-5 field-label">
+              <span>Select value for Y-Axis on line chart</span>
+            </div>
+
+            <div class="col-sm-7">
+              <mat-form-field>
+                <mat-select formControlName="yaxis" placeholder="Y-Axis Value">
+                  <mat-option *ngFor="let field of this.fileData.meta.fields" [value]="field">
+                    {{ field }}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="lineChartForm.controls.yaxis.invalid">Y-Axis is required</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <button mat-raised-button color="primary">Submit</button>
+          </div>
+        </form>
       </div>
 
     </div>
   </div>
 
-  <div>
-    <img src="{{html}}"/>
-  </div>
+  <app-chart-result *ngIf="chartData" [chartData]="chartData"></app-chart-result>
+
 </div>
 
 

@@ -32,51 +32,58 @@ exports.createBarChart = async function (req, res) {
 };
 
 exports.createDonutChart = async function (req, res) {
-  if (req.file && req.body.donutChartKeys) {
-      try {
-          let chartData = await chartsService.createDonutChart(req.file, JSON.parse(req.body.donutChartKeys));
+    if (req.file && req.body.donutChartKeys) {
+        try {
+            let chartData = await chartsService.createDonutChart(req.file, JSON.parse(req.body.donutChartKeys));
 
-          res.status(200).send({
-              success: true,
-              payload: chartData,
-              message: "Donut Chart created",
-          })
-      } catch (error) {
-          res.status(500).send({
-              success: false,
-              message: "Something went wrong",
-          })
-      }
+            res.status(200).send({
+                success: true,
+                payload: chartData,
+                message: "Donut Chart created",
+            })
+        } catch (error) {
+            res.status(500).send({
+                success: false,
+                message: "Something went wrong. Please try again!",
+            })
+        }
 
-  } else {
-      res.status(400).send({
-          success: false,
-          message: "Not enough data provided",
-      })
-  }
+    } else {
+        res.status(400).send({
+            success: false,
+            message: "Not enough data provided",
+        })
+    }
 
 };
 
 
 exports.createPieChart = async function (req, res) {
-    console.log("xyz");
     if (req.file && req.body.pieChartKeys) {
-        let htmlFile = await chartsService.createPieChart(req.file, JSON.parse(req.body.pieChartKeys));
-        res.status(200).send({
-            success: true,
-            payload: htmlFile,
-            message: "Chart created",
-        })
+        try {
+            let chartData = await chartsService.createPieChart(req.file, JSON.parse(req.body.pieChartKeys));
 
+            res.status(200).send({
+                success: true,
+                payload: chartData,
+                message: "Pie Chart created",
+            })
+        } catch (error) {
+            res.status(500).send({
+                success: false,
+                message: "Something went wrong. Please try again!",
+            })
+        }
     } else {
         res.status(400).send({
             success: false,
-            message: "Incorrect data provided",
+            message: "Not enough data provided",
         })
     }
 };
 
 exports.createLineChart = async function (req, res) {
+
     if (req.file && req.body.lineChartKeys) {
         let htmlFile = await
             chartsService.createLineChart(req.file, JSON.parse(req.body.lineChartKeys));
@@ -88,7 +95,7 @@ exports.createLineChart = async function (req, res) {
     }
 }
 
-exports.createPieChart = async function (req, res) {
+/*exports.createPieChart = async function (req, res) {
     console.log("xyz");
     if (req.file && req.body.pieChartKeys) {
         let htmlFile = await chartsService.createPieChart(req.file, JSON.parse(req.body.pieChartKeys));
@@ -104,7 +111,7 @@ exports.createPieChart = async function (req, res) {
             message: "Incorrect data provided",
         })
     }
-};
+};*/
 
 
 exports.createLineChart = async function (req, res) {

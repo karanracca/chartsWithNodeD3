@@ -1,4 +1,3 @@
-
 <div class="main-container">
 
   <div class="text-center page-heading">
@@ -8,7 +7,7 @@
 
   <div class="container inner-container">
     <div class="row">
-      <div class="col-sm-4">
+      <div class="col-sm">
         <div class="text-center inner-header">
           <span class="sub-headings">Select a File to create a bar chart</span>
         </div>
@@ -17,11 +16,10 @@
         </div>
       </div>
 
-      <div class="col-sm-8">
-        <div *ngIf="showDataFields">
-          <div class="text-center inner-header">
-            <span class="sub-headings">Select your configurations</span>
-          </div>
+      <div class="col-sm" *ngIf="showDataFields">
+        <div class="text-center inner-header">
+          <span class="sub-headings">Select your configurations</span>
+        </div>
         <form novalidate [formGroup]="barChartForm" (ngSubmit)="onSubmit(barChartForm.value, barChartForm.valid)">
 
           <div class="row">
@@ -62,18 +60,12 @@
             <button mat-raised-button color="primary">Submit</button>
           </div>
         </form>
-        </div>
       </div>
-
     </div>
   </div>
 
-
   <app-chart-result *ngIf="chartData" [chartData]="chartData"></app-chart-result>
 
-  <!--<div>
-    <img src="{{html}}"/>
-  </div>-->
 </div>
 
 

@@ -1,13 +1,12 @@
 import {Component, OnInit, ViewEncapsulation } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {PapaParseService} from "ngx-papaparse";
-import {ChartService} from "../charts.service";
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {PapaParseService} from 'ngx-papaparse';
+import {ChartService} from '../charts.service';
 
 @Component({
   selector: 'app-line-chart',
   templateUrl: './line-chart.component.html',
   styleUrls: ['./line-chart.component.scss'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class LineChartComponent implements OnInit {
 
@@ -15,7 +14,8 @@ export class LineChartComponent implements OnInit {
   fileData: any;
   file: File;
   showDataFields = false;
-  html: any;
+  chart: any;
+  chartData: any;
 
   constructor(private papa: PapaParseService, private chartService: ChartService) { }
 
@@ -30,8 +30,9 @@ export class LineChartComponent implements OnInit {
     if (isValid && selectedValues.xaxis !== selectedValues.yaxis) {
       console.log(selectedValues);
       this.chartService.createLineChart(selectedValues, this.file).subscribe((data: any) => {
-        console.log(data);
-        this.html = `data:image/png;base64,${data.payload}`;
+        //console.log(data);
+        this.chartData = data;
+        this.chartData.chart = `data:image/png;base64,${data.chart}`;
       });
     }
   }

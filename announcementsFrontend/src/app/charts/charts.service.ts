@@ -31,6 +31,12 @@ export class ChartService {
       error.error.message || 'Something went wrong; please try again later.');
   }
 
+  /**
+   *  Function to create bar chart with user data.
+   * @param file - CSV file uploaded by user
+   * @param values - User selected config for chart
+   * @returns {Promise<any>}resolving to pie chart
+   */
   createBarChart (values, file) {
 
     this.spinner.showSpinner.next(true);
@@ -52,7 +58,16 @@ export class ChartService {
       }).pipe(catchError(this.handleError.bind(this)));
   }
 
+  /**
+   *  Function to create pie chart with user data.
+   * @param file - CSV file uploaded by user
+   * @param values - User selected config for chart
+   * @returns {Promise<any>}resolving to pie chart
+   */
   createPieChart (values, file) {
+
+    this.spinner.showSpinner.next(true);
+
     const httpOptions = {
       headers : new HttpHeaders({'x-access-token': localStorage.getItem('secretToken')})
     };
@@ -64,13 +79,21 @@ export class ChartService {
     return this.http.post( `${this.appConstants.CHART_ENDPOINT}/createPieChart`, formData, httpOptions)
       .map((result: any) => {
         if (result.success) {
-          return result;
+          this.spinner.showSpinner.next(false);
+          return result.payload;
         }
-      });
-
+      }).pipe(catchError(this.handleError.bind(this)));
   }
 
+  /**
+   *  Function to create line chart with user data.
+   * @param file - CSV file uploaded by user
+   * @param values - User selected config for chart
+   * @returns {Promise<any>}resolving to line chart
+   */
   createLineChart (values, file) {
+
+    this.spinner.showSpinner.next(true);
 
     const httpOptions = {
       headers : new HttpHeaders({'x-access-token': localStorage.getItem('secretToken')})
@@ -83,9 +106,10 @@ export class ChartService {
     return this.http.post( `${this.appConstants.CHART_ENDPOINT}/createLineChart`, formData, httpOptions)
       .map((result: any) => {
         if (result.success) {
-          return result;
+          this.spinner.showSpinner.next(false);
+          return result.payload;
         }
-      });
+      }).pipe(catchError(this.handleError.bind(this)));
   }
 
   saveGeneratedChart (chartData: any) {

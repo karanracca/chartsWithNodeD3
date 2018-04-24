@@ -7,7 +7,6 @@ import { ChartService } from '../charts.service';
   selector: 'app-pie-chart',
   templateUrl: './pie-chart.component.html',
   styleUrls: ['./pie-chart.component.scss'],
-  encapsulation: ViewEncapsulation.None,
 })
 
 export class PieChartComponent implements OnInit {
@@ -16,23 +15,24 @@ export class PieChartComponent implements OnInit {
   fileData: any;
   file: File;
   showDataFields = false;
-  html: any;
+  chart: any;
+  chartData: any;
 
   constructor(private papa: PapaParseService, private chartService: ChartService) { }
 
   ngOnInit() {
     this.pieChartForm = new FormGroup({
-      xaxis: new FormControl('', [<any>Validators.required]),
-      yaxis: new FormControl('', [<any>Validators.required]),
+      label: new FormControl('', [<any>Validators.required]),
+      values: new FormControl('', [<any>Validators.required]),
     });
   }
 
   onSubmit(selectedValues , isValid: boolean) {
-    if (isValid && selectedValues.xaxis !== selectedValues.yaxis) {
-      console.log(selectedValues);
+    if (isValid && selectedValues.label !== selectedValues.value) {
+      console.log('Selected Values', selectedValues);
       this.chartService.createPieChart(selectedValues, this.file).subscribe((data) => {
-        console.log(data);
-        this.html = `data:image/png;base64,${data.payload}`;
+        this.chartData = data;
+        this.chartData.chart = `data:image/png;base64,${data.chart}`;
       });
     }
   }

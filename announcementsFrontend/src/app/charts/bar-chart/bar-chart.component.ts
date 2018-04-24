@@ -33,7 +33,7 @@ export class BarChartComponent implements OnInit {
     if (isValid && selectedValues.xaxis !== selectedValues.yaxis) {
       console.log(selectedValues);
       this.chartService.createBarChart(selectedValues, this.file).subscribe((data: any) => {
-        console.log(data);
+        //console.log(data);
         this.chartData = data;
         this.chartData.chart = `data:image/png;base64,${data.chart}`;
       });
@@ -58,6 +58,4 @@ export class BarChartComponent implements OnInit {
       this.showDataFields = true;
     });
   }
-
-
 }

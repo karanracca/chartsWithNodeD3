@@ -1,8 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+
+//Importing built-in angular theme
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-
+//Importing bootstrap
 @import '~bootstrap/dist/css/bootstrap.min.css';
-
+//Importing common files
 @import "./styles/_variables.scss";
 @import "./styles/_common.scss";
 
@@ -12,7 +14,6 @@ body {
 }
 
 //CSS for file upload component
-
 .ng2-file-input{
   .ng2-file-input-drop-container{
     min-height:10rem;
