@@ -1,0 +1,14 @@
+@import "../../../styles/_common.scss";
+@import "../../../styles/_variables.scss";
+
+.sub-headings{
+  @extend %sub-heading;
+}
+
+.main-container {
+  padding: 2%;
+  background: white;
+  width: 90%;
+  margin: auto;
+  margin-top: 1%;
+}
