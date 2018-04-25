@@ -13,6 +13,7 @@ import {AuthGard} from './auth-gaurd.service';
 import {CreateAnnouncementsComponent} from '../announcements/create-announcements/create-announcements.component';
 import {DonutChartComponent} from '../charts/donut-chart/donut-chart.component';
 import {UpdateAccountComponent} from '../userservices/update-account/update-account.component';
+import {AddCreditsComponent} from '../userservices/add-credits/add-credits.component';
 
 const appRoutes: Routes = [
 
@@ -31,7 +32,8 @@ const appRoutes: Routes = [
       {path: 'createPieCharts', component: PieChartComponent},
       {path: 'createAnnouncements', component: CreateAnnouncementsComponent},
       {path: 'createDonutCharts', component: DonutChartComponent},
-      {path: 'updateAccount', component: UpdateAccountComponent}
+      {path: 'updateAccount', component: UpdateAccountComponent},
+      {path: 'addCredits', component: AddCreditsComponent}
     ]
   },
 ];

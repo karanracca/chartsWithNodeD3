@@ -35,6 +35,8 @@ export class LandingPageComponent implements OnInit {
     });
   }
 
+
+
   updateForm() {
     this.router.navigate(['/welcome/updateAccount']);
   }

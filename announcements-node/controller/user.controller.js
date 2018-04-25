@@ -189,3 +189,32 @@ exports.getCredits = async function (req, res) {
         })
     }
 };
+
+exports.addCredits = async function (req, res) {
+    if (req.body.credits) {
+        let result = await userService.addCredits(req.body.credits, req.header('x-access-token'));
+
+        if (result) {
+
+            let credits = await userService.getCredits(req.header('x-access-token'));
+
+            if (credits) {
+                res.status(200).send({
+                    success: true,
+                    payload: credits,
+                    message: 'Credits Added'
+                })
+            } else {
+                res.status(400).send({
+                    success: false,
+                    message: 'Something went wrong. Please try again'
+                })
+            }
+        }
+    } else {
+        res.status(400).send({
+            success: false,
+            message: 'Invalid parameters passed'
+        })
+    }
+};

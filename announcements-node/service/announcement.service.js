@@ -122,7 +122,7 @@ exports.getCharts = async function (token) {
 
         console.log(user);
 
-        let result = await DBService.findOneAndUpdate({_id: ObjectID(userInfo.user._id)}, DBNAME, USER_COLLECTION, {$inc: {credits: -1}})
+        let result = await DBService.findOneAndUpdate({_id: ObjectID(userInfo.user._id)}, DBNAME, USER_COLLECTION, {$inc: {credits: -1}});
 
         if (result.ok === 1) {
             return true;

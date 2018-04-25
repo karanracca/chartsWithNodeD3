@@ -38,6 +38,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { EditorAreaComponent } from './announcements/editor-area/editor-area.component';
 import {ModelBoxComponent} from './shared/model-box/model-box.component';
 import {CreditsService} from './shared/credits.service';
+import {AddCreditsComponent} from './userservices/add-credits/add-credits.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import {CreditsService} from './shared/credits.service';
     UpdateAccountComponent,
     ResetPasswordComponent,
     EditorAreaComponent,
-    ModelBoxComponent
+    ModelBoxComponent,
+    AddCreditsComponent
   ],
   imports: [
     HttpClientModule,

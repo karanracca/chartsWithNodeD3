@@ -48,4 +48,6 @@ router.post('/updateUser/:id', userController.updateUser);
 
 router.get('/getCredits', userController.getCredits);
 
+router.post('/addCredits', userController.addCredits);
+
 module.exports = router;

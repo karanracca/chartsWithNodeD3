@@ -24,7 +24,11 @@
     <a mat-tab-link mat-menu-item (click)="logout()">Logout</a>
   </mat-menu>
 
-  <a mat-tab-link class="credits">
+  <a mat-tab-link class="credits"
+     [routerLink]="'./addCredits'"
+     routerLinkActive #rlacr="routerLinkActive"
+     [routerLinkActiveOptions]="{exact:true}"
+     [active]="rlacr.isActive">
     <span class="row">
       <span class="col-sm-5 icon">
             <mat-icon class="user-icon">account_balance_wallet</mat-icon>
