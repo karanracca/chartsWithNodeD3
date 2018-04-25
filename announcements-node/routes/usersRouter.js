@@ -11,6 +11,8 @@ router.post('/createUser', userController.createUser);
 
 router.post('/resetPassword', userController.resetPassword);
 
+router.post('/addCredits', userController.addCredits);
+
 router.post('/updateUser', userController.updateUser);
 
 //Function to validate token
