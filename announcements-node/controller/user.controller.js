@@ -15,10 +15,10 @@ const generator = require('generate-password');
  * @param req
  * @param res
  */
-exports.createUser = function (req, res) {
+exports.createUser = async function (req, res) {
 
     try {
-        let result = userService.createUser(req.body);
+        let result = await userService.createUser(req.body);
         if (result) {
             res.status(200).send({
                 success: true,

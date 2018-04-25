@@ -59,24 +59,22 @@ export class AnnouncementService {
    * @returns {Observable<any>}
    */
   createAnnouncement(receivers, editorContent) {
-
-
+    this.spinner.showSpinner.next(true);
     const httpOptions = {
       headers : new HttpHeaders({'x-access-token': localStorage.getItem('secretToken'),
         'Content-Type': 'application/json'})
     };
-
-    this.spinner.showSpinner.next(true);
     const body = {
       editorContent,
       receivers,
     };
 
+    this.spinner.showSpinner.next(false);
     return this.http.post(`${this.appConstants.ANNOUNCEMENT_ENDPOINT}/createAnnouncement`, body, httpOptions)
       .map((result: any) => {
 
         if (result.success) {
-          this.spinner.showSpinner.next(false);
+
           return result;
         }
       })
