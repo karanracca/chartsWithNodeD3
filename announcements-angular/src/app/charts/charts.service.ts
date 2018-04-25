@@ -112,7 +112,8 @@ export class ChartService {
   saveGeneratedChart (chartData: any) {
 
     const httpOptions = {
-      headers : this.appConstants.privateHeaders
+      headers : new HttpHeaders({'x-access-token': localStorage.getItem('secretToken'),
+        'Content-Type': 'application/json'})
     };
 
     return this.http.post( `${this.appConstants.CHART_ENDPOINT}/saveChart`, chartData, httpOptions)

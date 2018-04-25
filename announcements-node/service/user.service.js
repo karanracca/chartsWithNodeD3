@@ -5,6 +5,41 @@ const generator = require('generate-password');
 const ObjectID = require('mongodb').ObjectID;
 const common = require('./common.service');
 
+exports.createUser = async function (body) {
+    try {
+        let userObject = await DBService.findOne({$or: [{username: body.username}, {email: body.email}]}, DBNAME, USER_COLLECTION);
+
+        if (userObject) {
+            if (userObject.email === body.email) {
+                throw new Error("User with this email already present");
+            } else if (userObject.username === body.username) {
+                throw new Error("User with this username already present");
+            }
+        } else {
+            let userInfo = {
+                username: body.username,
+                password: body.password,
+                firstName: body.firstname,
+                lastName: body.lastname,
+                email: body.email,
+                phone: body.phone,
+                role: 'USER_ROLE',
+                credits: 10
+            };
+
+            let insertResult = await DBService.insertOne(userInfo, DBNAME, USER_COLLECTION);
+
+            if (insertResult === 1) {
+                let mailOptions = mailer.createMailConfiguration(body.email, 'Welcome to Charts', 'Hi, Welcome to Charts. You are now registered and ready to create dynamic charts and announcements.', "");
+                mailer.sendMail(mailOptions);
+                return true;
+            }
+        }
+    } catch (error) {
+        throw error.message;
+    }
+};
+
 exports.forgotPassword = async function (email) {
 
     try {

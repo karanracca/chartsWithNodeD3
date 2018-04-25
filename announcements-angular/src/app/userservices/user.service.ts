@@ -57,7 +57,6 @@ export class UserServices {
   }
 
   createUser(userInfo: User) {
-    console.log('called');
     const httpOptions = {
       headers: this.appConstants.headers
     };
