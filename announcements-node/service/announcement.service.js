@@ -4,93 +4,7 @@ const common = require('../service/common.service');
 const ObjectID = require('mongodb').ObjectID;
 const {DBNAME, CHARTS_COLLECTION, USER_COLLECTION} = require('../shared/app-constants');
 
-
-//function to create bar chart
-exports.createBarChart = function (file, keys) {
-    return new Promise((resolve, reject) => {
-        //Parse Csv File
-        csv.parse(file.buffer, function (err, data) {
-            if (err) throw err;
-
-            csv.stringify(data, function (err, stringData) {
-                //console.log(stringData);
-                let d3parsedData = d3.csvParse(stringData, function (parsedData) {
-                    return {
-                        key: parsedData[keys.xaxis],
-                        value: parsedData[keys.yaxis]
-                    };
-                });
-
-                let timestamp = Date.now();
-                //Math.floor((Math.random() * 1000) + 1);
-                createFile(`./chartsOutput/barChart${timestamp}`, d3nBar({data: d3parsedData})).then((chart) => {
-                    resolve({chart, fileName : `barChart${timestamp}`});
-                }).catch(error => {
-                    console.log(error);
-                    reject(error);
-                });
-            });
-        });
-    });
-};
-
-//function to create pie chart
-exports.createPieChart = function (file,keys) {
-    return new Promise((resolve, reject) =>{
-
-        csv.parse(file.buffer, function(err, data){
-            if (err) throw err;
-            csv.stringify(data, function(err, stringData) {
-                console.log(stringData);
-                let d3parsedData = d3.csvParse(stringData, function (parsedData) {
-                    return {
-                        label: parsedData[keys.xaxis],
-                        value: parsedData[keys.yaxis]
-                    };
-                });
-                let timestamp = Date.now();
-                createFile(`./chartsOutput/pieChart${timestamp}`, d3nPie({data:d3parsedData})).then((chart) => {
-                    resolve({chart, fileName : `pieChart${timestamp}`});
-                }).catch(error => {
-                    console.log(error);
-                    reject(error);
-                });
-            });
-        });
-    });
-};
-
-//function to create line chart
-exports.createLineChart = function (file, keys) {
-
-    return new Promise((resolve, reject) => {
-        //Parse Csv File
-        csv.parse(file.buffer, function (err, data) {
-            if (err) throw err;
-
-            csv.stringify(data, function (err, stringData) {
-                console.log(stringData);
-                let d3parsedData = d3.tsvParse(stringData, function (parsedData) {
-                    //console.log(parsedData);
-                    return {
-                        key: parseTime(parsedData[keys.xaxis]),
-                        value: parsedData[keys.yaxis]
-                    };
-                });
-                let timestamp = Date.now();
-                createFile(`./chartsOutput/lineChart${timestamp}`, d3nLine({data: d3parsedData})).then((chart) => {
-                    resolve({chart, fileName : `lineChart${timestamp}`});
-                }).catch(error => {
-                    console.log(error);
-                    reject(error);
-                });
-            });
-        });
-    });
-};
-
-//function to save the chart
-exports.saveChart = async function (chartData, token) {
+exports.createAnnouncement = async function createAnnouncement(content, receivers, token) {
     try {
         let config = mailer.createMailConfiguration(receivers, "New Announcement from Charts", "", content);
 
@@ -99,22 +13,18 @@ exports.saveChart = async function (chartData, token) {
         if (mail.rejected.length === 0) {
             //Save Data in DB
             //Reduce credits
-            if( await this.reduceCredits(token)) {
-                return {
-                    accepted: mail.accepted,
-                    rejected: mail.rejected
-                }
+            if (await this.reduceCredits(token)) {
+                return mail;
             }
+        } else {
+            return false;
         }
     } catch (error) {
         throw error;
     }
 };
 
-
-//function to get the chart from it's history
-exports.getCharts = async function (token) {
-
+exports.reduceCredits = async function (token) {
     try {
         let userInfo = await common.decodeToken(token);
 
@@ -129,7 +39,6 @@ exports.getCharts = async function (token) {
         } else {
             return false;
         }
-
 
     } catch (error) {
         console.log(error);
