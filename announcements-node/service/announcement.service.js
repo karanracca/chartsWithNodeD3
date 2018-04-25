@@ -1,11 +1,18 @@
 const mailer = require('../shared/mailer.service');
 const DBService = require('../shared/db.service');
 const common = require('../service/common.service');
+const userService = require('./user.service');
 const ObjectID = require('mongodb').ObjectID;
 const {DBNAME, CHARTS_COLLECTION, USER_COLLECTION} = require('../shared/app-constants');
 
 exports.createAnnouncement = async function createAnnouncement(content, receivers, token) {
     try {
+        let credits = await userService.getCredits(token);
+
+        if (credits <= 0) {
+            throw new Error('Not enough credits to create new announcements');
+        }
+
         let config = mailer.createMailConfiguration(receivers, "New Announcement from Charts", "", content);
 
         let mail = await mailer.sendMail(config);

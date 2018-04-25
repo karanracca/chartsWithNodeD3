@@ -1,7 +1,7 @@
 @import "../../../styles/_variables.scss";
 
 a{
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 400;
   color: black;
   opacity: 1;
@@ -63,6 +63,19 @@ a:hover{
     }
   }
 
+}
+
+.nav-bar{
+  border: 0 !important;
+}
+
+.logo{
+  position: absolute;
+  left: 43%;
+  font-family: "Indie Flower", cursive;
+  font-size: 4rem;
+  top: -1%;
+  font-weight: bold;
 }
 
 

@@ -14,7 +14,10 @@ import {CreditsService} from '../shared/credits.service';
 @Injectable()
 export class UserServices {
 
-  constructor(private http: HttpClient, private appConstants: AppConstants, private spinner: SpinnerService,private updateDisplayCredits: CreditsService) {
+  constructor(private http: HttpClient,
+              private appConstants: AppConstants,
+              private spinner: SpinnerService,
+              private updateDisplayCredits: CreditsService) {
 
   }
 
