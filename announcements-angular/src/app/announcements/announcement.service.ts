@@ -68,13 +68,16 @@ export class AnnouncementService {
         'Content-Type': 'application/json'})
     };
 
+
     this.spinner.showSpinner.next(true);
+
 
     const body = {
       editorContent,
       receivers,
     };
 
+    this.spinner.showSpinner.next(false);
     return this.http.post(`${this.appConstants.ANNOUNCEMENT_ENDPOINT}/createAnnouncement`, body, httpOptions)
       .map((result: any) => {
         this.spinner.showSpinner.next(false);

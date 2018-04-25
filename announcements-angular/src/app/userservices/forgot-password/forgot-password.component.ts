@@ -26,8 +26,8 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   getEmailErrorMessage() {
-    return this.resetPasswordForm.controls.email.hasError('required') ? 'You must enter a value' :
-      this.resetPasswordForm.controls.email.hasError('email') ? 'Not a valid email' : '';
+    return this.resetPasswordForm.controls.emailFormControl.hasError('required') ? 'You must enter a value' :
+      this.resetPasswordForm.controls.emailFormControl.hasError('email') ? 'Not a valid email' : '';
   }
 
   resetPassword(credentials: {emailFormControl}, isValid: boolean) {
