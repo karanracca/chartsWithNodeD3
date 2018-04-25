@@ -32,11 +32,10 @@ export class AnnouncementService {
   }
 
   getAllCharts() {
-    this.spinner.showSpinner.next(true);
+
     const httpOptions = {
       headers: this.appConstants.privateHeaders
     };
-    this.spinner.showSpinner.next(false);
 
     return this.http.get(`${this.appConstants.CHART_ENDPOINT}/getAllCharts`, httpOptions)
       .pipe(catchError(this.handleError.bind(this)));
@@ -45,22 +44,28 @@ export class AnnouncementService {
 
   createAnnouncement(receivers, editorContent) {
 
-    this.spinner.showSpinner.next(true);
+
     const httpOptions = {
       headers: this.appConstants.privateHeaders
     };
+
 
     let body = {
       editorContent,
       receivers,
     };
 
+
+
     return this.http.post(`${this.appConstants.ANNOUNCEMENT_ENDPOINT}/createAnnouncement`, body, httpOptions)
+
+
       .map((result: any) => {
+
         if (result.success) {
-          this.spinner.showSpinner.next(false);
           return result;
         }
+
       })
       .pipe(catchError(this.handleError.bind(this)));
   }

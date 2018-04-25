@@ -41,12 +41,6 @@ exports.createUser = function (req, res) {
 
             DBService.insertOne(userInfo, DBNAME, USER_COLLECTION).then(function () {
 
-                mailer.sendMail(mailer.createMailConfiguration(
-                    req.body.email,
-                    'Welcome to Charts',
-                    'Dear ' +req.body.firstName + ',\nThank you for registering with us you can now make charts using your credits.\n\nRegards,\nCharts Team'
-                ));
-
                 var mailOptions = {
                     from: 'acharya.rupesh0@gmail.com',
                     to: req.body.email,
@@ -197,27 +191,30 @@ exports.getCredits = async function (req, res) {
 };
 
 exports.addCredits = async function (req, res) {
+    if (req.body.credits) {
+        let result = await userService.addCredits(req.body.credits, req.header('x-access-token'));
 
-    if(req.body.credits) {
-        try{
-            let result = await userService.addCredits(req.header('x-access-token'), req.body.credits);
+        if (result) {
 
-            if(result) {
+            let credits = await userService.getCredits(req.header('x-access-token'));
+
+            if (credits) {
                 res.status(200).send({
                     success: true,
-                    message: 'Credits Added!'
+                    payload: credits,
+                    message: 'Credits Added'
+                })
+            } else {
+                res.status(400).send({
+                    success: false,
+                    message: 'Something went wrong. Please try again'
                 })
             }
-        }  catch (error) {
-            res.status(400).send({
-                success: false,
-                message: error.message
-            });
         }
     } else {
         res.status(400).send({
             success: false,
-            message: "Transaction failed. Credits could not be added"
-        });
+            message: 'Invalid parameters passed'
+        })
     }
 };

@@ -34,7 +34,6 @@ import { DonutChartComponent } from './charts/donut-chart/donut-chart.component'
 import { UpdateAccountComponent } from './userservices/update-account/update-account.component';
 import { ResetPasswordComponent } from './userservices/reset-password/reset-password.component';
 import { AddCreditsComponent } from './userservices/add-credits/add-credits.component';
-
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { EditorAreaComponent } from './announcements/editor-area/editor-area.component';
 import {ModelBoxComponent} from './shared/model-box/model-box.component';
@@ -58,9 +57,9 @@ import {CreditsService} from './shared/credits.service';
     DonutChartComponent,
     UpdateAccountComponent,
     ResetPasswordComponent,
-    AddCreditsComponent,
     EditorAreaComponent,
-    ModelBoxComponent
+    ModelBoxComponent,
+    AddCreditsComponent
   ],
   imports: [
     HttpClientModule,

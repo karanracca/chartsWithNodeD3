@@ -12,7 +12,7 @@ import {CreditsService} from '../../shared/credits.service';
 })
 export class CreateAnnouncementsComponent implements OnInit {
 
-  receivers = null;
+  receivers: Array<string> = [];
   editorText = null;
   constructor(private announceService: AnnouncementService,
               private notify: NotificationService,
@@ -37,13 +37,15 @@ export class CreateAnnouncementsComponent implements OnInit {
   }
 
   createAnnouncement() {
-    if (this.receivers === null || !this.receivers.length > 0) {
-      this.notify.notification.next("Please select receivers for the announcement");
+
+    if (this.receivers.length === 0) {
+      this.notify.notification.next('Please select receivers for the announcement');
+
       return;
     }
 
     if (this.editorText === null || this.editorText === 'Enter content here...') {
-      this.notify.notification.next("Please enter content for announcement");
+      this.notify.notification.next('Please enter content for announcement');
       return;
     }
 

@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {UserServices} from '../../userservices/user.service';
 import {CreditsService} from '../../shared/credits.service';
+import {HttpErrorResponse} from "@angular/common/http";
+import {ErrorObservable} from "rxjs/observable/ErrorObservable";
+
 
 @Component({
   selector: 'app-landing-page',
@@ -17,6 +20,8 @@ export class LandingPageComponent implements OnInit {
 
   user: any;
 
+
+
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('user'));
     this.creditsService.updateCredits.subscribe(() => {
@@ -27,6 +32,7 @@ export class LandingPageComponent implements OnInit {
   logout() {
     localStorage.clear();
     this.router.navigate(['/login']);
+
   }
 
   updateCredits() {
@@ -34,6 +40,8 @@ export class LandingPageComponent implements OnInit {
       this.user = userObject;
     });
   }
+
+
 
   updateForm() {
     this.router.navigate(['/welcome/updateAccount']);
