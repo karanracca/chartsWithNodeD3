@@ -5,9 +5,9 @@ import 'rxjs/add/operator/map';
 import {User} from './signup/user.model';
 import {ErrorObservable} from 'rxjs/observable/ErrorObservable';
 import {catchError} from 'rxjs/operators';
-import {SpinnerService} from "../shared/spinner.service";
+import {SpinnerService} from '../shared/spinner.service';
 import {Observable} from 'rxjs/Observable';
-import {$} from "protractor";
+import {$} from 'protractor';
 import {CreditsService} from '../shared/credits.service';
 
 
@@ -61,23 +61,25 @@ export class UserServices {
           localStorage.setItem('user', JSON.stringify(result.payload.userObject));
           return result;
         }
-      }).pipe(catchError(this.handleError).bind(this));
+      }).pipe(catchError(this.handleError));
   }
 
   //Function to create user through backend and display the pop up
   createUser(userInfo: User) {
 
+    this.spinner.showSpinner.next(true);
+
     const httpOptions = {
-      headers : new HttpHeaders({'Content-Type': 'application/json'})
+      headers : new HttpHeaders({'x-access-token': localStorage.getItem('secretToken')})
     };
 
     return this.http.post(`${this.appConstants.USER_ENDPOINT}/createUser`, userInfo, httpOptions)
       .map((result: any) => {
-      this.spinner.showSpinner.next(false);
-      if (result.success) {
-        return result;
-      }
-    }).pipe(catchError(this.handleError).bind(this));
+        this.spinner.showSpinner.next(false);
+        if (result.success) {
+          return result;
+        }
+      }).pipe(catchError(this.handleError));
 
   }
 
@@ -85,7 +87,7 @@ export class UserServices {
   resetPassword(emailFormControl: string) {
 
     const httpOptions = {
-      headers: this.appConstants.headers
+      headers : new HttpHeaders({'x-access-token': localStorage.getItem('secretToken')})
     };
 
     const body = {
@@ -98,15 +100,17 @@ export class UserServices {
 
   //Update the user according to the changes done by the user
   updateUser(user: User) {
+
     this.spinner.showSpinner.next(true);
+
     const httpOptions = {
-      headers: this.appConstants.privateHeaders
+      headers : new HttpHeaders({'x-access-token': localStorage.getItem('secretToken')})
     };
 
     return this.http.post(`${this.appConstants.USER_ENDPOINT}/updateUser/${user._id}`, user, httpOptions).map((result: any) => {
+      this.spinner.showSpinner.next(false);
       if (result.success) {
         console.log(result);
-        this.spinner.showSpinner.next(false);
         localStorage.setItem('user', JSON.stringify(result.payload.userObject));
         return result;
       }
@@ -137,14 +141,15 @@ export class UserServices {
   getCredits() {
 
     this.spinner.showSpinner.next(true);
+
     const httpOptions = {
-      headers: this.appConstants.privateHeaders
+      headers : new HttpHeaders({'x-access-token': localStorage.getItem('secretToken')})
     };
 
     return this.http.get(`${this.appConstants.USER_ENDPOINT}/getCredits/`, httpOptions).map((result: any) => {
+      this.spinner.showSpinner.next(false);
       if (result.success) {
         console.log(result);
-        this.spinner.showSpinner.next(false);
         let user = JSON.parse(localStorage.getItem('user'));
         user.credits = result.payload;
         localStorage.setItem('user', JSON.stringify(user));
@@ -152,10 +157,13 @@ export class UserServices {
       }
     }).pipe(catchError(this.handleError));
   }
+
 //function to add the credits to the user
   addCredits(credits) {
+    this.spinner.showSpinner.next(true);
+
     const httpOptions = {
-      headers: this.appConstants.privateHeaders
+      headers : new HttpHeaders({'x-access-token': localStorage.getItem('secretToken')})
     };
 
     const body = {

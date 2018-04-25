@@ -5,6 +5,7 @@ import {UserServices} from '../user.service';
 import {Router} from '@angular/router';
 import {NotificationService} from '../../shared/notification.service';
 import {Observable} from 'rxjs/Observable';
+import {SpinnerService} from '../../shared/spinner.service';
 
 @Component({
   selector: 'app-signup',
@@ -15,7 +16,8 @@ export class SignupComponent implements OnInit {
 
   constructor(private userService: UserServices,
               private router: Router,
-              private notifyService: NotificationService) {
+              private notifyService: NotificationService,
+              private spinner: SpinnerService) {
   }
 
   signupForm: FormGroup;
@@ -49,9 +51,11 @@ export class SignupComponent implements OnInit {
 
       observable.subscribe((data: any) => {
         this.notifyService.notification.next(data.message);
+        this.spinner.showSpinner.next(false);
         this.router.navigate(['/login']);
       }, error => {
         this.notifyService.notification.next(error);
+        this.spinner.showSpinner.next(false);
       });
     }
   }

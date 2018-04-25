@@ -4,6 +4,7 @@ import {UserServices} from '../user.service';
 import {Router} from '@angular/router';
 import {User} from '../signup/user.model';
 import {NotificationService} from '../../shared/notification.service';
+import {SpinnerService} from '../../shared/spinner.service';
 
 @Component({
   selector: 'app-update-account',
@@ -14,7 +15,8 @@ export class UpdateAccountComponent implements OnInit {
 
   constructor(private userService: UserServices,
               private router: Router,
-              private notifyService: NotificationService) {
+              private notifyService: NotificationService,
+              private spinner: SpinnerService) {
 
   }
   user: any;
@@ -46,22 +48,15 @@ export class UpdateAccountComponent implements OnInit {
       }
       console.log(user);
       this.userService.updateUser(user).subscribe((data: any) => {
+        this.spinner.showSpinner.next(false);
         this.notifyService.notification.next(data.message);
         this.user = data.payload.userObject;
         this.loadUserForm(this.user);
       }, error => {
         this.notifyService.notification.next(error);
+        this.spinner.showSpinner.next(false);
       });
     }
-  }
-
-  deactivate() {
-    this.userService.deleteUser().subscribe((data: any) => {
-      this.notifyService.notification.next(data.message);
-      this.loadUserForm(this.user);
-    }, error => {
-      this.notifyService.notification.next(error);
-    });
   }
 
   loadUserForm(user: User) {

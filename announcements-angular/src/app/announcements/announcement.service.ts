@@ -20,7 +20,6 @@ export class AnnouncementService {
    * @returns {ErrorObservable}
    */
   private handleError(error: HttpErrorResponse) {
-    //this.spinner.showSpinner.next(false);
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);
@@ -43,8 +42,10 @@ export class AnnouncementService {
   getAllCharts() {
 
     const httpOptions = {
-      headers : new HttpHeaders({'x-access-token': localStorage.getItem('secretToken'),
-        'Content-Type': 'application/json'})
+      headers: new HttpHeaders({
+        'x-access-token': localStorage.getItem('secretToken'),
+        'Content-Type': 'application/json'
+      })
     };
 
     return this.http.get(`${this.appConstants.CHART_ENDPOINT}/getAllCharts`, httpOptions).map((result: any) => {
@@ -64,20 +65,18 @@ export class AnnouncementService {
    */
   createAnnouncement(receivers, editorContent) {
     const httpOptions = {
-      headers : new HttpHeaders({'x-access-token': localStorage.getItem('secretToken'),
-        'Content-Type': 'application/json'})
+      headers: new HttpHeaders({
+        'x-access-token': localStorage.getItem('secretToken'),
+        'Content-Type': 'application/json'
+      })
     };
-
-
     this.spinner.showSpinner.next(true);
-
 
     const body = {
       editorContent,
       receivers,
     };
 
-    this.spinner.showSpinner.next(false);
     return this.http.post(`${this.appConstants.ANNOUNCEMENT_ENDPOINT}/createAnnouncement`, body, httpOptions)
       .map((result: any) => {
         this.spinner.showSpinner.next(false);

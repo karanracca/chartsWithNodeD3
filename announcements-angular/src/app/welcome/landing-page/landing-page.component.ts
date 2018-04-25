@@ -5,6 +5,7 @@ import {UserServices} from '../../userservices/user.service';
 import {CreditsService} from '../../shared/credits.service';
 import {HttpErrorResponse} from "@angular/common/http";
 import {ErrorObservable} from "rxjs/observable/ErrorObservable";
+import {SpinnerService} from '../../shared/spinner.service';
 
 
 @Component({
@@ -16,7 +17,8 @@ export class LandingPageComponent implements OnInit {
 
   constructor(private router: Router,
               private userService: UserServices,
-              private creditsService: CreditsService) { }
+              private creditsService: CreditsService,
+              private spinner: SpinnerService) { }
 
   user: any;
 
@@ -37,11 +39,12 @@ export class LandingPageComponent implements OnInit {
 
   updateCredits() {
     this.userService.getCredits().subscribe(userObject => {
+      this.spinner.showSpinner.next(false);
       this.user = userObject;
+    }, error => {
+      this.spinner.showSpinner.next(false);
     });
   }
-
-
 
   updateForm() {
     this.router.navigate(['/welcome/updateAccount']);

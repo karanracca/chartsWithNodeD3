@@ -57,6 +57,7 @@ export class CreateAnnouncementsComponent implements OnInit {
       this.openDialog();
       this.creditsService.updateCredits.next();
     }, error => {
+      this.notify.notification.next(error.message);
       this.spinner.showSpinner.next(false);
     });
   }
