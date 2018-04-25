@@ -8,12 +8,14 @@ import {catchError} from 'rxjs/operators';
 import {SpinnerService} from "../shared/spinner.service";
 import {Observable} from 'rxjs/Observable';
 import {$} from "protractor";
+import {CreditsService} from '../shared/credits.service';
 
 
 @Injectable()
 export class UserServices {
 
-  constructor(private http: HttpClient, private appConstants: AppConstants, private spinner: SpinnerService) {
+  constructor(private http: HttpClient, private appConstants: AppConstants, private spinner: SpinnerService,private updateDisplayCredits: CreditsService) {
+
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -127,6 +129,27 @@ export class UserServices {
         user.credits = result.payload;
         this.spinner.showSpinner.next(false);
         localStorage.setItem('user', JSON.stringify(user));
+        return user;
+      }
+    }).pipe(catchError(this.handleError));
+  }
+
+  addCredits(credits) {
+    const httpOptions = {
+      headers: this.appConstants.privateHeaders
+    };
+
+    const body = {
+      credits
+    };
+
+    return this.http.post(`${this.appConstants.USER_ENDPOINT}/addCredits/`, body, httpOptions).map((result: any) => {
+      if (result.success) {
+        console.log(result);
+        let user = JSON.parse(localStorage.getItem('user'));
+        user.credits = result.payload;
+        localStorage.setItem('user', JSON.stringify(user));
+        this.updateDisplayCredits.updateCredits.next();
         return user;
       }
     }).pipe(catchError(this.handleError));

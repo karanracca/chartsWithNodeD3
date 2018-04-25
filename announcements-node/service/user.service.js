@@ -85,3 +85,18 @@ exports.getCredits = async function (token) {
         throw error;
     }
 };
+
+exports.addCredits = async function (credits, token) {
+    try {
+        let userInfo = await common.decodeToken(token);
+        console.log(userInfo);
+        let result = await DBService.findOneAndUpdate({_id: ObjectID(userInfo.user._id)}, DBNAME, USER_COLLECTION, {$inc: {credits: credits}});
+        if (result.ok === 1) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (error) {
+        throw error;
+    }
+};

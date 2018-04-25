@@ -4,7 +4,7 @@ const announceService = require('../service/announcement.service');
 exports.createAnnouncement = async function (req, res) {
     if (req.body.editorContent && req.body.receivers) {
         //console.log(req.body.editorContent);
-        let result = await announceService.createAnnouncement(req.body.editorContent, req.body.receivers);
+        let result = await announceService.createAnnouncement(req.body.editorContent, req.body.receivers, req.header('x-access-token'));
 
         if (result) {
             if (result.rejected.length === 0) {
