@@ -73,7 +73,7 @@ export class AnnouncementService {
 
     return this.http.post(`${this.appConstants.ANNOUNCEMENT_ENDPOINT}/createAnnouncement`, body, httpOptions)
       .map((result: any) => {
-        this.spinner.showSpinner.next(true);
+        this.spinner.showSpinner.next(false);
         if (result.success) {
           return result;
         }

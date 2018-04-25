@@ -8,7 +8,7 @@ const common = require('./common.service');
 exports.createUser = async function (body) {
     try {
         let userObject = await DBService.findOne({$or: [{username: body.username}, {email: body.email}]}, DBNAME, USER_COLLECTION);
-
+        console.log("Userobject", userObject);
         if (userObject) {
             if (userObject.email === body.email) {
                 throw new Error("User with this email already present");
@@ -36,6 +36,7 @@ exports.createUser = async function (body) {
             }
         }
     } catch (error) {
+        console.log("error1");
         throw error.message;
     }
 };
