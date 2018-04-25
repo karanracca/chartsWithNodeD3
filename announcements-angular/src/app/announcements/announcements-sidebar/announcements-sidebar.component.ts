@@ -27,7 +27,6 @@ export class AnnouncementsSidebarComponent implements OnInit {
 
   ngOnInit() {
     this.emailFormControl = new FormControl('', [
-      Validators.required,
       Validators.email,
     ]);
 
@@ -78,6 +77,4 @@ export class AnnouncementsSidebarComponent implements OnInit {
     }
     this.receivers.emit(emailList);
   }
-
-
 }

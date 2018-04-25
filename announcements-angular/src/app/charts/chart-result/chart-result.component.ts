@@ -20,7 +20,7 @@ export class ChartResultComponent implements OnInit {
 
   saveChart() {
     if (this.chartName.length <= 0) {
-     this.showChartNameError = true;
+     this.notify.notification.next('Enter chart name');
      return;
     } else {
       this.showChartNameError = false;
@@ -29,6 +29,8 @@ export class ChartResultComponent implements OnInit {
       this.chartServices.saveGeneratedChart(this.chartData).subscribe((result: any) => {
         console.log(result);
         this.notify.notification.next(result.message);
+      }, error => {
+        this.notify.notification.next(error);
       });
     }
   }

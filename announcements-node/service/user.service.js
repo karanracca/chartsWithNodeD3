@@ -111,9 +111,9 @@ exports.updateUser =  async function (user, id) {
 exports.getCredits = async function (token) {
     try {
         let userInfo = await common.decodeToken(token);
-        console.log(userInfo);
+        //console.log(userInfo);
         let result = await DBService.findOne({_id: ObjectID(userInfo.user._id)}, DBNAME, USER_COLLECTION);
-        console.log(result);
+        console.log("Credits", result.credits);
         return result.credits;
 
     } catch (error) {
