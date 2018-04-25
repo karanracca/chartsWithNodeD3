@@ -114,9 +114,12 @@ export class ChartService {
       }).pipe(catchError(this.handleError.bind(this)));
   }
 
-  //Function to save the generated charts
+  /**
+   * Function to save generated chart
+   * @param chartData
+   * @returns {Observable<any>}
+   */
   saveGeneratedChart (chartData: any) {
-
     const httpOptions = {
       headers : new HttpHeaders({'x-access-token': localStorage.getItem('secretToken'),
         'Content-Type': 'application/json'})

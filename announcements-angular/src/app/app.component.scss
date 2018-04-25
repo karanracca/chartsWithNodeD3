@@ -1,3 +1,6 @@
+@import "../styles/_common.scss";
+@import "../styles/_variables.scss";
+
 .spinner-overlay{
   position: fixed;
   width: 100%;
@@ -17,4 +20,6 @@
   right: 0;
   opacity: 1 !important;
 }
+
+
 

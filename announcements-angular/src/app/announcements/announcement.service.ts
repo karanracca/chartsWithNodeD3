@@ -14,6 +14,11 @@ export class AnnouncementService {
               private spinner: SpinnerService) {
   }
 
+  /**
+   * Error handling for HTTP request
+   * @param {HttpErrorResponse} error
+   * @returns {ErrorObservable}
+   */
   private handleError(error: HttpErrorResponse) {
     this.spinner.showSpinner.next(false);
     if (error.error instanceof ErrorEvent) {
@@ -31,11 +36,15 @@ export class AnnouncementService {
       error.error.message || 'Something went wrong; please try again later.');
   }
 
-  //Function to get all the charts that are created previously
+  /**
+   * Function to get all user saved charts
+   * @returns {Observable<any>}
+   */
   getAllCharts() {
 
     const httpOptions = {
-      headers: this.appConstants.privateHeaders
+      headers : new HttpHeaders({'x-access-token': localStorage.getItem('secretToken'),
+        'Content-Type': 'application/json'})
     };
 
     return this.http.get(`${this.appConstants.CHART_ENDPOINT}/getAllCharts`, httpOptions)
@@ -43,27 +52,33 @@ export class AnnouncementService {
 
   }
 
-  //code to call the retrieve  announcement
+  /**
+   * Function to create new announcement
+   * @param receivers list
+   * @param editorContent
+   * @returns {Observable<any>}
+   */
   createAnnouncement(receivers, editorContent) {
+
+
     const httpOptions = {
-      headers: this.appConstants.privateHeaders
+      headers : new HttpHeaders({'x-access-token': localStorage.getItem('secretToken'),
+        'Content-Type': 'application/json'})
     };
 
-
-    let body = {
+    this.spinner.showSpinner.next(true);
+    const body = {
       editorContent,
       receivers,
     };
 
     return this.http.post(`${this.appConstants.ANNOUNCEMENT_ENDPOINT}/createAnnouncement`, body, httpOptions)
-
-
       .map((result: any) => {
 
         if (result.success) {
+          this.spinner.showSpinner.next(false);
           return result;
         }
-
       })
       .pipe(catchError(this.handleError.bind(this)));
   }

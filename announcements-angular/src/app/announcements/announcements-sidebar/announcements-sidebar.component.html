@@ -58,11 +58,11 @@
                       matSuffix
                       mat-icon-button
                       (click)="addEmail()"
-                      disabled="{{emailFormControl.hasError('email') || emailFormControl.hasError('required')}}"
+                      disabled="{{emailFormControl.hasError('email')}}"
                       aria-label="Clear">
                 <mat-icon class="add-icon">add_circle</mat-icon>
               </button>
-              <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+              <mat-error *ngIf="emailFormControl.hasError('email')">
                 Please enter a valid email address
               </mat-error>
             </mat-form-field>

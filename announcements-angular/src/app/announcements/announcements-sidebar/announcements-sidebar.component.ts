@@ -27,7 +27,6 @@ export class AnnouncementsSidebarComponent implements OnInit {
 
   ngOnInit() {
     this.emailFormControl = new FormControl('', [
-      Validators.required,
       Validators.email,
     ]);
 
@@ -39,7 +38,8 @@ export class AnnouncementsSidebarComponent implements OnInit {
 //Function to add multiple email address for one chart
   addEmail() {
     this.emailList.push(this.emailFormControl.value);
-    this.emailFormControl.reset();
+    this.emailFormControl.reset('');
+    this.emailFormControl.setErrors(null);
   }
 
 //Function to remove the email id from the list
@@ -78,6 +78,4 @@ export class AnnouncementsSidebarComponent implements OnInit {
     }
     this.receivers.emit(emailList);
   }
-
-
 }
