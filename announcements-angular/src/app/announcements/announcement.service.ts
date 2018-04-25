@@ -47,8 +47,12 @@ export class AnnouncementService {
         'Content-Type': 'application/json'})
     };
 
-    return this.http.get(`${this.appConstants.CHART_ENDPOINT}/getAllCharts`, httpOptions)
-      .pipe(catchError(this.handleError.bind(this)));
+    return this.http.get(`${this.appConstants.CHART_ENDPOINT}/getAllCharts`, httpOptions).map((result: any) => {
+      this.spinner.showSpinner.next(false);
+      if (result.success) {
+        return result;
+      }
+    }).pipe(catchError(this.handleError.bind(this)));
 
   }
 
@@ -59,14 +63,13 @@ export class AnnouncementService {
    * @returns {Observable<any>}
    */
   createAnnouncement(receivers, editorContent) {
-
-
     const httpOptions = {
       headers : new HttpHeaders({'x-access-token': localStorage.getItem('secretToken'),
         'Content-Type': 'application/json'})
     };
 
     this.spinner.showSpinner.next(true);
+
     const body = {
       editorContent,
       receivers,

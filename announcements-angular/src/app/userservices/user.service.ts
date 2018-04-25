@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {AppConstants} from '../shared/appConstants';
 import 'rxjs/add/operator/map';
 import {User} from './signup/user.model';
@@ -22,7 +22,9 @@ export class UserServices {
   }
 
   private handleError(error: HttpErrorResponse) {
-    this.spinner.showSpinner.next(false);
+
+    //this.spinner.showSpinner.next(false);
+
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);
@@ -54,9 +56,9 @@ export class UserServices {
 
     return this.http.post(`${this.appConstants.USER_ENDPOINT}/authenticate`, body, httpOptions)
       .map((result: any) => {
+        this.spinner.showSpinner.next(false);
         if (result.success) {
           console.log(result);
-          this.spinner.showSpinner.next(false);
           localStorage.setItem('secretToken', result.payload.token);
           localStorage.setItem('user', JSON.stringify(result.payload.userObject));
           return result;
@@ -70,10 +72,16 @@ export class UserServices {
   createUser(userInfo: User) {
 
     const httpOptions = {
-      headers: this.appConstants.headers
+      headers : new HttpHeaders({'Content-Type': 'application/json'})
     };
 
-    return this.http.post(`${this.appConstants.USER_ENDPOINT}/createUser`, userInfo, httpOptions).pipe(catchError(this.handleError));
+    return this.http.post(`${this.appConstants.USER_ENDPOINT}/createUser`, userInfo, httpOptions)
+      .map((result: any) => {
+      this.spinner.showSpinner.next(false);
+      if (result.success) {
+        return result;
+      }
+    }).pipe(catchError(this.handleError).bind(this));
 
   }
 

@@ -36,7 +36,6 @@ exports.createUser = async function (body) {
             }
         }
     } catch (error) {
-        console.log("error1");
         throw error.message;
     }
 };
