@@ -37,6 +37,8 @@ export class ChartService {
    * @param values - User selected config for chart
    * @returns {Promise<any>}resolving to pie chart
    */
+
+  //Function to retrieve the create bar chart function and getting the output
   createBarChart (values, file) {
 
     this.spinner.showSpinner.next(true);
@@ -64,6 +66,7 @@ export class ChartService {
    * @param values - User selected config for chart
    * @returns {Promise<any>}resolving to pie chart
    */
+  //Function to retrieve the create pie chart function and getting the output
   createPieChart (values, file) {
     this.spinner.showSpinner.next(true);
     const httpOptions = {
@@ -89,6 +92,8 @@ export class ChartService {
    * @param values - User selected config for chart
    * @returns {Promise<any>}resolving to line chart
    */
+
+  //Function to retrieve the create line chart function and getting the output
   createLineChart (values, file) {
 
     this.spinner.showSpinner.next(true);
@@ -109,6 +114,7 @@ export class ChartService {
       }).pipe(catchError(this.handleError.bind(this)));
   }
 
+  //Function to save the generated charts
   saveGeneratedChart (chartData: any) {
 
     const httpOptions = {
@@ -125,6 +131,8 @@ export class ChartService {
      * @param values - User selected config for chart
      * @returns {Promise<any>}resolving to donut chart
      */
+
+    //Function to retrieve the create donut chart function and getting the output
   createDonutChart (values, file) {
 
     this.spinner.showSpinner.next(true);

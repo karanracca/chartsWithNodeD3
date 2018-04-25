@@ -36,6 +36,7 @@ export class CreateAnnouncementsComponent implements OnInit {
     });
   }
 
+  //Function to create the announcement and send it to specified receivers
   createAnnouncement() {
 
     if (this.receivers.length === 0) {

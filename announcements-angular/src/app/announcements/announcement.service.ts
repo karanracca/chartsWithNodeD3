@@ -31,6 +31,7 @@ export class AnnouncementService {
       error.error.message || 'Something went wrong; please try again later.');
   }
 
+  //Function to get all the charts that are created previously
   getAllCharts() {
 
     const httpOptions = {
@@ -42,9 +43,8 @@ export class AnnouncementService {
 
   }
 
+  //code to call the retrieve  announcement
   createAnnouncement(receivers, editorContent) {
-
-
     const httpOptions = {
       headers: this.appConstants.privateHeaders
     };
@@ -54,8 +54,6 @@ export class AnnouncementService {
       editorContent,
       receivers,
     };
-
-
 
     return this.http.post(`${this.appConstants.ANNOUNCEMENT_ENDPOINT}/createAnnouncement`, body, httpOptions)
 
