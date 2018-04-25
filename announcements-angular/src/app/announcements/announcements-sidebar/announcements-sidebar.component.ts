@@ -4,6 +4,7 @@ import {FormControl, Validators} from '@angular/forms';
 import {AnnouncementService} from '../announcement.service';
 import {PapaParseService} from 'ngx-papaparse';
 import {Receivers} from '../receivers.model';
+import {SpinnerService} from '../../shared/spinner.service';
 
 @Component({
   selector: 'app-announcements-sidebar',
@@ -23,7 +24,8 @@ export class AnnouncementsSidebarComponent implements OnInit {
   receiversType: string;
 
   constructor(private annService: AnnouncementService,
-              private papa: PapaParseService) { }
+              private papa: PapaParseService,
+              private spinner: SpinnerService) { }
 
   ngOnInit() {
     this.emailFormControl = new FormControl('', [
@@ -32,6 +34,8 @@ export class AnnouncementsSidebarComponent implements OnInit {
 
     this.annService.getAllCharts().subscribe((result: any) => {
       this.allCharts = result.payload;
+    }, error => {
+      this.spinner.showSpinner.next(false);
     });
   }
 

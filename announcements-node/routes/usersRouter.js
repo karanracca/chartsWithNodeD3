@@ -11,9 +11,9 @@ router.post('/createUser', userController.createUser);
 
 router.post('/resetPassword', userController.resetPassword);
 
-router.post('/addCredits', userController.addCredits);
+//router.post('/addCredits', userController.addCredits);
 
-router.post('/updateUser', userController.updateUser);
+//router.post('/updateUser', userController.updateUser);
 
 //Function to validate token
 router.use(function (req, res, next) {
@@ -44,7 +44,7 @@ router.use(function (req, res, next) {
     }
 });
 
-router.delete('/deleteUser/:id', userController.deleteUser);
+router.delete('/deleteUser', userController.deleteUser);
 
 router.post('/updateUser/:id', userController.updateUser);
 

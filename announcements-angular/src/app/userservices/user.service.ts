@@ -23,8 +23,6 @@ export class UserServices {
 
   private handleError(error: HttpErrorResponse) {
 
-    //this.spinner.showSpinner.next(false);
-
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);
@@ -63,9 +61,7 @@ export class UserServices {
           localStorage.setItem('user', JSON.stringify(result.payload.userObject));
           return result;
         }
-      }).pipe(catchError(this.handleError));
-
-
+      }).pipe(catchError(this.handleError).bind(this));
   }
 
   //Function to create user through backend and display the pop up
@@ -117,11 +113,19 @@ export class UserServices {
     }).pipe(catchError(this.handleError));
   }
 
-  deleteUser(userInfo: User) {
-    console.log('Delete called');
+  deleteUser() {
+    this.spinner.showSpinner.next(true);
     const httpOptions = {
-      headers: this.appConstants.headers
+      headers: this.appConstants.privateHeaders
     };
+
+    return this.http.delete(`${this.appConstants.USER_ENDPOINT}/deleteUser`, httpOptions).map((result: any) => {
+      if (result.success) {
+        console.log(result);
+        this.spinner.showSpinner.next(false);
+        return result;
+      }
+    }).pipe(catchError(this.handleError));
   }
 
 //Check if user is already present
@@ -131,6 +135,7 @@ export class UserServices {
 
   //to get the current wallet credits pending
   getCredits() {
+
     this.spinner.showSpinner.next(true);
     const httpOptions = {
       headers: this.appConstants.privateHeaders

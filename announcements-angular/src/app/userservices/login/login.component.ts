@@ -3,6 +3,7 @@ import {UserServices} from '../user.service';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {NotificationService} from '../../shared/notification.service';
+import {SpinnerService} from '../../shared/spinner.service';
 
 
 @Component({
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private userService: UserServices,
               private router: Router,
-              private notifyService: NotificationService) { }
+              private notifyService: NotificationService,
+              private spinner: SpinnerService) { }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -33,9 +35,11 @@ export class LoginComponent implements OnInit {
   login(credentials: {username, password}, isValid: boolean) {
     if (isValid) {
       this.userService.login(credentials.username, credentials.password).subscribe((data: any) => {
+        this.spinner.showSpinner.next(false);
         this.notifyService.notification.next(data.message);
         this.router.navigate(['/welcome']);
       }, error => {
+        this.spinner.showSpinner.next(false);
         this.notifyService.notification.next(error);
       });
     }

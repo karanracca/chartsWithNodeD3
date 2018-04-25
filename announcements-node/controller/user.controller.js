@@ -9,6 +9,7 @@ var accountSid = 'ACbdc6403769edfc193cc8cc9799def491';
 var authToken = '1b514df52af8fbcb2dfd85bc05114c54';
 const client = require('twilio')(accountSid, authToken);
 const generator = require('generate-password');
+const common = require('../service/common.service');
 
 /**
  * Function to register new user.
@@ -97,22 +98,35 @@ exports.authenticateUser = function (req, res) {
 };
 
 //Code to delete the user
-exports.deleteUser = function (req, res) {
-    console.log('ID', req.params.id);
-    DBService.deleteOne({_id: ObjectID(req.params.id)}, DBNAME, 'users').then(function (result) {
-        if (result && result.result && result.deletedCount === 1) {
-            res.status(200).send({
-                success: true,
-                message: "User Deleted",
-            })
-        } else {
-            return res.status(500).send({
-                status: 500,
-                success: false,
-                message: 'Unable to delete user'
+exports.deleteUser = async function (req, res) {
+    console.log('Here');
+    try {
+
+        let userInfo = await common.decodeToken(token);
+
+        if (userInfo) {
+            DBService.deleteOne({_id: ObjectID(userInfo.user._id)}, DBNAME, 'users').then(function (result) {
+                if (result && result.result && result.deletedCount === 1) {
+                    res.status(200).send({
+                        success: true,
+                        message: "User Deleted",
+                    })
+                } else {
+                    return res.status(500).send({
+                        status: 500,
+                        success: false,
+                        message: 'Unable to delete user'
+                    });
+                }
             });
         }
-    });
+    } catch (error) {
+        return res.status(500).send({
+            status: 500,
+            success: false,
+            message: 'Unable to delete user'
+        });
+    }
 };
 
 exports.resetPassword = async function (req, res) {

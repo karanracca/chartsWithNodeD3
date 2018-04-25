@@ -54,8 +54,14 @@ export class UpdateAccountComponent implements OnInit {
       });
     }
   }
-  deactivate(user: User) {
-    let obeservable = this.userService.deleteUser(user);
+
+  deactivate() {
+    this.userService.deleteUser().subscribe((data: any) => {
+      this.notifyService.notification.next(data.message);
+      this.loadUserForm(this.user);
+    }, error => {
+      this.notifyService.notification.next(error);
+    });
   }
 
   loadUserForm(user: User) {
