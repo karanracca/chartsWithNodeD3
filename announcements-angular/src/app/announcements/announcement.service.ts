@@ -59,13 +59,14 @@ export class AnnouncementService {
    * @returns {Observable<any>}
    */
   createAnnouncement(receivers, editorContent) {
-    this.spinner.showSpinner.next(true);
+
 
     const httpOptions = {
       headers : new HttpHeaders({'x-access-token': localStorage.getItem('secretToken'),
         'Content-Type': 'application/json'})
     };
 
+    this.spinner.showSpinner.next(true);
     const body = {
       editorContent,
       receivers,
@@ -75,6 +76,7 @@ export class AnnouncementService {
       .map((result: any) => {
         this.spinner.showSpinner.next(false);
         if (result.success) {
+          this.spinner.showSpinner.next(false);
           return result;
         }
       })

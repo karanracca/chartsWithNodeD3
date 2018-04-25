@@ -4,6 +4,7 @@ import {NotificationService} from '../../shared/notification.service';
 import {MatDialog} from '@angular/material';
 import {ModelBoxComponent} from '../../shared/model-box/model-box.component';
 import {CreditsService} from '../../shared/credits.service';
+import {SpinnerService} from '../../shared/spinner.service';
 
 @Component({
   selector: 'app-create-announcements',
@@ -17,7 +18,8 @@ export class CreateAnnouncementsComponent implements OnInit {
   constructor(private announceService: AnnouncementService,
               private notify: NotificationService,
               private dialog: MatDialog,
-              private creditsService: CreditsService) { }
+              private creditsService: CreditsService,
+              private spinner: SpinnerService) { }
 
   ngOnInit() { }
 
@@ -51,8 +53,11 @@ export class CreateAnnouncementsComponent implements OnInit {
 
     this.announceService.createAnnouncement(this.receivers, this.editorText).subscribe((data: any) => {
       this.notify.notification.next(data.message);
+      this.spinner.showSpinner.next(false);
       this.openDialog();
       this.creditsService.updateCredits.next();
+    }, error => {
+      this.spinner.showSpinner.next(false);
     });
   }
 }
