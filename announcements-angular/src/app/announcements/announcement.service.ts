@@ -43,7 +43,8 @@ export class AnnouncementService {
   getAllCharts() {
 
     const httpOptions = {
-      headers: this.appConstants.privateHeaders
+      headers : new HttpHeaders({'x-access-token': localStorage.getItem('secretToken'),
+        'Content-Type': 'application/json'})
     };
 
     return this.http.get(`${this.appConstants.CHART_ENDPOINT}/getAllCharts`, httpOptions)
@@ -61,7 +62,8 @@ export class AnnouncementService {
     this.spinner.showSpinner.next(true);
 
     const httpOptions = {
-      headers: this.appConstants.privateHeaders
+      headers : new HttpHeaders({'x-access-token': localStorage.getItem('secretToken'),
+        'Content-Type': 'application/json'})
     };
 
     const body = {
