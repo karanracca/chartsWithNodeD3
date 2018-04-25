@@ -3,7 +3,7 @@ const DBService = require('../shared/db.service');
 const jwt = require('jsonwebtoken');
 const ObjectID = require('mongodb').ObjectID;
 const userService = require('../service/user.service');
-
+const mailer = require('../shared/mailer.service');
 var nodemailer = require('nodemailer');
 var accountSid = 'ACbdc6403769edfc193cc8cc9799def491';
 var authToken = '1b514df52af8fbcb2dfd85bc05114c54';
@@ -15,27 +15,54 @@ const generator = require('generate-password');
  * @param req
  * @param res
  */
-exports.createUser = async function (req, res) {
-
-    try {
-        let result = await userService.createUser(req.body);
-        if (result) {
-            res.status(200).send({
-                success: true,
-                message: "New user registered",
-            })
+exports.createUser = function (req, res) {
+    DBService.findOne({$or: [{username: req.body.username}, {email: req.body.email}]}, DBNAME, 'users').then(function (userObject){
+        if (userObject) {
+            if (userObject.email === req.body.email) {
+                return res.status(500).send({
+                    success: false,
+                    message: 'Email already present. Please enter different Email address'
+                });
+            } else if (userObject.username === req.body.username) {
+                return res.status(500).send({
+                    success: false,
+                    message: 'Username already present. Please enter different username'
+                });
+            }
         } else {
-            res.status(200).send({
-                success: false,
-                message: "Something went wrong. Please try again",
+
+            let userInfo = {
+                username: req.body.username,
+                password: req.body.password,
+                firstName: req.body.firstname,
+                lastName: req.body.lastname,
+                email: req.body.email,
+                phone: req.body.phone,
+                role: USER_ROLE,
+                credits: 10
+            };
+
+            DBService.insertOne(userInfo, DBNAME, USER_COLLECTION).then(function () {
+
+                mailer.sendMail(mailer.createMailConfiguration(
+                    req.body.email,
+                    'Welcome to Charts',
+                    'Dear ' +req.body.firstName + ',\nThank you for registering with us you can now make charts using your credits.\n\nRegards,\nCharts Team'
+                ));
+
+                res.status(200).json({
+                    success: true,
+                    message: `User ${userInfo.firstName} registered.`
+                });
+            }).catch(function (error) {
+                console.log('Unable to add user', error);
+                res.status(400).json({
+                    success:false,
+                    message: error.message
+                })
             })
         }
-    } catch (error) {
-        res.status(400).send({
-            success: false,
-            message: error.message,
-        })
-    }
+    });
 };
 
 //Function to verify the valid user while logging
