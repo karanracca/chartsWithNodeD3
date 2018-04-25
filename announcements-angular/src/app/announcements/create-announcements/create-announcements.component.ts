@@ -37,7 +37,7 @@ export class CreateAnnouncementsComponent implements OnInit {
   }
 
   createAnnouncement() {
-    if (this.receivers === null || !this.receivers.length > 0) {
+    if (this.receivers === null || this.receivers.length > 0) {
       this.notify.notification.next("Please select receivers for the announcement");
       return;
     }
