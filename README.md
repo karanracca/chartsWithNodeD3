@@ -27,7 +27,7 @@ Credits requirments to build charts. Add credits to keep creating charts.
 
 ## How to use?
 
-1. Register neu user on the signup page with email and password.
+1. Register new user on the signup page with email and password.
 2. Login with registered crendentials. Each new user receives 10 credits.
 3. Create various charts by uploading CSV data and choosing appropriate configuration values for the charts. Save the charts for email announcemnts.
 4. Navigate to create announcement tab to create announcement.
