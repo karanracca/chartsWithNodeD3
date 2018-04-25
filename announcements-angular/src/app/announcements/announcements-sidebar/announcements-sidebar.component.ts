@@ -36,15 +36,18 @@ export class AnnouncementsSidebarComponent implements OnInit {
     });
   }
 
+//Function to add multiple email address for one chart
   addEmail() {
     this.emailList.push(this.emailFormControl.value);
     this.emailFormControl.reset();
   }
 
+//Function to remove the email id from the list
   removeEmail(index) {
     this.emailList.splice(index, 1);
   }
 
+  //Function to get the chart
   getData (file) {
     return new Promise((resolve, reject) => {
       this.papa.parse(file, {
@@ -55,6 +58,7 @@ export class AnnouncementsSidebarComponent implements OnInit {
     });
   }
 
+  //Function to get the file to be sent
   onFileSelected(file) {
     this.file = file;
     this.getData(file).then(data => {
@@ -64,6 +68,7 @@ export class AnnouncementsSidebarComponent implements OnInit {
     });
   }
 
+  //Function to save the list of receivers who get the chart
   saveReceivers() {
     let emailList = [];
     if (this.receiversType === 'input' && this.emailList.length > 0) {

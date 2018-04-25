@@ -31,24 +31,24 @@ export class AnnouncementService {
       error.error.message || 'Something went wrong; please try again later.');
   }
 
+  //Function to get all the charts that are created previously
   getAllCharts() {
-    this.spinner.showSpinner.next(true);
+
     const httpOptions = {
       headers: this.appConstants.privateHeaders
     };
-    this.spinner.showSpinner.next(false);
 
     return this.http.get(`${this.appConstants.CHART_ENDPOINT}/getAllCharts`, httpOptions)
       .pipe(catchError(this.handleError.bind(this)));
 
   }
 
+  //code to call the retrieve  announcement
   createAnnouncement(receivers, editorContent) {
-
-    this.spinner.showSpinner.next(true);
     const httpOptions = {
       headers: this.appConstants.privateHeaders
     };
+
 
     let body = {
       editorContent,
@@ -56,11 +56,14 @@ export class AnnouncementService {
     };
 
     return this.http.post(`${this.appConstants.ANNOUNCEMENT_ENDPOINT}/createAnnouncement`, body, httpOptions)
+
+
       .map((result: any) => {
+
         if (result.success) {
-          this.spinner.showSpinner.next(false);
           return result;
         }
+
       })
       .pipe(catchError(this.handleError.bind(this)));
   }
