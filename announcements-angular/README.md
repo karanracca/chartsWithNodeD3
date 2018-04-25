@@ -1,3 +1,11 @@
+# Charts
+
+Create dynamic charts using data from csv files and send emails using generated charts with ease. 
+
+# Installation
+
+
+
 # AnnouncementsFrontend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.3.

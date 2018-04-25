@@ -14,7 +14,10 @@ import {CreditsService} from '../shared/credits.service';
 @Injectable()
 export class UserServices {
 
-  constructor(private http: HttpClient, private appConstants: AppConstants, private spinner: SpinnerService,private updateDisplayCredits: CreditsService) {
+  constructor(private http: HttpClient,
+              private appConstants: AppConstants,
+              private spinner: SpinnerService,
+              private updateDisplayCredits: CreditsService) {
 
   }
 
@@ -35,7 +38,7 @@ export class UserServices {
       error.error.message || 'Something went wrong; please try again later.');
   }
 
-
+//Function to get the user logged in
   login(username: string, password: string) {
 
     this.spinner.showSpinner.next(true);
@@ -63,9 +66,8 @@ export class UserServices {
 
   }
 
+  //Function to create user through backend and display the pop up
   createUser(userInfo: User) {
-    console.log('called');
-
 
     const httpOptions = {
       headers: this.appConstants.headers
@@ -75,6 +77,7 @@ export class UserServices {
 
   }
 
+  //Function to reset the password through email
   resetPassword(emailFormControl: string) {
 
     const httpOptions = {
@@ -89,6 +92,7 @@ export class UserServices {
       .pipe(catchError(this.handleError));
   }
 
+  //Update the user according to the changes done by the user
   updateUser(user: User) {
     this.spinner.showSpinner.next(true);
     const httpOptions = {
@@ -112,10 +116,12 @@ export class UserServices {
     };
   }
 
+//Check if user is already present
   isAuthenticated() {
     return localStorage.getItem('secretToken') ? true : false;
   }
 
+  //to get the current wallet credits pending
   getCredits() {
     this.spinner.showSpinner.next(true);
     const httpOptions = {
@@ -125,15 +131,15 @@ export class UserServices {
     return this.http.get(`${this.appConstants.USER_ENDPOINT}/getCredits/`, httpOptions).map((result: any) => {
       if (result.success) {
         console.log(result);
+        this.spinner.showSpinner.next(false);
         let user = JSON.parse(localStorage.getItem('user'));
         user.credits = result.payload;
-        this.spinner.showSpinner.next(false);
         localStorage.setItem('user', JSON.stringify(user));
         return user;
       }
     }).pipe(catchError(this.handleError));
   }
-
+//function to add the credits to the user
   addCredits(credits) {
     const httpOptions = {
       headers: this.appConstants.privateHeaders
@@ -154,5 +160,4 @@ export class UserServices {
       }
     }).pipe(catchError(this.handleError));
   }
-
 }

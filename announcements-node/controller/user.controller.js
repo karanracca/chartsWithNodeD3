@@ -10,71 +10,32 @@ var authToken = '1b514df52af8fbcb2dfd85bc05114c54';
 const client = require('twilio')(accountSid, authToken);
 const generator = require('generate-password');
 
-//Function to create a new user
+/**
+ * Function to register new user.
+ * @param req
+ * @param res
+ */
 exports.createUser = function (req, res) {
 
-    DBService.findOne({$or: [{username: req.body.username}, {email: req.body.email}]}, DBNAME, 'users').then(function (userObject) {
-        if (userObject) {
-            if (userObject.email === req.body.email) {
-                return res.status(500).send({
-                    success: false,
-                    message: 'Email already present. Please enter different Email address'
-                });
-            } else if (userObject.username === req.body.username) {
-                return res.status(500).send({
-                    success: false,
-                    message: 'Username already present. Please enter different username'
-                });
-            }
+    try {
+        let result = userService.createUser(req.body);
+        if (result) {
+            res.status(200).send({
+                success: true,
+                message: "New user registered",
+            })
         } else {
-
-            let userInfo = {
-                username: req.body.username,
-                password: req.body.password,
-                firstName: req.body.firstname,
-                lastName: req.body.lastname,
-                email: req.body.email,
-                phone: req.body.phone,
-                role: USER_ROLE,
-                credits: 10
-            };
-
-            DBService.insertOne(userInfo, DBNAME, USER_COLLECTION).then(function () {
-
-                var mailOptions = {
-                    from: 'acharya.rupesh0@gmail.com',
-                    to: req.body.email,
-                    subject: 'Greetings from Announcments',
-                    text: 'Dear ' + req.body.username + ',\nThank you for registering with us you can now make charts using your credits.\n\nRegards,\nAnnouncemnts Team'
-                };
-
-                transporter.sendMail(mailOptions, function (error, info) {
-                    console.log(mailOptions);
-                    if (error) {
-                        console.log(error);
-                    } else {
-                        console.log('Email sent: ' + info.response);
-                    }
-                });
-
-                client.messages.create({
-                    body: "Dear User,\nThank You for registering with us.",
-                    to: '+18573188747',
-                    from: '+13396746626'
-                });
-                res.status(200).json({
-                    success: true,
-                    message: `User ${userInfo.firstName} registered.`
-                });
-            }).catch(function (error) {
-                console.log('Unable to add user', error);
-                res.status(400).json({
-                    success: false,
-                    message: error.message
-                })
+            res.status(200).send({
+                success: false,
+                message: "Something went wrong. Please try again",
             })
         }
-    });
+    } catch (error) {
+        res.status(400).send({
+            success: false,
+            message: error.message,
+        })
+    }
 };
 
 //Function to verify the valid user while logging

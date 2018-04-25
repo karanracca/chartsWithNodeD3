@@ -19,8 +19,7 @@ export class CreateAnnouncementsComponent implements OnInit {
               private dialog: MatDialog,
               private creditsService: CreditsService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   onReceivers(object) {
     this.receivers = object;
@@ -36,6 +35,7 @@ export class CreateAnnouncementsComponent implements OnInit {
     });
   }
 
+  //Function to create the announcement and send it to specified receivers
   createAnnouncement() {
 
     if (this.receivers.length === 0) {

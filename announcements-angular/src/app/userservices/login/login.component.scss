@@ -1,4 +1,11 @@
 @import "../../../styles/_common.scss";
+@import "../../../styles/_variables.scss";
+
+.logo {
+  font-family: $logo-font;
+  font-size: 8rem;
+  margin: auto
+}
 
 .main-container{
   margin: 10% 39% 0%;
@@ -7,7 +14,6 @@
   width: 30rem;
   background: white;
   margin: auto;
-  margin-top: 8%;
   height: 450px;
   padding: 2%;
 }
@@ -32,4 +38,24 @@
   .mat-button {
     font-size: 18px;
   }
+}
+
+.welcome-image{
+
+}
+
+.img-container{
+  margin: 5% 0;
+}
+
+.bar{
+  margin-left: 20%;
+}
+
+.line{
+  margin-left: 40%;
+}
+
+.pie{
+  margin-left: 80%;
 }

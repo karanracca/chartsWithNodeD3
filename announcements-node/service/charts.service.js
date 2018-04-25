@@ -110,12 +110,6 @@ exports.createPieChart = function (file,keys) {
     });
 };
 
-exports.testFunction = function(data) {
-    let tdata = data.map(v=>v.join(" "));
-    console.log(tdata);
-};
-
-
 /**
  *  Function to create line chart with user data.
  * @param file - CSV file uploaded by user

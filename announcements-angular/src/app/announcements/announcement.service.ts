@@ -14,6 +14,11 @@ export class AnnouncementService {
               private spinner: SpinnerService) {
   }
 
+  /**
+   * Error handling for HTTP request
+   * @param {HttpErrorResponse} error
+   * @returns {ErrorObservable}
+   */
   private handleError(error: HttpErrorResponse) {
     this.spinner.showSpinner.next(false);
     if (error.error instanceof ErrorEvent) {
@@ -31,6 +36,10 @@ export class AnnouncementService {
       error.error.message || 'Something went wrong; please try again later.');
   }
 
+  /**
+   * Function to get all user saved charts
+   * @returns {Observable<any>}
+   */
   getAllCharts() {
 
     const httpOptions = {
@@ -42,30 +51,30 @@ export class AnnouncementService {
 
   }
 
+  /**
+   * Function to create new announcement
+   * @param receivers list
+   * @param editorContent
+   * @returns {Observable<any>}
+   */
   createAnnouncement(receivers, editorContent) {
-
+    this.spinner.showSpinner.next(true);
 
     const httpOptions = {
       headers: this.appConstants.privateHeaders
     };
 
-
-    let body = {
+    const body = {
       editorContent,
       receivers,
     };
 
-
-
     return this.http.post(`${this.appConstants.ANNOUNCEMENT_ENDPOINT}/createAnnouncement`, body, httpOptions)
-
-
       .map((result: any) => {
-
+        this.spinner.showSpinner.next(true);
         if (result.success) {
           return result;
         }
-
       })
       .pipe(catchError(this.handleError.bind(this)));
   }
