@@ -97,8 +97,9 @@ export class UserServices {
 
     return this.http.post(`${this.appConstants.USER_ENDPOINT}/updateUser/${user._id}`, user, httpOptions).map((result: any) => {
       if (result.success) {
-        console.log(result);
         this.spinner.showSpinner.next(false);
+        console.log(result);
+
         localStorage.setItem('user', JSON.stringify(result.payload.userObject));
         return result;
       }
