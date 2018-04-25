@@ -196,21 +196,28 @@ exports.getCredits = async function (req, res) {
     }
 };
 
-exports.addCredits = function (req, res) {
-    DBService.findOne({credits: req.body.credits}, DBNAME, 'users').then(function (userObject) {
-        if(userObject.credits === req.body.credits) {
+exports.addCredits = async function (req, res) {
 
-            DBService.updateOne();
+    if(req.body.credits) {
+        try{
+            let result = await userService.addCredits(req.header('x-access-token'), req.body.credits);
 
-            res.status(200).send({
-                success: true,
-                message: 'Credits Added!'
-            })
-        } else {
-            return res.status(500).send({
+            if(result) {
+                res.status(200).send({
+                    success: true,
+                    message: 'Credits Added!'
+                })
+            }
+        }  catch (error) {
+            res.status(400).send({
                 success: false,
-                message: 'Transaction failed. Credits could not be added'
+                message: error.message
             });
         }
-    });
+    } else {
+        res.status(400).send({
+            success: false,
+            message: "Transaction failed. Credits could not be added"
+        });
+    }
 };

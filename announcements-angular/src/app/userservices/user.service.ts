@@ -88,10 +88,10 @@ export class UserServices {
       'credits': credits
     }
 
-    return this.http.post(`${this.appConstants.USER_ENDPOINT}/addCredits`, body, httpOptions)
-      .map((result: any) => {
+    return this.http.post(`${this.appConstants.USER_ENDPOINT}/addCredits/${credits}`, body, httpOptions).map((result: any) => {
         if(result.success) {
           console.log(result);
+          localStorage.setItem('user', JSON.stringify(result.payload.credits));
           return result;
         }
       }).pipe(catchError(this.handleError));
