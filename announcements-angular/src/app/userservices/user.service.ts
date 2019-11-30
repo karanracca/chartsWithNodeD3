@@ -69,11 +69,7 @@ export class UserServices {
 
     this.spinner.showSpinner.next(true);
 
-    const httpOptions = {
-      headers : new HttpHeaders({'x-access-token': localStorage.getItem('secretToken')})
-    };
-
-    return this.http.post(`${this.appConstants.USER_ENDPOINT}/createUser`, userInfo, httpOptions)
+    return this.http.post(`${this.appConstants.USER_ENDPOINT}/createUser`, userInfo)
       .map((result: any) => {
         this.spinner.showSpinner.next(false);
         if (result.success) {

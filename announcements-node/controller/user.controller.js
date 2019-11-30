@@ -31,7 +31,6 @@ exports.createUser = function (req, res) {
                 });
             }
         } else {
-
             let userInfo = {
                 username: req.body.username,
                 password: req.body.password,
@@ -44,7 +43,6 @@ exports.createUser = function (req, res) {
             };
 
             DBService.insertOne(userInfo, DBNAME, USER_COLLECTION).then(function () {
-
                 mailer.sendMail(mailer.createMailConfiguration(
                     req.body.email,
                     'Welcome to Charts',
